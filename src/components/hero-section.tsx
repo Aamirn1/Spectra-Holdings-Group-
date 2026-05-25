@@ -2,151 +2,211 @@
 
 import { motion } from 'framer-motion'
 import { TypewriterEffect } from '@/components/typewriter-effect'
-import { SearchBar } from '@/components/search-bar'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Briefcase } from 'lucide-react'
+import { ArrowRight, Users, Building2, Phone, MapPin } from 'lucide-react'
 import { useNavigationStore } from '@/lib/store'
 
 const TYPEWRITER_WORDS = [
-  'Find Plumbers',
-  'Find Restaurants',
-  'Find Healthcare',
-  'Find Electricians',
-  'Find Local Services',
+  'Building Communities',
+  'Connecting Residents',
+  'Empowering Local Business',
+  'Transforming Neighborhoods',
 ]
 
-const floatingShapes = [
-  { size: 80, top: '10%', left: '5%', delay: 0, duration: 8 },
-  { size: 60, top: '60%', left: '85%', delay: 1, duration: 10 },
-  { size: 100, top: '30%', left: '90%', delay: 2, duration: 12 },
-  { size: 40, top: '80%', left: '10%', delay: 3, duration: 9 },
-  { size: 70, top: '15%', left: '70%', delay: 1.5, duration: 11 },
-  { size: 50, top: '70%', left: '50%', delay: 0.5, duration: 7 },
+const floatingOrbs = [
+  { size: 300, top: '-5%', left: '-5%', delay: 0, duration: 15, opacity: 0.15 },
+  { size: 200, top: '20%', left: '80%', delay: 2, duration: 18, opacity: 0.1 },
+  { size: 250, top: '60%', left: '70%', delay: 4, duration: 20, opacity: 0.12 },
+  { size: 180, top: '75%', left: '-3%', delay: 1, duration: 16, opacity: 0.08 },
+  { size: 150, top: '10%', left: '40%', delay: 3, duration: 14, opacity: 0.1 },
+  { size: 220, top: '45%', left: '20%', delay: 5, duration: 22, opacity: 0.06 },
+]
+
+const stats = [
+  { label: 'States', value: '15+', icon: MapPin },
+  { label: 'Communities', value: '200+', icon: Building2 },
+  { label: 'Businesses', value: '5,000+', icon: Building2 },
+  { label: 'Residents', value: '50,000+', icon: Users },
 ]
 
 export function HeroSection() {
   const { navigate } = useNavigationStore()
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-teal-500 via-teal-600 to-emerald-700 min-h-[600px] flex items-center">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-10">
+    <section className="relative overflow-hidden min-h-screen flex items-center bg-[#0a0a0f]">
+      {/* Deep gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f0a1a] to-[#0a0a0f]" />
+
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '40px 40px',
+            backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(139, 92, 246, 0.5) 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
           }}
         />
       </div>
 
-      {/* Floating animated shapes */}
-      {floatingShapes.map((shape, i) => (
+      {/* Animated floating purple orbs */}
+      {floatingOrbs.map((orb, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-white/10"
+          className="absolute rounded-full"
           style={{
-            width: shape.size,
-            height: shape.size,
-            top: shape.top,
-            left: shape.left,
+            width: orb.size,
+            height: orb.size,
+            top: orb.top,
+            left: orb.left,
+            background: `radial-gradient(circle, rgba(139, 92, 246, ${orb.opacity}) 0%, rgba(124, 58, 237, ${orb.opacity * 0.5}) 40%, transparent 70%)`,
           }}
           animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-            scale: [1, 1.1, 1],
+            y: [0, -30, 0, 20, 0],
+            x: [0, 15, 0, -10, 0],
+            scale: [1, 1.05, 1, 0.95, 1],
           }}
           transition={{
-            duration: shape.duration,
-            delay: shape.delay,
+            duration: orb.duration,
+            delay: orb.delay,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
       ))}
 
+      {/* Ambient glow at center */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full opacity-20"
+        style={{
+          background: 'radial-gradient(ellipse, rgba(139, 92, 246, 0.3) 0%, rgba(124, 58, 237, 0.1) 30%, transparent 70%)',
+        }}
+      />
+
       {/* Content */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 py-16 sm:py-20 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
+        {/* Typewriter line */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-            Your Neighborhood.{' '}
-            <br className="hidden sm:block" />
-            Your Services.
-          </h1>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.7 }}
           className="mb-6"
         >
-          <p className="text-xl sm:text-2xl text-white/90 mb-2">
+          <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 font-light">
             <TypewriterEffect words={TYPEWRITER_WORDS} />
           </p>
         </motion.div>
 
+        {/* Main heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
+              Spectra
+            </span>{' '}
+            <span className="text-white">Holdings</span>{' '}
+            <span className="text-white">Group</span>
+          </h1>
+        </motion.div>
+
+        {/* Subheading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+        >
+          <p className="text-2xl sm:text-3xl font-semibold text-white/90 mb-4">
+            Building Tomorrow&apos;s Communities, Today
+          </p>
+        </motion.div>
+
+        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-lg text-white/80 mb-8 max-w-2xl mx-auto"
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="text-base sm:text-lg text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed"
         >
-          Connect with trusted local businesses and services in your Spectra community
+          Spectra Holdings Group is a premier community development company dedicated to
+          building thriving neighborhoods through affordable housing, local business ecosystems,
+          and connected resident experiences. We transform communities across the nation by
+          bridging the gap between residents and the services they need.
         </motion.p>
 
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8"
-        >
-          <SearchBar
-            size="lg"
-            showFilters={true}
-            onSearch={() => navigate('directory')}
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          transition={{ duration: 0.7, delay: 0.65 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
         >
           <Button
             size="lg"
-            className="bg-white text-teal-700 hover:bg-gray-100 font-semibold rounded-full px-8 text-lg"
-            onClick={() => navigate('directory')}
+            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-8 text-lg glow-purple border-0"
+            onClick={() => navigate('about')}
           >
-            Find Services
+            Explore Communities
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
           <Button
             size="lg"
-            variant="outline"
-            className="border-2 border-white text-white hover:bg-white/10 font-semibold rounded-full px-8 text-lg bg-transparent"
+            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-8 text-lg backdrop-blur-sm"
+            onClick={() => navigate('register')}
+          >
+            <Users className="w-5 h-5 mr-2" />
+            Join as Resident
+          </Button>
+          <Button
+            size="lg"
+            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-8 text-lg backdrop-blur-sm"
             onClick={() => navigate('register-business')}
           >
-            <Briefcase className="w-5 h-5 mr-2" />
-            List Your Business
+            <Building2 className="w-5 h-5 mr-2" />
+            Register Your Business
           </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-white/20 text-gray-300 hover:bg-white/5 hover:text-white font-semibold rounded-full px-8 text-lg"
+            onClick={() => navigate('contact')}
+          >
+            <Phone className="w-5 h-5 mr-2" />
+            Contact Us
+          </Button>
+        </motion.div>
+
+        {/* Animated Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
+        >
+          <div className="glass-strong rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
+              {stats.map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1 + i * 0.15 }}
+                  className="text-center"
+                >
+                  <stat.icon className="w-5 h-5 text-purple-400 mx-auto mb-2" />
+                  <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+                    {stat.value}
+                  </p>
+                  <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0 50L48 45.7C96 41.3 192 32.7 288 30.2C384 27.7 480 31.3 576 38.8C672 46.3 768 57.7 864 58.8C960 60 1056 51 1152 45.8C1248 40.7 1344 39.3 1392 38.8L1440 38.3V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0V50Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+      {/* Bottom fade to black */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
     </section>
   )
 }

@@ -9,29 +9,29 @@ export async function GET(request: NextRequest) {
     const city = searchParams.get('city')
     const state = searchParams.get('state')
     const featured = searchParams.get('featured')
-    const approved = searchParams.get('approved')
+    const status = searchParams.get('status')
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '12')
 
     const where: any = {}
 
     // By default, only show approved businesses
-    // Admin can see unapproved by passing approved=false
-    if (approved === 'false') {
+    // Admin can see pending by passing status=pending or status=all
+    if (status === 'pending') {
       const authUser = getAuthUser(request)
-      if (authUser?.role !== 'admin') {
-        where.isApproved = true
+      if (authUser?.role !== 'ADMIN') {
+        where.status = 'approved'
       } else {
-        where.isApproved = false
+        where.status = 'pending'
       }
-    } else if (approved === 'all') {
+    } else if (status === 'all') {
       const authUser = getAuthUser(request)
-      if (authUser?.role !== 'admin') {
-        where.isApproved = true
+      if (authUser?.role !== 'ADMIN') {
+        where.status = 'approved'
       }
       // admin sees all
     } else {
-      where.isApproved = true
+      where.status = 'approved'
     }
 
     if (category) {
@@ -61,6 +61,9 @@ export async function GET(request: NextRequest) {
           category: true,
           user: {
             select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
+          },
+          community: {
+            select: { id: true, name: true, slug: true },
           },
         },
         orderBy: [
@@ -99,7 +102,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Not authenticated' }, { status: 401 })
     }
 
-    if (authUser.role !== 'business' && authUser.role !== 'admin') {
+    if (authUser.role !== 'BUSINESS' && authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Only business or admin accounts can create businesses' },
         { status: 403 }
@@ -111,6 +114,7 @@ export async function POST(request: NextRequest) {
       name, description, address, city, state, neighborhood,
       latitude, longitude, phone, whatsapp, website, email,
       categoryId, hours, logoUrl, coverUrl, images, services, licenseInfo,
+      communityId, socialLinks, serviceArea, seoTitle, seoDescription,
     } = body
 
     if (!name || !description || !address || !city || !state || !phone || !categoryId) {
@@ -154,12 +158,20 @@ export async function POST(request: NextRequest) {
         images: images || null,
         services: services || null,
         licenseInfo: licenseInfo || null,
-        isApproved: authUser.role === 'admin', // Admin-created businesses are auto-approved
+        communityId: communityId || null,
+        socialLinks: socialLinks || null,
+        serviceArea: serviceArea || null,
+        seoTitle: seoTitle || null,
+        seoDescription: seoDescription || null,
+        status: authUser.role === 'ADMIN' ? 'approved' : 'pending', // Admin-created businesses are auto-approved
       },
       include: {
         category: true,
         user: {
           select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
+        },
+        community: {
+          select: { id: true, name: true, slug: true },
         },
       },
     })

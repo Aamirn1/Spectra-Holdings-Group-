@@ -8,6 +8,7 @@ interface TypewriterEffectProps {
   speed?: number
   deleteSpeed?: number
   pauseDuration?: number
+  className?: string
 }
 
 export function TypewriterEffect({
@@ -15,6 +16,7 @@ export function TypewriterEffect({
   speed = 80,
   deleteSpeed = 40,
   pauseDuration = 2000,
+  className = '',
 }: TypewriterEffectProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentText, setCurrentText] = useState('')
@@ -57,13 +59,13 @@ export function TypewriterEffect({
     <motion.span
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="inline-flex items-center"
+      className={`inline-flex items-center ${className}`}
     >
-      <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent font-bold">
+      <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent font-bold">
         {currentText}
       </span>
       <span
-        className="ml-0.5 inline-block w-[3px] h-[1em] bg-white transition-opacity duration-100"
+        className="ml-0.5 inline-block w-[3px] h-[1em] bg-purple-400 transition-opacity duration-100"
         style={{ opacity: cursorVisible ? 1 : 0 }}
       />
     </motion.span>

@@ -75,7 +75,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
         <Button
           variant="ghost"
           onClick={goBack}
-          className="mb-4 text-gray-600 hover:text-gray-900"
+          className="mb-4 text-gray-400 hover:text-white"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Directory
@@ -96,7 +96,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
             className="w-full h-48 sm:h-64 object-cover"
           />
         ) : (
-          <div className="w-full h-48 sm:h-64 bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
+          <div className="w-full h-48 sm:h-64 bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
             {business.logoUrl ? (
               <img
                 src={business.logoUrl}
@@ -112,7 +112,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
         )}
 
         {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
         {/* Featured badge */}
         {business.isFeatured && (
@@ -133,17 +133,17 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-white">
                 {business.name}
               </h1>
               {business.isApproved && (
-                <CheckCircle2 className="w-5 h-5 text-teal-500" />
+                <CheckCircle2 className="w-5 h-5 text-purple-400" />
               )}
             </div>
-            <Badge className="mt-2 bg-teal-50 text-teal-700 border-teal-200">
+            <Badge className="mt-2 bg-purple-500/10 text-purple-400 border-purple-500/20">
               {categoryName}
             </Badge>
-            <div className="flex items-center gap-1 mt-2 text-gray-500">
+            <div className="flex items-center gap-1 mt-2 text-gray-400">
               <MapPin className="w-4 h-4" />
               <span className="text-sm">{business.address}, {business.city}, {business.state}</span>
             </div>
@@ -154,12 +154,12 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
               variant={isSaved ? 'default' : 'outline'}
               size="sm"
               onClick={() => setIsSaved(!isSaved)}
-              className={isSaved ? 'bg-rose-500 hover:bg-rose-600' : ''}
+              className={isSaved ? 'bg-rose-500 hover:bg-rose-600' : 'border-white/10 text-white hover:bg-white/5'}
             >
               <Heart className={`w-4 h-4 mr-1 ${isSaved ? 'fill-current' : ''}`} />
               {isSaved ? 'Saved' : 'Save'}
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="border-white/10 text-white hover:bg-white/5">
               <Share2 className="w-4 h-4 mr-1" />
               Share
             </Button>
@@ -167,7 +167,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
         </div>
 
         {/* Stats */}
-        <div className="flex items-center gap-4 text-sm text-gray-500">
+        <div className="flex items-center gap-4 text-sm text-gray-400">
           <span className="flex items-center gap-1">
             <Eye className="w-4 h-4" />
             {business.viewCount} views
@@ -178,29 +178,29 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
           </span>
         </div>
 
-        <Separator />
+        <Separator className="bg-white/10" />
 
         {/* Description */}
-        <Card className="rounded-xl">
+        <Card className="rounded-xl bg-white/5 backdrop-blur-sm border-white/10">
           <CardContent className="p-4 sm:p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">About</h2>
-            <p className="text-gray-600 leading-relaxed">{business.description}</p>
+            <h2 className="text-lg font-semibold text-white mb-2">About</h2>
+            <p className="text-gray-400 leading-relaxed">{business.description}</p>
           </CardContent>
         </Card>
 
         {/* Contact Info */}
-        <Card className="rounded-xl">
+        <Card className="rounded-xl bg-white/5 backdrop-blur-sm border-white/10">
           <CardContent className="p-4 sm:p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-gray-900">Contact Information</h2>
+            <h2 className="text-lg font-semibold text-white">Contact Information</h2>
 
             <div className="grid gap-3">
               {business.phone && (
                 <a
                   href={`tel:${business.phone}`}
-                  className="flex items-center gap-3 text-gray-600 hover:text-teal-600 transition-colors"
+                  className="flex items-center gap-3 text-gray-400 hover:text-purple-400 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-teal-600" />
+                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                    <Phone className="w-5 h-5 text-purple-400" />
                   </div>
                   <span>{business.phone}</span>
                 </a>
@@ -211,10 +211,10 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
                   href={`https://wa.me/${business.whatsapp.replace(/[^0-9]/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-600 hover:text-green-600 transition-colors"
+                  className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
-                    <MessageCircle className="w-5 h-5 text-green-600" />
+                  <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
+                    <MessageCircle className="w-5 h-5 text-green-400" />
                   </div>
                   <span>WhatsApp: {business.whatsapp}</span>
                 </a>
@@ -225,18 +225,18 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
                   href={business.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-600 hover:text-teal-600 transition-colors"
+                  className="flex items-center gap-3 text-gray-400 hover:text-purple-400 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center">
-                    <Globe className="w-5 h-5 text-teal-600" />
+                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                    <Globe className="w-5 h-5 text-purple-400" />
                   </div>
                   <span>{business.website}</span>
                 </a>
               )}
 
-              <div className="flex items-center gap-3 text-gray-600">
-                <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-red-500" />
+              <div className="flex items-center gap-3 text-gray-400">
+                <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-red-400" />
                 </div>
                 <span>{business.address}, {business.city}, {business.state}</span>
               </div>
@@ -246,17 +246,17 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
 
         {/* Operating Hours */}
         {Object.keys(parsedHours).length > 0 && (
-          <Card className="rounded-xl">
+          <Card className="rounded-xl bg-white/5 backdrop-blur-sm border-white/10">
             <CardContent className="p-4 sm:p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-teal-600" />
+              <h2 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-purple-400" />
                 Operating Hours
               </h2>
               <div className="grid gap-2">
                 {Object.entries(parsedHours).map(([day, hours]) => (
                   <div key={day} className="flex justify-between text-sm">
-                    <span className="text-gray-600 font-medium">{day}</span>
-                    <span className="text-gray-500">{hours}</span>
+                    <span className="text-gray-300 font-medium">{day}</span>
+                    <span className="text-gray-400">{hours}</span>
                   </div>
                 ))}
               </div>
@@ -266,15 +266,15 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
 
         {/* Services */}
         {parsedServices.length > 0 && (
-          <Card className="rounded-xl">
+          <Card className="rounded-xl bg-white/5 backdrop-blur-sm border-white/10">
             <CardContent className="p-4 sm:p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3">Services</h2>
+              <h2 className="text-lg font-semibold text-white mb-3">Services</h2>
               <div className="flex flex-wrap gap-2">
                 {parsedServices.map((service, i) => (
                   <Badge
                     key={i}
                     variant="secondary"
-                    className="bg-gray-100 text-gray-700"
+                    className="bg-white/10 text-gray-300 border-white/5"
                   >
                     {service}
                   </Badge>
@@ -288,14 +288,14 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
         <div className="flex flex-col sm:flex-row gap-3">
           <Button
             size="lg"
-            className="flex-1 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-xl"
+            className="flex-1 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-xl"
           >
             Request Quote
           </Button>
           <Button
             size="lg"
             variant="outline"
-            className="flex-1 rounded-xl"
+            className="flex-1 rounded-xl border-white/10 text-white hover:bg-white/5"
             onClick={() => setIsSaved(!isSaved)}
           >
             <Heart className={`w-4 h-4 mr-2 ${isSaved ? 'fill-rose-500 text-rose-500' : ''}`} />

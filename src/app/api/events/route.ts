@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Not authenticated' }, { status: 401 })
     }
 
-    if (authUser.role !== 'admin' && authUser.role !== 'business') {
+    if (authUser.role !== 'ADMIN' && authUser.role !== 'BUSINESS') {
       return NextResponse.json(
         { success: false, error: 'Only admin or business accounts can create events' },
         { status: 403 }
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
 
     // If business user, auto-assign their business
     let eventBusinessId = businessId || null
-    if (authUser.role === 'business' && !businessId) {
+    if (authUser.role === 'BUSINESS' && !businessId) {
       const userBusiness = await db.business.findFirst({
         where: { userId: authUser.userId },
       })

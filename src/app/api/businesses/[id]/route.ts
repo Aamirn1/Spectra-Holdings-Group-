@@ -16,6 +16,9 @@ export async function GET(
         user: {
           select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
         },
+        community: {
+          select: { id: true, name: true, slug: true },
+        },
       },
     })
 
@@ -63,7 +66,7 @@ export async function PUT(
     }
 
     // Only owner or admin can update
-    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'admin') {
+    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Not authorized to update this business' },
         { status: 403 }
@@ -75,7 +78,8 @@ export async function PUT(
       name, description, address, city, state, neighborhood,
       latitude, longitude, phone, whatsapp, website, email,
       categoryId, hours, logoUrl, coverUrl, images, services, licenseInfo,
-      isApproved, isFeatured,
+      status, isFeatured, communityId, socialLinks, serviceArea,
+      seoTitle, seoDescription,
     } = body
 
     const updateData: any = {}
@@ -98,10 +102,15 @@ export async function PUT(
     if (images !== undefined) updateData.images = images
     if (services !== undefined) updateData.services = services
     if (licenseInfo !== undefined) updateData.licenseInfo = licenseInfo
+    if (communityId !== undefined) updateData.communityId = communityId
+    if (socialLinks !== undefined) updateData.socialLinks = socialLinks
+    if (serviceArea !== undefined) updateData.serviceArea = serviceArea
+    if (seoTitle !== undefined) updateData.seoTitle = seoTitle
+    if (seoDescription !== undefined) updateData.seoDescription = seoDescription
 
-    // Only admin can change approval/featured status
-    if (authUser.role === 'admin') {
-      if (isApproved !== undefined) updateData.isApproved = isApproved
+    // Only admin can change status/featured
+    if (authUser.role === 'ADMIN') {
+      if (status !== undefined) updateData.status = status
       if (isFeatured !== undefined) updateData.isFeatured = isFeatured
     }
 
@@ -112,6 +121,9 @@ export async function PUT(
         category: true,
         user: {
           select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
+        },
+        community: {
+          select: { id: true, name: true, slug: true },
         },
       },
     })
@@ -147,7 +159,7 @@ export async function DELETE(
     }
 
     // Only owner or admin can delete
-    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'admin') {
+    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Not authorized to delete this business' },
         { status: 403 }

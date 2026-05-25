@@ -16,6 +16,7 @@ export type ViewName =
   | 'admin' 
   | 'about' 
   | 'contact'
+  | 'resident-portal'
 
 interface NavigationState {
   currentView: ViewName
@@ -47,7 +48,7 @@ export interface AuthUser {
   id: string
   email: string
   name: string
-  role: 'user' | 'business' | 'admin'
+  role: 'ADMIN' | 'RESIDENT' | 'BUSINESS'
   phone?: string
   city?: string
   state?: string
@@ -118,7 +119,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...registerData, role: 'user' }),
+        body: JSON.stringify({ ...registerData, role: 'RESIDENT' }),
       })
       const data = await res.json()
       if (data.success && data.user && data.token) {
@@ -139,7 +140,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...businessData, role: 'business' }),
+        body: JSON.stringify({ ...businessData, role: 'BUSINESS' }),
       })
       const data = await res.json()
       if (data.success && data.user && data.token) {

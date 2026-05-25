@@ -38,6 +38,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Update lastLoginAt
+    await db.user.update({
+      where: { id: user.id },
+      data: { lastLoginAt: new Date() },
+    })
+
     const token = generateToken(user.id, user.email, user.role)
 
     return NextResponse.json({
@@ -51,6 +57,8 @@ export async function POST(request: NextRequest) {
         city: user.city,
         state: user.state,
         avatarUrl: user.avatarUrl,
+        communityId: user.communityId,
+        isVerified: user.isVerified,
       },
       token,
     })

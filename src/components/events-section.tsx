@@ -28,14 +28,14 @@ export function EventsSection({
         transition={{ duration: 0.5 }}
       >
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Calendar className="w-7 h-7 text-orange-500" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
+            <Calendar className="w-7 h-7 text-purple-400" />
             {title}
           </h2>
           {showViewAll && events.length > 0 && (
             <Button
               variant="ghost"
-              className="text-teal-600 hover:text-teal-700"
+              className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
               onClick={() => navigate('events')}
             >
               View All Events →
@@ -50,10 +50,10 @@ export function EventsSection({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-xl">
-            <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-gray-500">No Upcoming Events</h3>
-            <p className="text-sm text-gray-400 mt-1">Check back soon for new community events!</p>
+          <div className="text-center py-12 bg-white/5 rounded-xl border border-white/10">
+            <Calendar className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-gray-400">No Upcoming Events</h3>
+            <p className="text-sm text-gray-500 mt-1">Check back soon for new community events!</p>
           </div>
         )}
       </motion.div>

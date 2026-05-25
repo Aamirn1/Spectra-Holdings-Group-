@@ -61,31 +61,31 @@ export function SearchBar({
   return (
     <div className="w-full max-w-3xl mx-auto space-y-3">
       <motion.div
-        className={`flex items-center gap-2 bg-white rounded-full shadow-lg border border-gray-200 px-4 ${sizeClasses[size]}`}
+        className={`flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full shadow-lg border border-white/10 px-4 ${sizeClasses[size]}`}
         whileFocus={{ scale: 1.01 }}
         transition={{ type: 'spring', stiffness: 300 }}
       >
-        <Search className="w-5 h-5 text-gray-400 shrink-0" />
+        <Search className="w-5 h-5 text-gray-500 shrink-0" />
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0"
+          className="flex-1 border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 px-0 placeholder:text-gray-500"
         />
         {!showFilters && (
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setFiltersVisible(!filtersVisible)}
-            className="shrink-0 hover:bg-gray-100"
+            className="shrink-0 hover:bg-white/5 text-gray-400"
           >
-            <SlidersHorizontal className="w-4 h-4 text-gray-400" />
+            <SlidersHorizontal className="w-4 h-4" />
           </Button>
         )}
         <Button
           onClick={handleSearch}
-          className="shrink-0 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-full px-4"
+          className="shrink-0 bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-full px-4"
         >
           <ArrowRight className="w-4 h-4" />
         </Button>
@@ -99,7 +99,7 @@ export function SearchBar({
           className="flex flex-wrap gap-3 items-center justify-center"
         >
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-[160px] bg-white rounded-full">
+            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -117,7 +117,7 @@ export function SearchBar({
           </Select>
 
           <Select value={city} onValueChange={setCity}>
-            <SelectTrigger className="w-[160px] bg-white rounded-full">
+            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="City" />
             </SelectTrigger>
             <SelectContent>
@@ -129,7 +129,7 @@ export function SearchBar({
           </Select>
 
           <Select value={state} onValueChange={setState}>
-            <SelectTrigger className="w-[160px] bg-white rounded-full">
+            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="Province" />
             </SelectTrigger>
             <SelectContent>

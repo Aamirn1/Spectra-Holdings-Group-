@@ -164,16 +164,17 @@ export function AuthForms() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
+        className="glass-strong rounded-2xl p-6 sm:p-8 border border-white/10"
       >
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="login">Login</TabsTrigger>
-            <TabsTrigger value="register">Register</TabsTrigger>
-            <TabsTrigger value="business">Business</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/5">
+            <TabsTrigger value="login" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Login</TabsTrigger>
+            <TabsTrigger value="register" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Register</TabsTrigger>
+            <TabsTrigger value="business" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Business</TabsTrigger>
           </TabsList>
 
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
@@ -196,10 +197,11 @@ export function AuthForms() {
                     id="login-email"
                     type="email"
                     placeholder="you@example.com"
+                    className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                     {...loginForm.register('email')}
                   />
                   {loginForm.formState.errors.email && (
-                    <p className="text-xs text-red-500">{loginForm.formState.errors.email.message}</p>
+                    <p className="text-xs text-red-400">{loginForm.formState.errors.email.message}</p>
                   )}
                 </div>
 
@@ -210,37 +212,38 @@ export function AuthForms() {
                       id="login-password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
+                      className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       {...loginForm.register('password')}
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-gray-400 hover:text-white"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </Button>
                   </div>
                   {loginForm.formState.errors.password && (
-                    <p className="text-xs text-red-500">{loginForm.formState.errors.password.message}</p>
+                    <p className="text-xs text-red-400">{loginForm.formState.errors.password.message}</p>
                   )}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-xl"
+                  className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-xl"
                   disabled={isLoading}
                 >
                   {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                   Sign In
                 </Button>
 
-                <p className="text-center text-sm text-gray-500">
+                <p className="text-center text-sm text-gray-400">
                   Don&apos;t have an account?{' '}
                   <button
                     type="button"
-                    className="text-teal-600 hover:underline font-medium"
+                    className="text-purple-400 hover:text-purple-300 hover:underline font-medium"
                     onClick={() => setActiveTab('register')}
                   >
                     Register
@@ -262,47 +265,47 @@ export function AuthForms() {
               >
                 <div className="space-y-2">
                   <Label htmlFor="reg-name">Full Name</Label>
-                  <Input id="reg-name" placeholder="John Doe" {...registerForm.register('name')} />
+                  <Input id="reg-name" placeholder="John Doe" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('name')} />
                   {registerForm.formState.errors.name && (
-                    <p className="text-xs text-red-500">{registerForm.formState.errors.name.message}</p>
+                    <p className="text-xs text-red-400">{registerForm.formState.errors.name.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="reg-email">Email</Label>
-                  <Input id="reg-email" type="email" placeholder="you@example.com" {...registerForm.register('email')} />
+                  <Input id="reg-email" type="email" placeholder="you@example.com" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('email')} />
                   {registerForm.formState.errors.email && (
-                    <p className="text-xs text-red-500">{registerForm.formState.errors.email.message}</p>
+                    <p className="text-xs text-red-400">{registerForm.formState.errors.email.message}</p>
                   )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-password">Password</Label>
-                    <Input id="reg-password" type="password" placeholder="••••••••" {...registerForm.register('password')} />
+                    <Input id="reg-password" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('password')} />
                     {registerForm.formState.errors.password && (
-                      <p className="text-xs text-red-500">{registerForm.formState.errors.password.message}</p>
+                      <p className="text-xs text-red-400">{registerForm.formState.errors.password.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="reg-confirm">Confirm</Label>
-                    <Input id="reg-confirm" type="password" placeholder="••••••••" {...registerForm.register('confirmPassword')} />
+                    <Input id="reg-confirm" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('confirmPassword')} />
                     {registerForm.formState.errors.confirmPassword && (
-                      <p className="text-xs text-red-500">{registerForm.formState.errors.confirmPassword.message}</p>
+                      <p className="text-xs text-red-400">{registerForm.formState.errors.confirmPassword.message}</p>
                     )}
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="reg-phone">Phone (optional)</Label>
-                  <Input id="reg-phone" placeholder="+92 300 1234567" {...registerForm.register('phone')} />
+                  <Input id="reg-phone" placeholder="+92 300 1234567" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-city">City</Label>
                     <Select onValueChange={(v) => registerForm.setValue('city', v)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
                       <SelectContent>
@@ -315,7 +318,7 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label htmlFor="reg-state">Province</Label>
                     <Select onValueChange={(v) => registerForm.setValue('state', v)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-white/5 border-white/10">
                         <SelectValue placeholder="Select province" />
                       </SelectTrigger>
                       <SelectContent>
@@ -329,18 +332,18 @@ export function AuthForms() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-xl"
+                  className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-xl"
                   disabled={isLoading}
                 >
                   {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                   Create Account
                 </Button>
 
-                <p className="text-center text-sm text-gray-500">
+                <p className="text-center text-sm text-gray-400">
                   Already have an account?{' '}
                   <button
                     type="button"
-                    className="text-teal-600 hover:underline font-medium"
+                    className="text-purple-400 hover:text-purple-300 hover:underline font-medium"
                     onClick={() => setActiveTab('login')}
                   >
                     Sign In
@@ -360,43 +363,43 @@ export function AuthForms() {
                 onSubmit={businessForm.handleSubmit(handleBusinessRegister)}
                 className="space-y-4"
               >
-                <div className="p-3 bg-orange-50 rounded-lg mb-2">
-                  <p className="text-sm text-orange-700">
+                <div className="p-3 bg-purple-500/10 rounded-lg mb-2 border border-purple-500/20">
+                  <p className="text-sm text-purple-300">
                     Register your business to reach thousands of local customers in the Spectra community.
                   </p>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-owner">Owner Name</Label>
-                  <Input id="biz-owner" placeholder="John Doe" {...businessForm.register('name')} />
+                  <Input id="biz-owner" placeholder="John Doe" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('name')} />
                   {businessForm.formState.errors.name && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.name.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.name.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-email">Email</Label>
-                  <Input id="biz-email" type="email" placeholder="you@business.com" {...businessForm.register('email')} />
+                  <Input id="biz-email" type="email" placeholder="you@business.com" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('email')} />
                   {businessForm.formState.errors.email && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.email.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.email.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-password">Password</Label>
-                  <Input id="biz-password" type="password" placeholder="••••••••" {...businessForm.register('password')} />
+                  <Input id="biz-password" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('password')} />
                   {businessForm.formState.errors.password && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.password.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.password.message}</p>
                   )}
                 </div>
 
-                <Separator className="my-2" />
+                <Separator className="my-2 bg-white/10" />
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-name">Business Name</Label>
-                  <Input id="biz-name" placeholder="My Business" {...businessForm.register('businessName')} />
+                  <Input id="biz-name" placeholder="My Business" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('businessName')} />
                   {businessForm.formState.errors.businessName && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.businessName.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.businessName.message}</p>
                   )}
                 </div>
 
@@ -404,28 +407,28 @@ export function AuthForms() {
                   <Label htmlFor="biz-desc">Business Description</Label>
                   <textarea
                     id="biz-desc"
-                    className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex min-h-[80px] w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm ring-offset-background placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="Tell us about your business..."
                     {...businessForm.register('businessDescription')}
                   />
                   {businessForm.formState.errors.businessDescription && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.businessDescription.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.businessDescription.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-phone">Phone</Label>
-                  <Input id="biz-phone" placeholder="+92 300 1234567" {...businessForm.register('phone')} />
+                  <Input id="biz-phone" placeholder="+92 300 1234567" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('phone')} />
                   {businessForm.formState.errors.phone && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.phone.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.phone.message}</p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-address">Address</Label>
-                  <Input id="biz-address" placeholder="123 Main St" {...businessForm.register('address')} />
+                  <Input id="biz-address" placeholder="123 Main St" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('address')} />
                   {businessForm.formState.errors.address && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.address.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.address.message}</p>
                   )}
                 </div>
 
@@ -433,7 +436,7 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label>City</Label>
                     <Select onValueChange={(v) => businessForm.setValue('city', v)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
                       <SelectContent>
@@ -443,13 +446,13 @@ export function AuthForms() {
                       </SelectContent>
                     </Select>
                     {businessForm.formState.errors.city && (
-                      <p className="text-xs text-red-500">{businessForm.formState.errors.city.message}</p>
+                      <p className="text-xs text-red-400">{businessForm.formState.errors.city.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
                     <Label>Province</Label>
                     <Select onValueChange={(v) => businessForm.setValue('state', v)}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-white/5 border-white/10">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
@@ -459,7 +462,7 @@ export function AuthForms() {
                       </SelectContent>
                     </Select>
                     {businessForm.formState.errors.state && (
-                      <p className="text-xs text-red-500">{businessForm.formState.errors.state.message}</p>
+                      <p className="text-xs text-red-400">{businessForm.formState.errors.state.message}</p>
                     )}
                   </div>
                 </div>
@@ -467,7 +470,7 @@ export function AuthForms() {
                 <div className="space-y-2">
                   <Label>Category</Label>
                   <Select onValueChange={(v) => businessForm.setValue('categorySlug', v)}>
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-white/5 border-white/10">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -477,13 +480,13 @@ export function AuthForms() {
                     </SelectContent>
                   </Select>
                   {businessForm.formState.errors.categorySlug && (
-                    <p className="text-xs text-red-500">{businessForm.formState.errors.categorySlug.message}</p>
+                    <p className="text-xs text-red-400">{businessForm.formState.errors.categorySlug.message}</p>
                   )}
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl"
+                  className="w-full bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-xl"
                   disabled={isLoading}
                 >
                   {isLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}

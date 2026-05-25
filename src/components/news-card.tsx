@@ -36,7 +36,7 @@ export function NewsCard({ news, index = 0 }: NewsCardProps) {
       transition={{ duration: 0.4, delay: index * 0.1 }}
       whileHover={{ y: -4 }}
     >
-      <Card className="overflow-hidden rounded-xl border border-gray-200 hover:shadow-lg transition-shadow">
+      <Card className="overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-lg hover:shadow-purple-500/5 transition-shadow card-hover">
         {/* Image or gradient fallback */}
         <div className="relative h-40 overflow-hidden">
           {news.imageUrl ? (
@@ -46,7 +46,7 @@ export function NewsCard({ news, index = 0 }: NewsCardProps) {
               className="w-full h-full object-cover"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-rose-500 to-pink-500 flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
               <span className="text-4xl font-bold text-white/30">
                 {news.title.charAt(0)}
               </span>
@@ -55,32 +55,32 @@ export function NewsCard({ news, index = 0 }: NewsCardProps) {
 
           {/* Category badge */}
           {news.category && (
-            <Badge className="absolute top-3 left-3 bg-white/90 text-gray-700 border-0 text-xs">
+            <Badge className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-gray-300 border border-white/10 text-xs">
               {news.category}
             </Badge>
           )}
         </div>
 
         <CardContent className="p-4">
-          <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">
+          <h3 className="font-semibold text-white line-clamp-2 mb-2">
             {news.title}
           </h3>
 
           {news.excerpt && (
-            <p className="text-sm text-gray-500 line-clamp-2 mb-3">
+            <p className="text-sm text-gray-400 line-clamp-2 mb-3">
               {news.excerpt}
             </p>
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400 flex items-center gap-1">
+            <span className="text-xs text-gray-500 flex items-center gap-1">
               <Clock className="w-3 h-3" />
               {formattedDate}
             </span>
             <Button
               variant="ghost"
               size="sm"
-              className="text-teal-600 hover:text-teal-700 hover:bg-teal-50 text-xs p-0 h-auto"
+              className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10 text-xs p-0 h-auto"
             >
               Read More →
             </Button>

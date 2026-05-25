@@ -9,7 +9,7 @@ export async function GET() {
       include: {
         children: true,
         _count: {
-          select: { businesses: { where: { isApproved: true } } },
+          select: { businesses: { where: { status: 'approved' } } },
         },
       },
       orderBy: { name: 'asc' },
@@ -28,7 +28,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const authUser = getAuthUser(request)
-    if (!authUser || authUser.role !== 'admin') {
+    if (!authUser || authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Admin access required' },
         { status: 403 }

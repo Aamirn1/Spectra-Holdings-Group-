@@ -91,11 +91,11 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100%-2rem)] sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100%-2rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
             style={{ maxHeight: '70vh' }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-teal-500 to-emerald-600 p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                   <Bot className="w-4 h-4 text-white" />
@@ -124,22 +124,22 @@ export function ChatWidget() {
                     className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {msg.role === 'assistant' && (
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
                         <Bot className="w-3.5 h-3.5 text-white" />
                       </div>
                     )}
                     <div
                       className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-r from-teal-500 to-emerald-600 text-white'
-                          : 'bg-gray-100 text-gray-700'
+                          ? 'bg-gradient-to-r from-purple-500 to-violet-600 text-white'
+                          : 'bg-white/5 text-gray-300 border border-white/10'
                       }`}
                     >
                       {msg.content}
                     </div>
                     {msg.role === 'user' && (
-                      <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
-                        <User className="w-3.5 h-3.5 text-gray-500" />
+                      <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                        <User className="w-3.5 h-3.5 text-gray-400" />
                       </div>
                     )}
                   </div>
@@ -147,14 +147,14 @@ export function ChatWidget() {
 
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center shrink-0">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
                       <Bot className="w-3.5 h-3.5 text-white" />
                     </div>
-                    <div className="bg-gray-100 px-4 py-2 rounded-xl">
+                    <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                       </div>
                     </div>
                   </div>
@@ -163,20 +163,20 @@ export function ChatWidget() {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-gray-100">
+            <div className="p-3 border-t border-white/10">
               <div className="flex gap-2">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type a message..."
-                  className="flex-1 rounded-full"
+                  className="flex-1 rounded-full bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                   disabled={isTyping}
                 />
                 <Button
                   onClick={handleSend}
                   disabled={!input.trim() || isTyping}
-                  className="bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-full px-3"
+                  className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white rounded-full px-3"
                   size="icon"
                 >
                   {isTyping ? (
@@ -197,7 +197,7 @@ export function ChatWidget() {
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-4 sm:right-6 z-40 w-14 h-14 bg-gradient-to-r from-teal-500 to-emerald-600 rounded-full shadow-lg flex items-center justify-center text-white hover:from-teal-600 hover:to-emerald-700 transition-all hover:scale-105"
+        className="fixed bottom-24 right-4 sm:right-6 z-40 w-14 h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/20 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105"
         aria-label="Open chat assistant"
       >
         {isOpen ? (

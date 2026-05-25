@@ -37,15 +37,15 @@ export function BusinessCard({ business, index = 0 }: BusinessCardProps) {
       transition={{ duration: 0.4, delay: index * 0.1 }}
     >
       <Card
-        className={`group relative overflow-hidden rounded-xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 ${
+        className={`group relative overflow-hidden rounded-xl border transition-all duration-300 cursor-pointer hover:shadow-lg hover:-translate-y-1 bg-card/80 backdrop-blur-sm ${
           business.isFeatured
-            ? 'border-2 border-teal-300 shadow-md shadow-teal-100'
-            : 'border-gray-200'
+            ? 'border-purple-500/30 shadow-purple-500/10'
+            : 'border-white/10'
         }`}
         onClick={() => navigate('business-detail', { slug: business.slug, id: business.id })}
       >
         {business.isFeatured && (
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-teal-500 to-emerald-500" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-violet-500" />
         )}
 
         <CardContent className="p-4 sm:p-6">
@@ -59,7 +59,7 @@ export function BusinessCard({ business, index = 0 }: BusinessCardProps) {
                   className="w-14 h-14 rounded-xl object-cover"
                 />
               ) : (
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center text-white font-bold text-lg">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center text-white font-bold text-lg">
                   {business.name.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -68,7 +68,7 @@ export function BusinessCard({ business, index = 0 }: BusinessCardProps) {
             {/* Info */}
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-semibold text-gray-900 truncate group-hover:text-teal-600 transition-colors">
+                <h3 className="font-semibold text-white truncate group-hover:text-purple-400 transition-colors">
                   {business.name}
                 </h3>
                 {business.isFeatured && (
@@ -82,11 +82,11 @@ export function BusinessCard({ business, index = 0 }: BusinessCardProps) {
                 {categoryName}
               </Badge>
 
-              <p className="mt-2 text-sm text-gray-500 line-clamp-2">
+              <p className="mt-2 text-sm text-gray-400 line-clamp-2">
                 {business.description}
               </p>
 
-              <div className="mt-3 flex items-center gap-4 text-xs text-gray-400">
+              <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-3 h-3" />
                   {business.city}, {business.state}
@@ -107,7 +107,7 @@ export function BusinessCard({ business, index = 0 }: BusinessCardProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="text-teal-600 hover:text-teal-700 hover:bg-teal-50"
+              className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
               onClick={(e) => {
                 e.stopPropagation()
                 navigate('business-detail', { slug: business.slug, id: business.id })

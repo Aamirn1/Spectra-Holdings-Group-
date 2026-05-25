@@ -28,14 +28,14 @@ export function NewsSection({
         transition={{ duration: 0.5 }}
       >
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <Newspaper className="w-7 h-7 text-rose-500" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
+            <Newspaper className="w-7 h-7 text-purple-400" />
             {title}
           </h2>
           {showViewAll && news.length > 0 && (
             <Button
               variant="ghost"
-              className="text-teal-600 hover:text-teal-700"
+              className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
               onClick={() => navigate('news')}
             >
               View All News →
@@ -50,10 +50,10 @@ export function NewsSection({
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-xl">
-            <Newspaper className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <h3 className="text-lg font-semibold text-gray-500">No News Yet</h3>
-            <p className="text-sm text-gray-400 mt-1">Stay tuned for the latest community updates!</p>
+          <div className="text-center py-12 bg-white/5 rounded-xl border border-white/10">
+            <Newspaper className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+            <h3 className="text-lg font-semibold text-gray-400">No News Yet</h3>
+            <p className="text-sm text-gray-500 mt-1">Stay tuned for the latest community updates!</p>
           </div>
         )}
       </motion.div>

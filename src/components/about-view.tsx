@@ -5,10 +5,10 @@ import { Heart, Users, Building2, Globe, Target, Award, Shield, Lightbulb } from
 import { Card, CardContent } from '@/components/ui/card'
 
 const STATS = [
-  { icon: Users, label: 'Community Members', value: '5,000+', color: 'text-teal-600 bg-teal-50' },
-  { icon: Building2, label: 'Local Businesses', value: '500+', color: 'text-orange-600 bg-orange-50' },
-  { icon: Globe, label: 'Cities Covered', value: '10+', color: 'text-rose-600 bg-rose-50' },
-  { icon: Heart, label: 'Happy Customers', value: '10,000+', color: 'text-emerald-600 bg-emerald-50' },
+  { icon: Users, label: 'Community Members', value: '5,000+', color: 'text-purple-400 bg-purple-500/10' },
+  { icon: Building2, label: 'Local Businesses', value: '500+', color: 'text-amber-400 bg-amber-500/10' },
+  { icon: Globe, label: 'Cities Covered', value: '10+', color: 'text-rose-400 bg-rose-500/10' },
+  { icon: Heart, label: 'Happy Customers', value: '10,000+', color: 'text-violet-400 bg-violet-500/10' },
 ]
 
 const VALUES = [
@@ -44,13 +44,13 @@ export function AboutView() {
         transition={{ duration: 0.4 }}
         className="text-center mb-16"
       >
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
           About{' '}
-          <span className="bg-gradient-to-r from-teal-500 to-emerald-600 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
             Spectra Holdings Group
           </span>
         </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
           We&apos;re building the bridge between local communities and the businesses that serve them.
         </p>
       </motion.div>
@@ -62,7 +62,7 @@ export function AboutView() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-16"
       >
-        <Card className="rounded-xl bg-gradient-to-br from-teal-500 to-emerald-600 text-white border-0">
+        <Card className="rounded-xl bg-gradient-to-br from-purple-500 to-violet-600 text-white border-0">
           <CardContent className="p-8 sm:p-12 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">Our Mission</h2>
             <p className="text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
@@ -87,13 +87,13 @@ export function AboutView() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
           >
-            <Card className="rounded-xl text-center">
+            <Card className="rounded-xl text-center bg-white/5 backdrop-blur-sm border-white/10 card-hover">
               <CardContent className="p-6">
                 <div className={`w-12 h-12 rounded-full ${stat.color} flex items-center justify-center mx-auto mb-3`}>
                   <stat.icon className="w-6 h-6" />
                 </div>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-                <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+                <p className="text-2xl font-bold text-white">{stat.value}</p>
+                <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -107,8 +107,8 @@ export function AboutView() {
         transition={{ duration: 0.4, delay: 0.3 }}
         className="mb-16"
       >
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Our Story</h2>
-        <div className="max-w-3xl mx-auto space-y-4 text-gray-600 leading-relaxed">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">Our Story</h2>
+        <div className="max-w-3xl mx-auto space-y-4 text-gray-400 leading-relaxed">
           <p>
             Spectra Holdings Group was born from a simple observation: finding reliable local services shouldn&apos;t be hard.
             In communities across Pakistan, residents struggled to discover trusted plumbers, electricians, healthcare providers,
@@ -131,7 +131,7 @@ export function AboutView() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.4 }}
       >
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Our Values</h2>
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">Our Values</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {VALUES.map((value, index) => (
             <motion.div
@@ -140,13 +140,13 @@ export function AboutView() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
             >
-              <Card className="rounded-xl h-full">
+              <Card className="rounded-xl h-full bg-white/5 backdrop-blur-sm border-white/10 card-hover">
                 <CardContent className="p-6">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center mb-4">
                     <value.icon className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-sm text-gray-500">{value.description}</p>
+                  <h3 className="font-semibold text-white mb-2">{value.title}</h3>
+                  <p className="text-sm text-gray-400">{value.description}</p>
                 </CardContent>
               </Card>
             </motion.div>

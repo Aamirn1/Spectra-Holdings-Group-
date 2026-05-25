@@ -7,12 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  RESIDENT
+  BUSINESS
+}
+
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
+  id            String    @id @default(cuid())
+  email         String    @unique
   passwordHash  String
   name          String
-  role          String   @default("user") // "user", "business", "admin"
+  role          Role      @default(RESIDENT)
   phone         String?
   address       String?
   city          String?
@@ -21,13 +27,72 @@ model User {
   latitude      Float?
   longitude     Float?
   avatarUrl     String?
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  bio           String?
+  communityId   String?
+  community     Community? @relation(fields: [communityId], references: [id])
+  isVerified    Boolean   @default(false)
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  businesses    Business[]
+  businesses      Business[]
   savedBusinesses SavedBusiness[]
-  events        EventRegistration[]
+  events          EventRegistration[]
+  auditLogs       AuditLog[]
+
+  @@index([communityId])
+  @@index([role])
+}
+
+model State {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  abbreviation String
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  cities City[]
+
+  @@index([slug])
+}
+
+model City {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  stateId   String
+  state     State    @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  communities Community[]
+
+  @@index([slug])
+  @@index([stateId])
+}
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  cityId      String
+  city        City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  description String?
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users      User[]
+  businesses Business[]
+  events     Event[]
+
+  @@index([slug])
+  @@index([cityId])
 }
 
 model Category {
@@ -42,74 +107,95 @@ model Category {
   businesses  Business[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
 }
 
 model Business {
-  id            String   @id @default(cuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  name          String
-  slug          String   @unique
-  description   String
-  address       String
-  city          String
-  state         String
-  neighborhood  String?
-  latitude      Float?
-  longitude     Float?
-  phone         String
-  whatsapp      String?
-  website       String?
-  email         String?
-  categoryId    String
-  category      Category @relation(fields: [categoryId], references: [id])
-  hours         String?  // JSON string of operating hours
-  logoUrl       String?
-  coverUrl      String?
-  images        String?  // JSON string array of image URLs
-  services      String?  // JSON string array of services offered
-  licenseInfo   String?
-  isApproved    Boolean  @default(false)
-  isFeatured    Boolean  @default(false)
-  viewCount     Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id             String     @id @default(cuid())
+  userId         String
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  slug           String     @unique
+  description    String
+  address        String
+  city           String
+  state          String
+  neighborhood   String?
+  latitude       Float?
+  longitude      Float?
+  phone          String
+  whatsapp       String?
+  website        String?
+  email          String?
+  categoryId     String
+  category       Category   @relation(fields: [categoryId], references: [id])
+  communityId    String?
+  community      Community? @relation(fields: [communityId], references: [id])
+  hours          String?    // JSON string of operating hours
+  logoUrl        String?
+  coverUrl       String?
+  images         String?    // JSON string array of image URLs
+  services       String?    // JSON string array of services offered
+  licenseInfo    String?
+  socialLinks    String?    // JSON string for social media URLs
+  serviceArea    String?
+  status         String     @default("pending") // pending, approved, rejected
+  isFeatured     Boolean    @default(false)
+  seoTitle       String?
+  seoDescription String?
+  viewCount      Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
-  savedBy       SavedBusiness[]
-  events        Event[]
+  savedBy SavedBusiness[]
+  events  Event[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([communityId])
 }
 
 model SavedBusiness {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  businessId  String
-  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
 
   @@unique([userId, businessId])
 }
 
 model Event {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  description String
-  content     String?  // Rich content/HTML
-  date        DateTime
-  endDate     DateTime?
-  location    String?
-  city        String?
-  state       String?
-  imageUrl    String?
-  category    String?
-  businessId  String?
-  business    Business? @relation(fields: [businessId], references: [id])
-  isPublished Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String     @id @default(cuid())
+  title          String
+  slug           String     @unique
+  description    String
+  content        String?    // Rich content/HTML
+  date           DateTime
+  endDate        DateTime?
+  location       String?
+  city           String?
+  state          String?
+  imageUrl       String?
+  category       String?
+  communityId    String?
+  community      Community? @relation(fields: [communityId], references: [id])
+  businessId     String?
+  business       Business?  @relation(fields: [businessId], references: [id])
+  isPublished    Boolean    @default(true)
+  isFeatured     Boolean    @default(false)
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
 
   registrations EventRegistration[]
+
+  @@index([slug])
+  @@index([communityId])
+  @@index([isFeatured])
 }
 
 model EventRegistration {
@@ -124,17 +210,23 @@ model EventRegistration {
 }
 
 model News {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String
-  imageUrl    String?
-  category    String?
-  isPublished Boolean  @default(true)
-  authorId    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  excerpt        String?
+  content        String
+  imageUrl       String?
+  category       String?
+  isPublished    Boolean  @default(true)
+  isFeatured     Boolean  @default(false)
+  seoTitle       String?
+  seoDescription String?
+  authorId       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([slug])
+  @@index([isFeatured])
 }
 
 model ContactMessage {
@@ -152,4 +244,37 @@ model SiteSetting {
   id    String @id @default(cuid())
   key   String @unique
   value String
+}
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  title     String
+  content   String?
+  imageUrl  String?
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([order])
+}
+
+model AuditLog {
+  id         String    @id @default(cuid())
+  userId     String?
+  action     String
+  resource   String
+  resourceId String?
+  details    String?
+  ipAddress  String?
+  createdAt  DateTime  @default(now())
+
+  user       User?     @relation(fields: [userId], references: [id])
+
+  @@index([action])
+  @@index([resource])
+  @@index([userId])
+  @@index([createdAt])
 }

@@ -11,13 +11,20 @@ import { WhatsAppButton } from '@/components/whatsapp-button'
 import { BackToTop } from '@/components/back-to-top'
 import { ChatWidget } from '@/components/chat-widget'
 
-// View components
+// Landing page components
 import { HeroSection } from '@/components/hero-section'
-import { CategoryGrid, type CategoryData } from '@/components/category-grid'
+import { AboutSection } from '@/components/landing/about-section'
+import { MissionSection } from '@/components/landing/mission-section'
+import { LeadershipSection } from '@/components/landing/leadership-section'
+import { ProjectsSection } from '@/components/landing/projects-section'
+import { CommunitiesSection } from '@/components/landing/communities-section'
+import { EcosystemSection } from '@/components/landing/ecosystem-section'
+import { TestimonialsSection } from '@/components/landing/testimonials-section'
+import { CTASection } from '@/components/landing/cta-section'
+
+// View components
 import { DirectoryView } from '@/components/directory-view'
 import { BusinessDetail, type BusinessDetailData } from '@/components/business-detail'
-import { EventsSection } from '@/components/events-section'
-import { NewsSection } from '@/components/news-section'
 import { EventCard, type EventCardData } from '@/components/event-card'
 import { NewsCard, type NewsCardData } from '@/components/news-card'
 import { AuthForms } from '@/components/auth-forms'
@@ -26,235 +33,22 @@ import { BusinessDashboard } from '@/components/business-dashboard'
 import { AdminDashboard } from '@/components/admin-dashboard'
 import { AboutView } from '@/components/about-view'
 import { ContactView } from '@/components/contact-view'
-import { BusinessCard, type BusinessCardData } from '@/components/business-card'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Loader2, Building2, Users, Newspaper, Calendar } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+import { ArrowRight, Loader2, Building2, Newspaper, Calendar } from 'lucide-react'
 
 // ==================== HOME VIEW ====================
 function HomeView() {
-  const { navigate } = useNavigationStore()
-  const [categories, setCategories] = useState<CategoryData[]>([])
-  const [featuredBusinesses, setFeaturedBusinesses] = useState<BusinessCardData[]>([])
-  const [events, setEvents] = useState<EventCardData[]>([])
-  const [news, setNews] = useState<NewsCardData[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [catRes, bizRes, eventRes, newsRes] = await Promise.all([
-          fetch('/api/categories'),
-          fetch('/api/businesses?featured=true&limit=6'),
-          fetch('/api/events?limit=3'),
-          fetch('/api/news?limit=3'),
-        ])
-
-        const catData = await catRes.json()
-        const bizData = await bizRes.json()
-        const eventData = await eventRes.json()
-        const newsData = await newsRes.json()
-
-        if (catData.categories) {
-          setCategories(catData.categories.map((c: any) => ({
-            id: c.id,
-            name: c.name,
-            slug: c.slug,
-            icon: c.icon,
-            businessCount: c._count?.businesses || 0,
-          })))
-        }
-
-        if (bizData.businesses) {
-          setFeaturedBusinesses(bizData.businesses.map((b: any) => ({
-            id: b.id,
-            name: b.name,
-            slug: b.slug,
-            description: b.description,
-            city: b.city,
-            state: b.state,
-            category: b.category?.name || 'General',
-            phone: b.phone,
-            logoUrl: b.logoUrl,
-            isFeatured: b.isFeatured,
-            viewCount: b.viewCount,
-          })))
-        }
-
-        if (eventData.events) {
-          setEvents(eventData.events.map((e: any) => ({
-            id: e.id,
-            title: e.title,
-            date: e.date,
-            location: e.location,
-            imageUrl: e.imageUrl,
-            category: e.category,
-          })))
-        }
-
-        if (newsData.news) {
-          setNews(newsData.news.map((n: any) => ({
-            id: n.id,
-            title: n.title,
-            excerpt: n.excerpt,
-            imageUrl: n.imageUrl,
-            date: n.createdAt,
-            category: n.category,
-          })))
-        }
-      } catch (error) {
-        console.error('Failed to fetch home data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
-
-  const handleCategorySelect = (category: CategoryData) => {
-    navigate('directory')
-  }
-
   return (
     <div>
       <HeroSection />
-
-      {/* Categories Section */}
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                Browse by Category
-              </h2>
-              <Button
-                variant="ghost"
-                className="text-teal-600 hover:text-teal-700"
-                onClick={() => navigate('directory')}
-              >
-                View All →
-              </Button>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {Array.from({ length: 10 }).map((_, i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="bg-gray-200 rounded-xl h-32" />
-                  </div>
-                ))}
-              </div>
-            ) : categories.length > 0 ? (
-              <CategoryGrid categories={categories} onSelect={handleCategorySelect} />
-            ) : (
-              <div className="text-center py-12 bg-white rounded-xl">
-                <p className="text-gray-400">No categories available yet</p>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Featured Businesses Section */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
-                <Building2 className="w-7 h-7 text-teal-500" />
-                Featured Businesses
-              </h2>
-              <Button
-                variant="ghost"
-                className="text-teal-600 hover:text-teal-700"
-                onClick={() => navigate('directory')}
-              >
-                View All →
-              </Button>
-            </div>
-
-            {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="bg-gray-200 rounded-xl h-44" />
-                  </div>
-                ))}
-              </div>
-            ) : featuredBusinesses.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featuredBusinesses.map((business, index) => (
-                  <BusinessCard key={business.id} business={business} index={index} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-xl">
-                <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-gray-500">No Featured Businesses</h3>
-                <p className="text-sm text-gray-400 mt-1">Check back soon for featured local businesses!</p>
-              </div>
-            )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Events Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <EventsSection events={events} />
-      </div>
-
-      {/* News Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <NewsSection news={news} />
-      </div>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-teal-500 via-teal-600 to-emerald-700">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Join Our Growing Community
-            </h2>
-            <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
-              Whether you&apos;re a resident looking for trusted local services or a business wanting to reach new customers, Spectra has you covered.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-white text-teal-700 hover:bg-gray-100 font-semibold rounded-full px-8 text-lg"
-                onClick={() => navigate('register')}
-              >
-                <Users className="w-5 h-5 mr-2" />
-                Join as Resident
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white/10 font-semibold rounded-full px-8 text-lg bg-transparent"
-                onClick={() => navigate('register-business')}
-              >
-                <Building2 className="w-5 h-5 mr-2" />
-                List Your Business
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <AboutSection />
+      <MissionSection />
+      <LeadershipSection />
+      <ProjectsSection />
+      <CommunitiesSection />
+      <EcosystemSection />
+      <TestimonialsSection />
+      <CTASection />
     </div>
   )
 }
@@ -301,17 +95,17 @@ function EventsView() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <Calendar className="w-8 h-8 text-orange-500" />
+        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <Calendar className="w-8 h-8 text-purple-400" />
           Community Events
         </h1>
-        <p className="text-gray-500 mb-8">Discover upcoming events and activities in your community</p>
+        <p className="text-gray-400 mb-8">Discover upcoming events and activities in your community</p>
       </motion.div>
 
       {loading && page === 1 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="animate-pulse bg-gray-200 rounded-xl h-72" />
+            <div key={i} className="animate-pulse bg-white/5 rounded-xl h-72" />
           ))}
         </div>
       ) : events.length > 0 ? (
@@ -331,9 +125,9 @@ function EventsView() {
         </>
       ) : (
         <div className="text-center py-16">
-          <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-500 mb-2">No Events Found</h3>
-          <p className="text-gray-400">Check back soon for upcoming community events!</p>
+          <Calendar className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-400 mb-2">No Events Found</h3>
+          <p className="text-gray-500">Check back soon for upcoming community events!</p>
         </div>
       )}
     </div>
@@ -381,17 +175,17 @@ function NewsView() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <Newspaper className="w-8 h-8 text-rose-500" />
+        <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+          <Newspaper className="w-8 h-8 text-purple-400" />
           Community News
         </h1>
-        <p className="text-gray-500 mb-8">Stay updated with the latest news and announcements</p>
+        <p className="text-gray-400 mb-8">Stay updated with the latest news and announcements</p>
       </motion.div>
 
       {loading && page === 1 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="animate-pulse bg-gray-200 rounded-xl h-72" />
+            <div key={i} className="animate-pulse bg-white/5 rounded-xl h-72" />
           ))}
         </div>
       ) : news.length > 0 ? (
@@ -411,9 +205,9 @@ function NewsView() {
         </>
       ) : (
         <div className="text-center py-16">
-          <Newspaper className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-500 mb-2">No News Found</h3>
-          <p className="text-gray-400">Stay tuned for the latest community updates!</p>
+          <Newspaper className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-400 mb-2">No News Found</h3>
+          <p className="text-gray-500">Stay tuned for the latest community updates!</p>
         </div>
       )}
     </div>
@@ -454,7 +248,7 @@ function BusinessDetailView() {
             category: b.category?.name || 'General',
             isFeatured: b.isFeatured,
             viewCount: b.viewCount,
-            isApproved: b.isApproved,
+            isApproved: b.status === 'approved',
           })
         }
       } catch (error) {
@@ -470,9 +264,9 @@ function BusinessDetailView() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="bg-gray-200 rounded-xl h-64" />
-          <div className="bg-gray-200 rounded-xl h-32" />
-          <div className="bg-gray-200 rounded-xl h-48" />
+          <div className="bg-white/5 rounded-xl h-64" />
+          <div className="bg-white/5 rounded-xl h-32" />
+          <div className="bg-white/5 rounded-xl h-48" />
         </div>
       </div>
     )
@@ -481,8 +275,8 @@ function BusinessDetailView() {
   if (!business) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-        <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-gray-500 mb-2">Business Not Found</h3>
+        <Building2 className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+        <h3 className="text-xl font-semibold text-gray-400 mb-2">Business Not Found</h3>
         <Button onClick={goBack} variant="outline" className="rounded-xl mt-4">
           Go Back
         </Button>
@@ -510,16 +304,16 @@ function DashboardView() {
     )
   }
 
-  // Redirect based on role
-  if (user.role === 'admin') {
+  if (user.role === 'ADMIN') {
     return <AdminDashboardView />
   }
-  if (user.role === 'business') {
+  if (user.role === 'BUSINESS') {
     return <BusinessDashboardView />
   }
 
+  // RESIDENT
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <UserDashboard />
     </div>
   )
@@ -535,7 +329,7 @@ function BusinessDashboardView() {
     async function fetchBusiness() {
       if (!user) return
       try {
-        const res = await fetch(`/api/businesses?limit=1`)
+        const res = await fetch(`/api/businesses?limit=100`)
         const data = await res.json()
         if (data.businesses) {
           const userBusiness = data.businesses.find((b: any) => b.userId === user.id)
@@ -547,7 +341,7 @@ function BusinessDashboardView() {
               category: userBusiness.category?.name || 'General',
               city: userBusiness.city,
               state: userBusiness.state,
-              isApproved: userBusiness.isApproved,
+              status: userBusiness.status || 'pending',
               isFeatured: userBusiness.isFeatured,
               viewCount: userBusiness.viewCount,
               logoUrl: userBusiness.logoUrl,
@@ -564,7 +358,7 @@ function BusinessDashboardView() {
   }, [user])
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <BusinessDashboard business={business} />
     </div>
   )
@@ -620,7 +414,7 @@ function AdminDashboardView() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ isApproved: true }),
+        body: JSON.stringify({ status: 'approved' }),
       })
       setPendingBusinesses(prev => prev.filter(b => b.id !== id))
       setStats(prev => ({
@@ -651,7 +445,7 @@ function AdminDashboardView() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <AdminDashboard
         stats={stats}
         pendingBusinesses={pendingBusinesses}
@@ -712,6 +506,7 @@ export default function Home() {
           </div>
         )
       case 'dashboard':
+      case 'resident-portal':
         return <DashboardView />
       case 'business-dashboard':
         return <BusinessDashboardView />
@@ -730,8 +525,8 @@ export default function Home() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-teal-500 mx-auto mb-4" />
-          <p className="text-gray-500">Loading Spectra...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-purple-500 mx-auto mb-4" />
+          <p className="text-gray-400">Loading Spectra...</p>
         </div>
       </div>
     )
@@ -740,7 +535,7 @@ export default function Home() {
   const isHome = currentView === 'home'
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-background">
       <SiteHeader />
       
       <main className={`flex-1 ${isHome ? '' : 'pt-16'}`}>

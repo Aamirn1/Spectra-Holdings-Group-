@@ -25,9 +25,16 @@ export async function GET(request: NextRequest) {
         latitude: true,
         longitude: true,
         avatarUrl: true,
+        bio: true,
+        communityId: true,
+        isVerified: true,
         isActive: true,
+        lastLoginAt: true,
         createdAt: true,
         updatedAt: true,
+        community: {
+          select: { id: true, name: true, slug: true },
+        },
       },
     })
 

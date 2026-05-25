@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     }
 
     const where: any = {
-      isApproved: true,
+      status: 'approved',
       OR: [
         { name: { contains: q } },
         { description: { contains: q } },

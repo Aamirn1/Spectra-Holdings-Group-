@@ -15,9 +15,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (role && !['user', 'business', 'admin'].includes(role)) {
+    if (role && !['RESIDENT', 'BUSINESS', 'ADMIN'].includes(role)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid role. Must be user, business, or admin' },
+        { success: false, error: 'Invalid role. Must be RESIDENT, BUSINESS, or ADMIN' },
         { status: 400 }
       )
     }
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     const passwordHash = await hashPassword(password)
-    const userRole = role || 'user'
+    const userRole = role || 'RESIDENT'
 
     const user = await db.user.create({
       data: {
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     })
 
     // If business role, create a Business entry
-    if (userRole === 'business') {
+    if (userRole === 'BUSINESS') {
       if (!businessName || !businessDescription || !address || !categorySlug) {
         // Delete the user we just created since business data is incomplete
         await db.user.delete({ where: { id: user.id } })
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
           state: state || 'Unknown',
           phone: phone || '',
           categoryId: category.id,
-          isApproved: false,
+          status: 'pending',
         },
       })
     }

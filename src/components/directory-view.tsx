@@ -117,8 +117,8 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Business Directory</h1>
-        <p className="text-gray-500">Find trusted local businesses and services in your community</p>
+        <h1 className="text-3xl font-bold text-white mb-2">Business Directory</h1>
+        <p className="text-gray-400">Find trusted local businesses and services in your community</p>
       </motion.div>
 
       {/* Search Bar */}
@@ -140,7 +140,7 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
       {loading && page === 1 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="rounded-xl border p-6 space-y-4">
+            <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 space-y-4">
               <div className="flex items-start gap-4">
                 <Skeleton className="w-14 h-14 rounded-xl" />
                 <div className="flex-1 space-y-2">
@@ -155,13 +155,13 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
       ) : displayBusinesses.length > 0 ? (
         <>
           {/* Results count */}
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-gray-400 mb-4">
             Showing {displayBusinesses.length} businesses
             {category && category !== 'all' && (
-              <span> in <span className="font-medium text-gray-700">{category}</span></span>
+              <span> in <span className="font-medium text-purple-400">{category}</span></span>
             )}
             {city && city !== 'all' && (
-              <span> near <span className="font-medium text-gray-700">{city}</span></span>
+              <span> near <span className="font-medium text-purple-400">{city}</span></span>
             )}
           </p>
 
@@ -179,7 +179,7 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
                 variant="outline"
                 onClick={handleLoadMore}
                 disabled={loading}
-                className="rounded-xl px-8"
+                className="rounded-xl px-8 border-purple-500/30 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
               >
                 {loading ? (
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -196,9 +196,9 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
           animate={{ opacity: 1 }}
           className="text-center py-16"
         >
-          <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-gray-500 mb-2">No Businesses Found</h3>
-          <p className="text-gray-400 max-w-md mx-auto">
+          <Search className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-400 mb-2">No Businesses Found</h3>
+          <p className="text-gray-500 max-w-md mx-auto">
             Try adjusting your search filters or browse all businesses by clearing the filters.
           </p>
         </motion.div>

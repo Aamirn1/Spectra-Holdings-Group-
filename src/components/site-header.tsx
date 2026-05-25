@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { Menu, X, LogOut, LayoutDashboard, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
@@ -16,10 +15,10 @@ import { useNavigationStore, useAuthStore, type ViewName } from '@/lib/store'
 
 const NAV_LINKS: { label: string; view: ViewName }[] = [
   { label: 'Home', view: 'home' },
+  { label: 'About', view: 'about' },
   { label: 'Directory', view: 'directory' },
   { label: 'Events', view: 'events' },
   { label: 'News', view: 'news' },
-  { label: 'About', view: 'about' },
   { label: 'Contact', view: 'contact' },
 ]
 
@@ -40,11 +39,7 @@ export function SiteHeader() {
   const isHome = currentView === 'home'
   const headerBg = isHome && !isScrolled
     ? 'bg-transparent'
-    : 'bg-white/80 backdrop-blur-lg border-b border-gray-200/50'
-
-  const textColor = isHome && !isScrolled
-    ? 'text-white'
-    : 'text-gray-700'
+    : 'bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-purple-500/10'
 
   const handleNav = (view: ViewName) => {
     navigate(view)
@@ -62,7 +57,7 @@ export function SiteHeader() {
             onClick={() => handleNav('home')}
             className="flex items-center gap-2"
           >
-            <span className={`text-xl font-bold bg-gradient-to-r from-teal-500 to-emerald-600 bg-clip-text text-transparent`}>
+            <span className={`text-xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent`}>
               Spectra
             </span>
           </button>
@@ -75,12 +70,10 @@ export function SiteHeader() {
                 onClick={() => handleNav(link.view)}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   currentView === link.view
-                    ? isHome && !isScrolled
-                      ? 'text-white bg-white/20'
-                      : 'text-teal-600 bg-teal-50'
+                    ? 'text-purple-400 bg-purple-500/10'
                     : isHome && !isScrolled
-                      ? 'text-white/80 hover:text-white hover:bg-white/10'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      ? 'text-white/70 hover:text-white hover:bg-white/10'
+                      : 'text-white/70 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {link.label}
@@ -93,11 +86,11 @@ export function SiteHeader() {
             {user ? (
               <div className="hidden md:flex items-center gap-3">
                 <button
-                  onClick={() => handleNav(user.role === 'admin' ? 'admin' : user.role === 'business' ? 'business-dashboard' : 'dashboard')}
+                  onClick={() => handleNav(user.role === 'ADMIN' ? 'admin' : user.role === 'BUSINESS' ? 'business-dashboard' : 'dashboard')}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                     isHome && !isScrolled
-                      ? 'text-white/80 hover:text-white hover:bg-white/10'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      ? 'text-white/70 hover:text-white hover:bg-white/10'
+                      : 'text-white/70 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
@@ -105,17 +98,17 @@ export function SiteHeader() {
                 </button>
                 <div className="flex items-center gap-2">
                   <Avatar className="w-8 h-8">
-                    <AvatarFallback className="bg-gradient-to-br from-teal-500 to-emerald-600 text-white text-xs">
+                    <AvatarFallback className="bg-gradient-to-br from-purple-500 to-violet-600 text-white text-xs">
                       {user.name.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <span className={`text-sm font-medium ${textColor}`}>{user.name}</span>
+                  <span className={`text-sm font-medium text-white/80`}>{user.name}</span>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={logout}
-                  className={isHome && !isScrolled ? 'text-white/80 hover:text-white hover:bg-white/10' : ''}
+                  className="text-white/60 hover:text-white hover:bg-white/10"
                 >
                   <LogOut className="w-4 h-4" />
                 </Button>
@@ -125,13 +118,13 @@ export function SiteHeader() {
                 <Button
                   variant="ghost"
                   onClick={() => handleNav('login')}
-                  className={isHome && !isScrolled ? 'text-white hover:text-white hover:bg-white/10' : ''}
+                  className="text-white/80 hover:text-white"
                 >
                   Sign In
                 </Button>
                 <Button
                   onClick={() => handleNav('register')}
-                  className="bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-full"
+                  className="bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white rounded-full"
                 >
                   Register
                 </Button>
@@ -144,19 +137,19 @@ export function SiteHeader() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden"
+                  className="md:hidden text-white/80 hover:text-white"
                 >
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-72 p-0">
+              <SheetContent side="right" className="w-72 p-0 bg-[#0a0a0f] border-purple-500/10">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <div className="flex items-center justify-between p-4 border-b">
-                  <span className="text-lg font-bold bg-gradient-to-r from-teal-500 to-emerald-600 bg-clip-text text-transparent">
+                <div className="flex items-center justify-between p-4 border-b border-purple-500/10">
+                  <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
                     Spectra
                   </span>
                   <SheetClose asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
                       <X className="w-5 h-5" />
                     </Button>
                   </SheetClose>
@@ -169,8 +162,8 @@ export function SiteHeader() {
                       onClick={() => handleNav(link.view)}
                       className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                         currentView === link.view
-                          ? 'text-teal-600 bg-teal-50'
-                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                          ? 'text-purple-400 bg-purple-500/10'
+                          : 'text-white/70 hover:text-white hover:bg-white/5'
                       }`}
                     >
                       {link.label}
@@ -178,31 +171,31 @@ export function SiteHeader() {
                   ))}
                 </div>
 
-                <div className="border-t p-4 space-y-2">
+                <div className="border-t border-purple-500/10 p-4 space-y-2">
                   {user ? (
                     <>
                       <div className="flex items-center gap-3 mb-3 px-2">
                         <Avatar className="w-10 h-10">
-                          <AvatarFallback className="bg-gradient-to-br from-teal-500 to-emerald-600 text-white">
+                          <AvatarFallback className="bg-gradient-to-br from-purple-500 to-violet-600 text-white">
                             {user.name.charAt(0).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-medium text-sm">{user.name}</p>
+                          <p className="font-medium text-sm text-white">{user.name}</p>
                           <p className="text-xs text-gray-400">{user.email}</p>
                         </div>
                       </div>
                       <Button
                         variant="outline"
-                        className="w-full justify-start rounded-xl"
-                        onClick={() => handleNav(user.role === 'admin' ? 'admin' : user.role === 'business' ? 'business-dashboard' : 'dashboard')}
+                        className="w-full justify-start rounded-xl border-purple-500/20 text-white/80 hover:bg-purple-500/10 hover:text-white"
+                        onClick={() => handleNav(user.role === 'ADMIN' ? 'admin' : user.role === 'BUSINESS' ? 'business-dashboard' : 'dashboard')}
                       >
                         <LayoutDashboard className="w-4 h-4 mr-2" />
                         Dashboard
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full justify-start rounded-xl text-red-600 border-red-200 hover:bg-red-50"
+                        className="w-full justify-start rounded-xl text-red-400 border-red-500/20 hover:bg-red-500/10 hover:text-red-300"
                         onClick={() => { logout(); setMobileOpen(false) }}
                       >
                         <LogOut className="w-4 h-4 mr-2" />
@@ -213,20 +206,20 @@ export function SiteHeader() {
                     <>
                       <Button
                         variant="outline"
-                        className="w-full rounded-xl"
+                        className="w-full rounded-xl border-purple-500/20 text-white/80 hover:bg-purple-500/10 hover:text-white"
                         onClick={() => handleNav('login')}
                       >
                         Sign In
                       </Button>
                       <Button
-                        className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white rounded-xl"
+                        className="w-full bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white rounded-xl"
                         onClick={() => handleNav('register')}
                       >
                         Register
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full rounded-xl border-orange-200 text-orange-600 hover:bg-orange-50"
+                        className="w-full rounded-xl border-violet-500/20 text-violet-400 hover:bg-violet-500/10 hover:text-violet-300"
                         onClick={() => handleNav('register-business')}
                       >
                         <Building2 className="w-4 h-4 mr-2" />
