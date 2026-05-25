@@ -50,5 +50,28 @@ test
 prompt
 
 server.log
+
+# Database files
+/db/*.db
+/db/*.db-journal
+
 # Skills directory
 /skills/
+
+# Agent context
+/agent-ctx/
+
+# Examples
+/examples/
+
+# Mini services
+/mini-services/
+
+# Download
+/download/
+
+# Z scripts
+/.zscripts/
+
+# Caddyfile
+Caddyfile
