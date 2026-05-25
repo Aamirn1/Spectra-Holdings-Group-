@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  name          String
+  role          String   @default("user") // "user", "business", "admin"
+  phone         String?
+  address       String?
+  city          String?
+  state         String?
+  neighborhood  String?
+  latitude      Float?
+  longitude     Float?
+  avatarUrl     String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  businesses    Business[]
+  savedBusinesses SavedBusiness[]
+  events        EventRegistration[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  icon        String?
+  description String?
+  parentId    String?
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  businesses  Business[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Business {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name          String
+  slug          String   @unique
+  description   String
+  address       String
+  city          String
+  state         String
+  neighborhood  String?
+  latitude      Float?
+  longitude     Float?
+  phone         String
+  whatsapp      String?
+  website       String?
+  email         String?
+  categoryId    String
+  category      Category @relation(fields: [categoryId], references: [id])
+  hours         String?  // JSON string of operating hours
+  logoUrl       String?
+  coverUrl      String?
+  images        String?  // JSON string array of image URLs
+  services      String?  // JSON string array of services offered
+  licenseInfo   String?
+  isApproved    Boolean  @default(false)
+  isFeatured    Boolean  @default(false)
+  viewCount     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  savedBy       SavedBusiness[]
+  events        Event[]
+}
+
+model SavedBusiness {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, businessId])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  content     String?  // Rich content/HTML
+  date        DateTime
+  endDate     DateTime?
+  location    String?
+  city        String?
+  state       String?
+  imageUrl    String?
+  category    String?
+  businessId  String?
+  business    Business? @relation(fields: [businessId], references: [id])
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, eventId])
+}
+
+model News {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  imageUrl    String?
+  category    String?
+  isPublished Boolean  @default(true)
+  authorId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
