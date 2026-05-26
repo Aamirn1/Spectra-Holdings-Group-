@@ -40,8 +40,8 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-[#050508] text-gray-400 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           {/* About Column */}
           <div className="lg:col-span-1">
             <h3 className="text-xl font-bold mb-4">
@@ -157,7 +157,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <Separator className="my-8 bg-white/5" />
+        <Separator className="my-6 sm:my-8 bg-white/5" />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">

@@ -62,7 +62,7 @@ export function AboutSection() {
         </motion.div>
 
         {/* Main Content - Two Column */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-12 sm:mb-20">
           {/* Left - Description */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -70,7 +70,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-strong rounded-2xl p-5 sm:p-8">
+            <div className="glass-strong rounded-2xl p-4 sm:p-8">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Redefining Community Living
               </h3>
@@ -96,7 +96,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5">
               {aboutStats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -104,10 +104,10 @@ export function AboutSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 * i }}
-                  className="glass rounded-xl p-4 sm:p-6 text-center card-hover"
+                  className="glass rounded-xl p-3 sm:p-6 text-center card-hover"
                 >
                   <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 mx-auto mb-3" />
-                  <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+                  <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
                     {stat.value}
                   </p>
                   <p className="text-xs sm:text-sm text-gray-400 mt-1">{stat.label}</p>

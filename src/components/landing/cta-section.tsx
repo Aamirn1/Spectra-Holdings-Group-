@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Users, Building2, Phone, ArrowRight } from 'lucide-react'
+import { Users, Building2 } from 'lucide-react'
 import { useNavigationStore } from '@/lib/store'
 
 export function CTASection() {
@@ -49,7 +49,7 @@ export function CTASection() {
             Join Our Growing Community
           </h2>
           <div className="w-24 h-1 bg-white/30 mx-auto rounded-full mb-6" />
-          <p className="text-base sm:text-lg text-white/80 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-white/80 mb-6 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
             Whether you&apos;re a resident looking for trusted local services, a business wanting to
             reach your community, or simply exploring — there&apos;s a place for you at Spectra Holdings Group.
           </p>
@@ -78,15 +78,7 @@ export function CTASection() {
             <Building2 className="w-5 h-5 mr-2" />
             Register Your Business
           </Button>
-          <Button
-            size="lg"
-            className="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg backdrop-blur-sm w-full sm:w-auto"
-            onClick={() => navigate('contact')}
-          >
-            <Phone className="w-5 h-5 mr-2" />
-            Contact Us
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
+
         </motion.div>
       </div>
     </section>

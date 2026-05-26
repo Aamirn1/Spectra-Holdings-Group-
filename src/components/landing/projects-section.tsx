@@ -78,7 +78,7 @@ export function ProjectsSection() {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
@@ -86,7 +86,7 @@ export function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass rounded-2xl p-5 sm:p-6 card-hover group relative overflow-hidden"
+              className="glass rounded-2xl p-4 sm:p-6 card-hover group relative overflow-hidden"
             >
               {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] gradient-primary opacity-50 group-hover:opacity-100 transition-all" />

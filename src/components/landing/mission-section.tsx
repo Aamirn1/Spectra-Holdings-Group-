@@ -57,7 +57,7 @@ export function MissionSection() {
         </motion.div>
 
         {/* Three Cards */}
-        <div className="grid md:grid-cols-3 gap-5 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
@@ -70,7 +70,7 @@ export function MissionSection() {
               {/* Purple gradient border on hover */}
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/40 group-hover:via-violet-500/20 group-hover:to-purple-500/40 transition-all duration-500 rounded-2xl" />
               
-              <div className="relative glass-strong rounded-2xl p-5 sm:p-8 h-full card-hover">
+              <div className="relative glass-strong rounded-2xl p-4 sm:p-8 h-full card-hover">
                 {/* Icon */}
                 <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 group-hover:glow-purple transition-all`}>
                   <card.icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
@@ -80,7 +80,7 @@ export function MissionSection() {
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-3">{card.title}</h3>
 
                 {/* Description */}
-                <p className="text-gray-400 leading-relaxed">{card.description}</p>
+                <p className="text-gray-400 text-sm leading-relaxed">{card.description}</p>
 
                 {/* Bottom accent line */}
                 <div className="mt-6 h-[2px] w-12 gradient-primary rounded-full group-hover:w-full transition-all duration-700" />

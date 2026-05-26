@@ -104,7 +104,7 @@ export function CommunitiesSection() {
         </motion.div>
 
         {/* Communities Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {communities.map((community, i) => (
             <motion.div
               key={community.name}
@@ -112,7 +112,7 @@ export function CommunitiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass rounded-xl p-5 sm:p-6 card-hover group"
+              className="glass rounded-xl p-4 sm:p-6 card-hover group"
             >
               {/* Community Name */}
               <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-300 group-hover:bg-clip-text group-hover:text-transparent transition-all">

@@ -78,7 +78,7 @@ export function TestimonialsSection() {
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
@@ -86,7 +86,7 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="glass-strong rounded-2xl p-5 sm:p-6 card-hover group relative overflow-hidden"
+              className="glass-strong rounded-2xl p-4 sm:p-6 card-hover group relative overflow-hidden"
             >
               {/* Quote icon */}
               <Quote className="absolute top-4 right-4 w-8 h-8 sm:w-10 sm:h-10 text-purple-500/10 group-hover:text-purple-500/20 transition-colors" />

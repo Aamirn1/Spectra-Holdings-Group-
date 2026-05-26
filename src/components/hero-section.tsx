@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion'
 import { TypewriterEffect } from '@/components/typewriter-effect'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Users, Building2, Phone, MapPin } from 'lucide-react'
+import { ArrowRight, Users, Building2, MapPin } from 'lucide-react'
 import { useNavigationStore } from '@/lib/store'
+import Image from 'next/image'
 
 const TYPEWRITER_WORDS = [
   'Building Communities',
@@ -82,126 +83,169 @@ export function HeroSection() {
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-28 text-center">
-        {/* Typewriter line */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="mb-4 sm:mb-6"
-        >
-          <p className="text-base sm:text-2xl lg:text-3xl text-gray-300 font-light">
-            <TypewriterEffect words={TYPEWRITER_WORDS} />
-          </p>
-        </motion.div>
+      {/* Content — Two-column on desktop, stacked on mobile */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 lg:pt-20 pb-12 sm:pb-16 lg:pb-20">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+          {/* LEFT — Text Content */}
+          <div className="flex-1 text-center lg:text-left max-w-2xl lg:max-w-none">
+            {/* Typewriter line */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="mb-3 sm:mb-5"
+            >
+              <p className="text-sm sm:text-xl lg:text-2xl text-gray-300 font-light">
+                <TypewriterEffect words={TYPEWRITER_WORDS} />
+              </p>
+            </motion.div>
 
-        {/* Main heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold mb-4 sm:mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
-              Spectra
-            </span>{' '}
-            <span className="text-white">Holdings</span>{' '}
-            <span className="text-white">Group</span>
-          </h1>
-        </motion.div>
+            {/* Main heading */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-5 leading-tight">
+                <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
+                  Spectra
+                </span>{' '}
+                <span className="text-white">Holdings</span>{' '}
+                <span className="text-white">Group</span>
+              </h1>
+            </motion.div>
 
-        {/* Subheading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-        >
-          <p className="text-lg sm:text-3xl font-semibold text-white/90 mb-3 sm:mb-4">
-            Building Tomorrow&apos;s Communities, Today
-          </p>
-        </motion.div>
+            {/* Subheading */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+            >
+              <p className="text-base sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-2 sm:mb-3">
+                Building Tomorrow&apos;s Communities, Today
+              </p>
+            </motion.div>
 
-        {/* Description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-sm sm:text-lg text-gray-400 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed px-2"
-        >
-          Spectra Holdings Group is a premier community development company dedicated to
-          building thriving neighborhoods through affordable housing, local business ecosystems,
-          and connected resident experiences.
-        </motion.p>
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="text-sm sm:text-base lg:text-lg text-gray-400 mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed"
+            >
+              Spectra Holdings Group is a premier community development company dedicated to
+              building thriving neighborhoods through affordable housing, local business ecosystems,
+              and connected resident experiences.
+            </motion.p>
 
-        {/* CTA Buttons — Stacked on mobile, row on tablet+ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4 mb-10 sm:mb-16 max-w-md sm:max-w-none mx-auto"
-        >
-          <Button
-            size="lg"
-            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg glow-purple border-0 w-full sm:w-auto"
-            onClick={() => navigate('about')}
-          >
-            Explore Communities
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-          </Button>
-          <Button
-            size="lg"
-            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg backdrop-blur-sm w-full sm:w-auto"
-            onClick={() => navigate('register')}
-          >
-            <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-            Join as Resident
-          </Button>
-          <Button
-            size="lg"
-            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg backdrop-blur-sm w-full sm:w-auto"
-            onClick={() => navigate('register-business')}
-          >
-            <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-            Register Your Business
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-white/20 text-gray-300 hover:bg-white/5 hover:text-white font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg w-full sm:w-auto"
-            onClick={() => navigate('contact')}
-          >
-            <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-            Contact Us
-          </Button>
-        </motion.div>
+            {/* CTA Buttons — Stacked on mobile, row on tablet+ */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.65 }}
+              className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-10 max-w-md sm:max-w-none mx-auto lg:mx-0"
+            >
+              <Button
+                size="lg"
+                className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base glow-purple border-0 w-full sm:w-auto"
+                onClick={() => navigate('about')}
+              >
+                Explore Communities
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+              </Button>
+              <Button
+                size="lg"
+                className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto"
+                onClick={() => navigate('register')}
+              >
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                Join as Resident
+              </Button>
+              <Button
+                size="lg"
+                className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto"
+                onClick={() => navigate('register-business')}
+              >
+                <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                Register Your Business
+              </Button>
+            </motion.div>
 
-        {/* Animated Stats Bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.8 }}
-        >
-          <div className="glass-strong rounded-2xl p-4 sm:p-8 max-w-4xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 1 + i * 0.15 }}
-                  className="text-center"
-                >
-                  <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mx-auto mb-1.5 sm:mb-2" />
-                  <p className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
+            {/* Animated Stats Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.8 }}
+            >
+              <div className="glass-strong rounded-2xl p-4 sm:p-6 max-w-lg mx-auto lg:mx-0">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+                  {stats.map((stat, i) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 1 + i * 0.15 }}
+                      className="text-center"
+                    >
+                      <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mx-auto mb-1" />
+                      <p className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+                        {stat.value}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-400 mt-0.5">{stat.label}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+
+          {/* RIGHT — Team Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, x: 40 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex-1 w-full max-w-md sm:max-w-lg lg:max-w-none flex justify-center lg:justify-end"
+          >
+            <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[520px] xl:max-w-[580px]">
+              {/* Glow behind image */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-purple-600/20 via-violet-500/15 to-purple-600/20 rounded-3xl blur-2xl" />
+
+              {/* Image container with border */}
+              <div className="relative rounded-2xl overflow-hidden border border-purple-500/20 shadow-2xl shadow-purple-900/30">
+                <Image
+                  src="/team-hero.png"
+                  alt="Spectra Holdings Group leadership team"
+                  width={580}
+                  height={400}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+                {/* Subtle gradient overlay on image bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/40 via-transparent to-transparent" />
+              </div>
+
+              {/* Decorative floating badge */}
+              <motion.div
+                className="absolute -bottom-3 -right-3 sm:-bottom-4 sm:-right-4 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-lg"
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <p className="text-purple-400 font-bold text-sm sm:text-base">Trusted by 50K+</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Residents Nationwide</p>
+              </motion.div>
+
+              {/* Top-left decorative badge */}
+              <motion.div
+                className="absolute -top-3 -left-3 sm:-top-4 sm:-left-4 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-3 shadow-lg"
+                animate={{ y: [0, 6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              >
+                <p className="text-purple-400 font-bold text-sm sm:text-base">200+</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Communities</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Bottom fade to black */}

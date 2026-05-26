@@ -88,7 +88,7 @@ export function EcosystemSection() {
           </div>
 
           {/* Steps Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {steps.map((step, i) => (
               <motion.div
                 key={step.title}
@@ -96,10 +96,10 @@ export function EcosystemSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 * i }}
-                className="relative glass-strong rounded-2xl p-5 sm:p-6 card-hover group text-center"
+                className="relative glass-strong rounded-2xl p-4 sm:p-6 card-hover group text-center"
               >
                 {/* Step Number */}
-                <div className="absolute -top-3 -right-3 w-7 h-7 sm:w-8 sm:h-8 gradient-primary rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold glow-purple">
+                <div className="absolute -top-3 -right-3 w-6 h-6 sm:w-8 sm:h-8 gradient-primary rounded-full flex items-center justify-center text-white text-[10px] sm:text-sm font-bold glow-purple">
                   {i + 1}
                 </div>
 

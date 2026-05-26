@@ -72,9 +72,9 @@ export function LeadershipSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12 flex justify-center"
+          className="mb-8 sm:mb-12 flex justify-center"
         >
-          <div className="glass-strong rounded-2xl p-5 sm:p-8 max-w-2xl w-full card-hover group relative overflow-hidden">
+          <div className="glass-strong rounded-2xl p-4 sm:p-8 max-w-2xl w-full card-hover group relative overflow-hidden">
             {/* Purple accent border */}
             <div className="absolute top-0 left-0 right-0 h-[2px] gradient-primary" />
             
@@ -96,7 +96,7 @@ export function LeadershipSection() {
         </motion.div>
 
         {/* Other Leaders Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {leaders.slice(1).map((leader, i) => (
             <motion.div
               key={leader.name}
@@ -104,7 +104,7 @@ export function LeadershipSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="glass rounded-xl p-5 sm:p-6 card-hover group text-center"
+              className="glass rounded-xl p-4 sm:p-6 card-hover group text-center"
             >
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent group-hover:via-purple-500/60 transition-all" 
                 style={{ position: 'relative' }} 
