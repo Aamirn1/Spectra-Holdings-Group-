@@ -47,7 +47,7 @@ const statusColors: Record<string, string> = {
 
 export function ProjectsSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full opacity-[0.03]"
@@ -63,7 +63,7 @@ export function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Our{' '}
@@ -72,7 +72,7 @@ export function ProjectsSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             Transforming neighborhoods across the nation with thoughtfully designed community developments.
           </p>
         </motion.div>
@@ -86,7 +86,7 @@ export function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass rounded-2xl p-6 card-hover group relative overflow-hidden"
+              className="glass rounded-2xl p-5 sm:p-6 card-hover group relative overflow-hidden"
             >
               {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] gradient-primary opacity-50 group-hover:opacity-100 transition-all" />
@@ -102,7 +102,7 @@ export function ProjectsSection() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-300 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-300 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                 {project.title}
               </h3>
 
@@ -112,7 +112,7 @@ export function ProjectsSection() {
               </p>
 
               {/* Meta Info */}
-              <div className="flex items-center gap-4 text-sm text-gray-500">
+              <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-sm text-gray-500">
                 <span className="flex items-center gap-1">
                   <MapPin className="w-4 h-4 text-purple-400/60" />
                   {project.location}

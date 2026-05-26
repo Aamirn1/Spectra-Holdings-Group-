@@ -26,7 +26,7 @@ const cards = [
 
 export function MissionSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Ambient glow */}
       <div
         className="absolute bottom-0 left-1/4 w-[600px] h-[400px] rounded-full opacity-[0.03]"
@@ -42,7 +42,7 @@ export function MissionSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             What{' '}
@@ -51,13 +51,13 @@ export function MissionSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             Our purpose goes beyond development. We build the connective tissue that makes communities whole.
           </p>
         </motion.div>
 
         {/* Three Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-5 sm:gap-8">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
@@ -70,14 +70,14 @@ export function MissionSection() {
               {/* Purple gradient border on hover */}
               <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-b from-purple-500/0 via-purple-500/0 to-purple-500/0 group-hover:from-purple-500/40 group-hover:via-violet-500/20 group-hover:to-purple-500/40 transition-all duration-500 rounded-2xl" />
               
-              <div className="relative glass-strong rounded-2xl p-8 h-full card-hover">
+              <div className="relative glass-strong rounded-2xl p-5 sm:p-8 h-full card-hover">
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 group-hover:glow-purple transition-all`}>
-                  <card.icon className="w-7 h-7 text-white" />
+                <div className={`w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 group-hover:glow-purple transition-all`}>
+                  <card.icon className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-3">{card.title}</h3>
 
                 {/* Description */}
                 <p className="text-gray-400 leading-relaxed">{card.description}</p>

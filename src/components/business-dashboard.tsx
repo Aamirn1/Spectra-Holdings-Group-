@@ -90,7 +90,7 @@ export function BusinessDashboard({ business }: BusinessDashboardProps) {
   // If no business, show CTA
   if (!business) {
     return (
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-4xl mx-auto space-y-6 px-4 sm:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ export function BusinessDashboard({ business }: BusinessDashboardProps) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 px-4 sm:px-0">
       {/* Business Profile Header Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -168,7 +168,7 @@ export function BusinessDashboard({ business }: BusinessDashboardProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4"
       >
         <Card className="glass-strong rounded-2xl border-0 card-hover">
           <CardContent className="p-5 flex items-center gap-4">

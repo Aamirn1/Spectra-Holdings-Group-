@@ -32,7 +32,7 @@ const steps = [
 
 export function EcosystemSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.04]"
@@ -48,7 +48,7 @@ export function EcosystemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             How the{' '}
@@ -57,7 +57,7 @@ export function EcosystemSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             A self-reinforcing cycle where every participant contributes to and benefits from community growth.
           </p>
         </motion.div>
@@ -88,7 +88,7 @@ export function EcosystemSection() {
           </div>
 
           {/* Steps Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {steps.map((step, i) => (
               <motion.div
                 key={step.title}
@@ -96,16 +96,16 @@ export function EcosystemSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 * i }}
-                className="relative glass-strong rounded-2xl p-6 card-hover group text-center"
+                className="relative glass-strong rounded-2xl p-5 sm:p-6 card-hover group text-center"
               >
                 {/* Step Number */}
-                <div className="absolute -top-3 -right-3 w-8 h-8 gradient-primary rounded-full flex items-center justify-center text-white text-sm font-bold glow-purple">
+                <div className="absolute -top-3 -right-3 w-7 h-7 sm:w-8 sm:h-8 gradient-primary rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold glow-purple">
                   {i + 1}
                 </div>
 
                 {/* Icon */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-5 group-hover:glow-purple transition-all`}>
-                  <step.icon className="w-8 h-8 text-white" />
+                <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-5 group-hover:glow-purple transition-all`}>
+                  <step.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
 
                 {/* Title */}

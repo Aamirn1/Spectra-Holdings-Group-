@@ -61,7 +61,7 @@ export function SearchBar({
   return (
     <div className="w-full max-w-3xl mx-auto space-y-3">
       <motion.div
-        className={`flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full shadow-lg border border-white/10 px-4 ${sizeClasses[size]}`}
+        className={`flex items-center gap-2 bg-white/5 backdrop-blur-sm rounded-full shadow-lg border border-white/10 px-3 sm:px-4 ${sizeClasses[size]}`}
         whileFocus={{ scale: 1.01 }}
         transition={{ type: 'spring', stiffness: 300 }}
       >
@@ -99,7 +99,7 @@ export function SearchBar({
           className="flex flex-wrap gap-3 items-center justify-center"
         >
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
+            <SelectTrigger className="w-full sm:w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -117,7 +117,7 @@ export function SearchBar({
           </Select>
 
           <Select value={city} onValueChange={setCity}>
-            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
+            <SelectTrigger className="w-full sm:w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="City" />
             </SelectTrigger>
             <SelectContent>
@@ -129,7 +129,7 @@ export function SearchBar({
           </Select>
 
           <Select value={state} onValueChange={setState}>
-            <SelectTrigger className="w-[160px] bg-white/5 border-white/10 rounded-full">
+            <SelectTrigger className="w-full sm:w-[160px] bg-white/5 border-white/10 rounded-full">
               <SelectValue placeholder="Province" />
             </SelectTrigger>
             <SelectContent>

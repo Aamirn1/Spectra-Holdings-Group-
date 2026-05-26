@@ -36,7 +36,7 @@ const VALUES = [
 
 export function AboutView() {
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       {/* Hero */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ export function AboutView() {
             Spectra Holdings Group
           </span>
         </h1>
-        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
           We&apos;re building the bridge between local communities and the businesses that serve them.
         </p>
       </motion.div>
@@ -78,7 +78,7 @@ export function AboutView() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-16"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-16"
       >
         {STATS.map((stat, index) => (
           <motion.div
@@ -88,7 +88,7 @@ export function AboutView() {
             transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
           >
             <Card className="rounded-xl text-center bg-white/5 backdrop-blur-sm border-white/10 card-hover">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className={`w-12 h-12 rounded-full ${stat.color} flex items-center justify-center mx-auto mb-3`}>
                   <stat.icon className="w-6 h-6" />
                 </div>
@@ -141,7 +141,7 @@ export function AboutView() {
               transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
             >
               <Card className="rounded-xl h-full bg-white/5 backdrop-blur-sm border-white/10 card-hover">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center mb-4">
                     <value.icon className="w-5 h-5 text-white" />
                   </div>

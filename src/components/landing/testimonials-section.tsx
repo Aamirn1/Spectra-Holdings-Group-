@@ -47,7 +47,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function TestimonialsSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full opacity-[0.03]"
@@ -63,7 +63,7 @@ export function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Trusted by{' '}
@@ -72,13 +72,13 @@ export function TestimonialsSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             Hear from the residents, business owners, and community managers who experience the Spectra difference every day.
           </p>
         </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {testimonials.map((testimonial, i) => (
             <motion.div
               key={testimonial.name}
@@ -86,10 +86,10 @@ export function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="glass-strong rounded-2xl p-6 card-hover group relative overflow-hidden"
+              className="glass-strong rounded-2xl p-5 sm:p-6 card-hover group relative overflow-hidden"
             >
               {/* Quote icon */}
-              <Quote className="absolute top-4 right-4 w-10 h-10 text-purple-500/10 group-hover:text-purple-500/20 transition-colors" />
+              <Quote className="absolute top-4 right-4 w-8 h-8 sm:w-10 sm:h-10 text-purple-500/10 group-hover:text-purple-500/20 transition-colors" />
 
               {/* Top purple accent */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent group-hover:via-purple-500/60 transition-all" />
@@ -106,7 +106,7 @@ export function TestimonialsSection() {
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <Avatar className="w-10 h-10 border border-purple-500/20">
+                <Avatar className="w-9 h-9 sm:w-10 sm:h-10 border border-purple-500/20">
                   <AvatarFallback className="bg-gradient-to-br from-purple-600/60 to-violet-700/60 text-white text-xs font-bold">
                     {testimonial.initials}
                   </AvatarFallback>

@@ -73,7 +73,7 @@ export function CommunitiesSection() {
   const { navigate } = useNavigationStore()
 
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Ambient glow */}
       <div
         className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full opacity-[0.03]"
@@ -89,7 +89,7 @@ export function CommunitiesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Our{' '}
@@ -98,13 +98,13 @@ export function CommunitiesSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             Thriving neighborhoods where residents and local businesses create lasting connections.
           </p>
         </motion.div>
 
         {/* Communities Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12">
           {communities.map((community, i) => (
             <motion.div
               key={community.name}
@@ -112,10 +112,10 @@ export function CommunitiesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="glass rounded-xl p-6 card-hover group"
+              className="glass rounded-xl p-5 sm:p-6 card-hover group"
             >
               {/* Community Name */}
-              <h3 className="text-lg font-bold text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-300 group-hover:bg-clip-text group-hover:text-transparent transition-all">
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-300 group-hover:bg-clip-text group-hover:text-transparent transition-all">
                 {community.name}
               </h3>
 
@@ -126,17 +126,17 @@ export function CommunitiesSection() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="glass rounded-lg p-3 text-center">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div className="glass rounded-lg p-2.5 sm:p-3 text-center">
                   <Building2 className="w-4 h-4 text-purple-400 mx-auto mb-1" />
-                  <p className="text-lg font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+                  <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
                     <AnimatedCounter target={community.businesses} />
                   </p>
                   <p className="text-xs text-gray-500">Businesses</p>
                 </div>
-                <div className="glass rounded-lg p-3 text-center">
+                <div className="glass rounded-lg p-2.5 sm:p-3 text-center">
                   <Users className="w-4 h-4 text-purple-400 mx-auto mb-1" />
-                  <p className="text-lg font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
+                  <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
                     <AnimatedCounter target={community.residents} />
                   </p>
                   <p className="text-xs text-gray-500">Residents</p>
@@ -156,7 +156,7 @@ export function CommunitiesSection() {
         >
           <Button
             size="lg"
-            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-8 text-lg glow-purple border-0"
+            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-8 text-lg glow-purple border-0 w-full sm:w-auto"
             onClick={() => navigate('directory')}
           >
             Explore All Communities

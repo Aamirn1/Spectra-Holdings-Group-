@@ -65,7 +65,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
     : []
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 sm:px-0">
       {/* Back button */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -149,7 +149,7 @@ export function BusinessDetail({ business }: BusinessDetailProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center flex-wrap gap-2">
             <Button
               variant={isSaved ? 'default' : 'outline'}
               size="sm"

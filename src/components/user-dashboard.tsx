@@ -86,7 +86,7 @@ export function UserDashboard() {
     typeof cat === 'string' ? cat : cat.name
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div className="max-w-6xl mx-auto space-y-6 px-4 sm:px-0">
       {/* Welcome Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -124,7 +124,7 @@ export function UserDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
       >
         <Card className="glass-strong rounded-2xl border-0 card-hover">
           <CardContent className="p-4 sm:p-5 flex items-center gap-3">

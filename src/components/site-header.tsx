@@ -142,12 +142,15 @@ export function SiteHeader() {
                   <Menu className="w-5 h-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-72 p-0 bg-[#0a0a0f] border-purple-500/10">
+              <SheetContent side="right" className="w-[280px] sm:w-72 p-0 bg-[#0a0a0f] border-purple-500/10">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="flex items-center justify-between p-4 border-b border-purple-500/10">
-                  <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
-                    Spectra
-                  </span>
+                  <div>
+                    <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
+                      Spectra
+                    </span>
+                    <p className="text-xs text-gray-500 mt-0.5">Spectra Holdings Group</p>
+                  </div>
                   <SheetClose asChild>
                     <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
                       <X className="w-5 h-5" />
@@ -155,7 +158,7 @@ export function SiteHeader() {
                   </SheetClose>
                 </div>
 
-                <div className="p-4 space-y-1">
+                <div className="p-4 pt-2 space-y-1">
                   {NAV_LINKS.map((link) => (
                     <button
                       key={link.view}

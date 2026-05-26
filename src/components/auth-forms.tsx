@@ -159,15 +159,15 @@ export function AuthForms() {
   }
 
   return (
-    <div className="max-w-md mx-auto w-full">
+    <div className="max-w-md mx-auto w-full px-4 sm:px-0">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-strong rounded-2xl p-6 sm:p-8 border border-white/10"
+        className="glass-strong rounded-2xl p-4 sm:p-8 border border-white/10"
       >
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/5">
+          <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/5 h-11 sm:h-auto">
             <TabsTrigger value="login" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Login</TabsTrigger>
             <TabsTrigger value="register" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Register</TabsTrigger>
             <TabsTrigger value="business" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">Business</TabsTrigger>
@@ -197,7 +197,7 @@ export function AuthForms() {
                     id="login-email"
                     type="email"
                     placeholder="you@example.com"
-                    className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                    className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                     {...loginForm.register('email')}
                   />
                   {loginForm.formState.errors.email && (
@@ -212,7 +212,7 @@ export function AuthForms() {
                       id="login-password"
                       type={showPassword ? 'text' : 'password'}
                       placeholder="••••••••"
-                      className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                      className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       {...loginForm.register('password')}
                     />
                     <Button
@@ -265,7 +265,7 @@ export function AuthForms() {
               >
                 <div className="space-y-2">
                   <Label htmlFor="reg-name">Full Name</Label>
-                  <Input id="reg-name" placeholder="John Doe" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('name')} />
+                  <Input id="reg-name" placeholder="John Doe" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('name')} />
                   {registerForm.formState.errors.name && (
                     <p className="text-xs text-red-400">{registerForm.formState.errors.name.message}</p>
                   )}
@@ -273,7 +273,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="reg-email">Email</Label>
-                  <Input id="reg-email" type="email" placeholder="you@example.com" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('email')} />
+                  <Input id="reg-email" type="email" placeholder="you@example.com" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('email')} />
                   {registerForm.formState.errors.email && (
                     <p className="text-xs text-red-400">{registerForm.formState.errors.email.message}</p>
                   )}
@@ -282,14 +282,14 @@ export function AuthForms() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-password">Password</Label>
-                    <Input id="reg-password" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('password')} />
+                    <Input id="reg-password" type="password" placeholder="••••••••" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('password')} />
                     {registerForm.formState.errors.password && (
                       <p className="text-xs text-red-400">{registerForm.formState.errors.password.message}</p>
                     )}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="reg-confirm">Confirm</Label>
-                    <Input id="reg-confirm" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('confirmPassword')} />
+                    <Input id="reg-confirm" type="password" placeholder="••••••••" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('confirmPassword')} />
                     {registerForm.formState.errors.confirmPassword && (
                       <p className="text-xs text-red-400">{registerForm.formState.errors.confirmPassword.message}</p>
                     )}
@@ -298,14 +298,14 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="reg-phone">Phone (optional)</Label>
-                  <Input id="reg-phone" placeholder="+92 300 1234567" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
+                  <Input id="reg-phone" placeholder="+92 300 1234567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-city">City</Label>
                     <Select onValueChange={(v) => registerForm.setValue('city', v)}>
-                      <SelectTrigger className="bg-white/5 border-white/10">
+                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
                       <SelectContent>
@@ -318,7 +318,7 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label htmlFor="reg-state">Province</Label>
                     <Select onValueChange={(v) => registerForm.setValue('state', v)}>
-                      <SelectTrigger className="bg-white/5 border-white/10">
+                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select province" />
                       </SelectTrigger>
                       <SelectContent>
@@ -371,7 +371,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-owner">Owner Name</Label>
-                  <Input id="biz-owner" placeholder="John Doe" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('name')} />
+                  <Input id="biz-owner" placeholder="John Doe" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('name')} />
                   {businessForm.formState.errors.name && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.name.message}</p>
                   )}
@@ -379,7 +379,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-email">Email</Label>
-                  <Input id="biz-email" type="email" placeholder="you@business.com" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('email')} />
+                  <Input id="biz-email" type="email" placeholder="you@business.com" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('email')} />
                   {businessForm.formState.errors.email && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.email.message}</p>
                   )}
@@ -387,7 +387,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-password">Password</Label>
-                  <Input id="biz-password" type="password" placeholder="••••••••" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('password')} />
+                  <Input id="biz-password" type="password" placeholder="••••••••" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('password')} />
                   {businessForm.formState.errors.password && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.password.message}</p>
                   )}
@@ -397,7 +397,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-name">Business Name</Label>
-                  <Input id="biz-name" placeholder="My Business" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('businessName')} />
+                  <Input id="biz-name" placeholder="My Business" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('businessName')} />
                   {businessForm.formState.errors.businessName && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.businessName.message}</p>
                   )}
@@ -418,7 +418,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-phone">Phone</Label>
-                  <Input id="biz-phone" placeholder="+92 300 1234567" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('phone')} />
+                  <Input id="biz-phone" placeholder="+92 300 1234567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('phone')} />
                   {businessForm.formState.errors.phone && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.phone.message}</p>
                   )}
@@ -426,7 +426,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-address">Address</Label>
-                  <Input id="biz-address" placeholder="123 Main St" className="bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('address')} />
+                  <Input id="biz-address" placeholder="123 Main St" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('address')} />
                   {businessForm.formState.errors.address && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.address.message}</p>
                   )}
@@ -436,7 +436,7 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label>City</Label>
                     <Select onValueChange={(v) => businessForm.setValue('city', v)}>
-                      <SelectTrigger className="bg-white/5 border-white/10">
+                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
                       <SelectContent>
@@ -452,7 +452,7 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label>Province</Label>
                     <Select onValueChange={(v) => businessForm.setValue('state', v)}>
-                      <SelectTrigger className="bg-white/5 border-white/10">
+                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
@@ -470,7 +470,7 @@ export function AuthForms() {
                 <div className="space-y-2">
                   <Label>Category</Label>
                   <Select onValueChange={(v) => businessForm.setValue('categorySlug', v)}>
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>

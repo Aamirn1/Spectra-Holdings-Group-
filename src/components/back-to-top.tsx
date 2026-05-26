@@ -29,10 +29,10 @@ export function BackToTop() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 left-4 sm:left-6 z-50 w-11 h-11 bg-purple-600/80 hover:bg-purple-500 backdrop-blur-sm rounded-full shadow-lg shadow-purple-500/20 flex items-center justify-center text-white transition-colors"
+          className="fixed bottom-4 left-3 sm:bottom-6 sm:left-6 z-50 w-10 h-10 sm:w-11 sm:h-11 bg-purple-600/80 hover:bg-purple-500 backdrop-blur-sm rounded-full shadow-lg shadow-purple-500/20 flex items-center justify-center text-white transition-all active:scale-95"
           aria-label="Back to top"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.button>
       )}
     </AnimatePresence>

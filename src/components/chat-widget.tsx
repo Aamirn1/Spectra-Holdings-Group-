@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react'
+import { X, Send, Bot, User, Loader2, Headphones } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
@@ -91,14 +91,14 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100%-2rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
-            style={{ maxHeight: '70vh' }}
+            className="fixed z-50 bottom-[88px] right-3 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
+            style={{ maxHeight: 'min(70vh, 480px)' }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
+            <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+                  <Headphones className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
@@ -116,7 +116,7 @@ export function ChatWidget() {
             </div>
 
             {/* Messages */}
-            <div className="h-72 overflow-y-auto p-4" ref={scrollRef}>
+            <div className="h-64 sm:h-72 overflow-y-auto p-3 sm:p-4" ref={scrollRef}>
               <div className="space-y-3">
                 {messages.map((msg) => (
                   <div
@@ -125,11 +125,11 @@ export function ChatWidget() {
                   >
                     {msg.role === 'assistant' && (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <Bot className="w-3.5 h-3.5 text-white" />
+                        <Headphones className="w-3.5 h-3.5 text-white" />
                       </div>
                     )}
                     <div
-                      className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${
+                      className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
                         msg.role === 'user'
                           ? 'bg-gradient-to-r from-purple-500 to-violet-600 text-white'
                           : 'bg-white/5 text-gray-300 border border-white/10'
@@ -148,7 +148,7 @@ export function ChatWidget() {
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <Bot className="w-3.5 h-3.5 text-white" />
+                      <Headphones className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
@@ -163,14 +163,14 @@ export function ChatWidget() {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/10">
+            <div className="p-2.5 sm:p-3 border-t border-white/10">
               <div className="flex gap-2">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Type a message..."
-                  className="flex-1 rounded-full bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                  className="flex-1 rounded-full bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500 text-sm"
                   disabled={isTyping}
                 />
                 <Button
@@ -191,19 +191,23 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
+      {/* Floating Button - Headphones icon for AI Assistant */}
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-4 sm:right-6 z-40 w-14 h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/20 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105"
-        aria-label="Open chat assistant"
+        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
+        aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6" />
         ) : (
-          <MessageCircle className="w-6 h-6" />
+          <Headphones className="w-5 h-5 sm:w-6 sm:h-6" />
+        )}
+        {/* Subtle pulse ring */}
+        {!isOpen && (
+          <span className="absolute inset-0 rounded-full bg-purple-500/40 animate-ping" />
         )}
       </motion.button>
     </>

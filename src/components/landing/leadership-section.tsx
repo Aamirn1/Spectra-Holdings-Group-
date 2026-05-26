@@ -36,7 +36,7 @@ const leaders = [
 
 export function LeadershipSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full opacity-[0.03]"
@@ -52,7 +52,7 @@ export function LeadershipSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Our{' '}
@@ -61,7 +61,7 @@ export function LeadershipSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto">
             The visionaries and strategists behind Spectra Holdings Group&apos;s mission to transform communities.
           </p>
         </motion.div>
@@ -74,18 +74,18 @@ export function LeadershipSection() {
           transition={{ duration: 0.6 }}
           className="mb-12 flex justify-center"
         >
-          <div className="glass-strong rounded-2xl p-8 max-w-2xl w-full card-hover group relative overflow-hidden">
+          <div className="glass-strong rounded-2xl p-5 sm:p-8 max-w-2xl w-full card-hover group relative overflow-hidden">
             {/* Purple accent border */}
             <div className="absolute top-0 left-0 right-0 h-[2px] gradient-primary" />
             
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <Avatar className="w-24 h-24 border-2 border-purple-500/30 group-hover:border-purple-500/60 transition-all">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+              <Avatar className="w-20 h-20 sm:w-24 sm:h-24 border-2 border-purple-500/30 group-hover:border-purple-500/60 transition-all">
                 <AvatarFallback className="bg-gradient-to-br from-purple-600 to-violet-700 text-white text-2xl font-bold">
                   {leaders[0].initials}
                 </AvatarFallback>
               </Avatar>
               <div className="text-center sm:text-left">
-                <h3 className="text-2xl font-bold text-white mb-1">{leaders[0].name}</h3>
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">{leaders[0].name}</h3>
                 <p className="bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent font-semibold mb-3">
                   {leaders[0].title}
                 </p>
@@ -96,7 +96,7 @@ export function LeadershipSection() {
         </motion.div>
 
         {/* Other Leaders Grid */}
-        <div className="grid sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {leaders.slice(1).map((leader, i) => (
             <motion.div
               key={leader.name}
@@ -104,12 +104,12 @@ export function LeadershipSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="glass rounded-xl p-6 card-hover group text-center"
+              className="glass rounded-xl p-5 sm:p-6 card-hover group text-center"
             >
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent group-hover:via-purple-500/60 transition-all" 
                 style={{ position: 'relative' }} 
               />
-              <Avatar className="w-16 h-16 mx-auto mb-4 border-2 border-purple-500/20 group-hover:border-purple-500/50 transition-all">
+              <Avatar className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 border-2 border-purple-500/20 group-hover:border-purple-500/50 transition-all">
                 <AvatarFallback className="bg-gradient-to-br from-purple-600/80 to-violet-700/80 text-white text-lg font-bold">
                   {leader.initials}
                 </AvatarFallback>

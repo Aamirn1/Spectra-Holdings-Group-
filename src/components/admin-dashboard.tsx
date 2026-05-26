@@ -111,7 +111,7 @@ export function AdminDashboard({
   ]
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
+    <div className="max-w-7xl mx-auto space-y-6 px-4 sm:px-0">
       {/* Admin Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -143,7 +143,7 @@ export function AdminDashboard({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4"
       >
         {statCards.map((stat, index) => (
           <Card key={stat.label} className="glass-strong rounded-2xl border-0 card-hover">

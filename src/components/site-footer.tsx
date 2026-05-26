@@ -40,7 +40,7 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-[#050508] text-gray-400 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* About Column */}
           <div className="lg:col-span-1">
@@ -53,16 +53,16 @@ export function SiteFooter() {
               Spectra Holdings Group — building tomorrow&apos;s communities, connecting residents with trusted local businesses and services.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Facebook">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Facebook">
                 <Facebook className="w-4 h-4 text-gray-400" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Twitter">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Twitter">
                 <Twitter className="w-4 h-4 text-gray-400" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Instagram">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="Instagram">
                 <Instagram className="w-4 h-4 text-gray-400" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="LinkedIn">
+              <a href="#" className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 hover:bg-purple-500/20 flex items-center justify-center transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-4 h-4 text-gray-400" />
               </a>
             </div>

@@ -52,13 +52,13 @@ export function ContactView() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h1 className="text-3xl font-bold text-white mb-2">Contact Us</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Contact Us</h1>
         <p className="text-gray-400 mb-8">Get in touch with the Spectra community team</p>
       </motion.div>
 
@@ -159,7 +159,7 @@ export function ContactView() {
                         onChange={handleChange}
                         placeholder="Your full name"
                         required
-                        className="rounded-xl bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                        className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       />
                     </div>
                     <div className="space-y-2">
@@ -172,7 +172,7 @@ export function ContactView() {
                         onChange={handleChange}
                         placeholder="you@example.com"
                         required
-                        className="rounded-xl bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                        className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       />
                     </div>
                   </div>
@@ -186,7 +186,7 @@ export function ContactView() {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="+92 300 1234567"
-                        className="rounded-xl bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                        className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       />
                     </div>
                     <div className="space-y-2">
@@ -198,7 +198,7 @@ export function ContactView() {
                         onChange={handleChange}
                         placeholder="How can we help?"
                         required
-                        className="rounded-xl bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                        className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       />
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export function ContactView() {
                       placeholder="Tell us more about your inquiry..."
                       required
                       rows={5}
-                      className="rounded-xl bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
+                      className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                     />
                   </div>
 

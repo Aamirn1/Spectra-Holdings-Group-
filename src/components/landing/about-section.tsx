@@ -30,7 +30,7 @@ const pillars = [
 
 export function AboutSection() {
   return (
-    <section className="relative py-24 bg-[#0a0a0f]">
+    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Subtle background glow */}
       <div
         className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04]"
@@ -46,7 +46,7 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             About{' '}
@@ -55,7 +55,7 @@ export function AboutSection() {
             </span>
           </h2>
           <div className="w-24 h-1 gradient-primary mx-auto rounded-full mb-6" />
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Spectra Holdings Group stands at the intersection of community development and technology,
             creating a new paradigm for how affordable housing communities connect, grow, and thrive.
           </p>
@@ -70,7 +70,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-strong rounded-2xl p-8">
+            <div className="glass-strong rounded-2xl p-5 sm:p-8">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Redefining Community Living
               </h3>
@@ -96,7 +96,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {aboutStats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -104,13 +104,13 @@ export function AboutSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.1 * i }}
-                  className="glass rounded-xl p-6 text-center card-hover"
+                  className="glass rounded-xl p-4 sm:p-6 text-center card-hover"
                 >
-                  <stat.icon className="w-8 h-8 text-purple-400 mx-auto mb-3" />
+                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-purple-400 mx-auto mb-3" />
                   <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-transparent">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
+                  <p className="text-xs sm:text-sm text-gray-400 mt-1">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
@@ -118,7 +118,7 @@ export function AboutSection() {
         </div>
 
         {/* Three Pillars */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
@@ -126,9 +126,9 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.15 * i }}
-              className="glass rounded-xl p-6 card-hover group"
+              className="glass rounded-xl p-5 sm:p-6 card-hover group"
             >
-              <div className="w-12 h-12 gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:glow-purple transition-all">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:glow-purple transition-all">
                 <pillar.icon className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{pillar.title}</h3>

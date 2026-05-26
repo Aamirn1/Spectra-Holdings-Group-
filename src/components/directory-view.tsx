@@ -109,7 +109,7 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
     : businesses
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -117,7 +117,7 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
         transition={{ duration: 0.4 }}
         className="mb-8"
       >
-        <h1 className="text-3xl font-bold text-white mb-2">Business Directory</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Business Directory</h1>
         <p className="text-gray-400">Find trusted local businesses and services in your community</p>
       </motion.div>
 
@@ -166,7 +166,7 @@ export function DirectoryView({ initialCategory }: DirectoryViewProps) {
           </p>
 
           {/* Business Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {displayBusinesses.map((business, index) => (
               <BusinessCard key={business.id} business={business} index={index} />
             ))}

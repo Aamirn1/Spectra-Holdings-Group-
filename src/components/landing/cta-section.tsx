@@ -9,7 +9,7 @@ export function CTASection() {
   const { navigate } = useNavigationStore()
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-16 sm:py-24 overflow-hidden">
       {/* Purple gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-violet-900 to-purple-950" />
 
@@ -49,7 +49,7 @@ export function CTASection() {
             Join Our Growing Community
           </h2>
           <div className="w-24 h-1 bg-white/30 mx-auto rounded-full mb-6" />
-          <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-white/80 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
             Whether you&apos;re a resident looking for trusted local services, a business wanting to
             reach your community, or simply exploring — there&apos;s a place for you at Spectra Holdings Group.
           </p>
@@ -64,7 +64,7 @@ export function CTASection() {
         >
           <Button
             size="lg"
-            className="bg-white text-purple-900 hover:bg-gray-100 font-semibold rounded-full px-8 text-lg"
+            className="bg-white text-purple-900 hover:bg-gray-100 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg w-full sm:w-auto"
             onClick={() => navigate('register')}
           >
             <Users className="w-5 h-5 mr-2" />
@@ -72,7 +72,7 @@ export function CTASection() {
           </Button>
           <Button
             size="lg"
-            className="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold rounded-full px-8 text-lg backdrop-blur-sm"
+            className="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg backdrop-blur-sm w-full sm:w-auto"
             onClick={() => navigate('register-business')}
           >
             <Building2 className="w-5 h-5 mr-2" />
@@ -80,7 +80,7 @@ export function CTASection() {
           </Button>
           <Button
             size="lg"
-            className="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold rounded-full px-8 text-lg backdrop-blur-sm"
+            className="bg-white/10 border border-white/20 text-white hover:bg-white/20 font-semibold rounded-full px-6 sm:px-8 text-base sm:text-lg backdrop-blur-sm w-full sm:w-auto"
             onClick={() => navigate('contact')}
           >
             <Phone className="w-5 h-5 mr-2" />
