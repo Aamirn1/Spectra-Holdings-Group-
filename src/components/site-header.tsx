@@ -57,23 +57,23 @@ export function SiteHeader() {
             onClick={() => handleNav('home')}
             className="flex items-center gap-2"
           >
-            <span className={`text-xl font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent`}>
+            <span className={`text-2xl font-bold tracking-wide bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent`}>
               Spectra
             </span>
           </button>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.view}
                 onClick={() => handleNav(link.view)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`text-xs font-medium tracking-widest uppercase transition-colors ${
                   currentView === link.view
-                    ? 'text-purple-400 bg-purple-500/10'
+                    ? 'text-purple-400'
                     : isHome && !isScrolled
-                      ? 'text-white/70 hover:text-white hover:bg-white/10'
-                      : 'text-white/70 hover:text-white hover:bg-white/5'
+                      ? 'text-white/70 hover:text-white'
+                      : 'text-white/70 hover:text-white'
                 }`}
               >
                 {link.label}

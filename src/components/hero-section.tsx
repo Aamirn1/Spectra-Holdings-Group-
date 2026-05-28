@@ -83,15 +83,15 @@ export function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-12 sm:pb-16 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-16 sm:pb-20 text-center">
         {/* Typewriter line */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="mb-3 sm:mb-5"
+          className="mb-5 sm:mb-7"
         >
-          <p className="text-sm sm:text-xl lg:text-2xl text-gray-300 font-light">
+          <p className="text-sm sm:text-lg lg:text-xl text-gray-300 font-light tracking-wide uppercase">
             <TypewriterEffect words={TYPEWRITER_WORDS} />
           </p>
         </motion.div>
@@ -102,7 +102,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-5 leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-5 sm:mb-6 leading-[1.1] tracking-tight">
             <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
               Spectra
             </span>{' '}
@@ -117,7 +117,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
         >
-          <p className="text-base sm:text-2xl lg:text-3xl font-semibold text-white/90 mb-2 sm:mb-3">
+          <p className="text-lg sm:text-xl lg:text-2xl font-medium text-white/90 mb-6 sm:mb-8 tracking-wide">
             Building Tomorrow&apos;s Communities, Today
           </p>
         </motion.div>
@@ -127,7 +127,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="text-sm sm:text-base lg:text-lg text-gray-400 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2"
+          className="text-sm sm:text-base lg:text-lg text-gray-400 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed px-2"
         >
           Spectra Holdings Group is a premier community development company dedicated to
           building thriving neighborhoods through affordable housing, local business ecosystems,
@@ -139,11 +139,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65 }}
-          className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 max-w-md sm:max-w-none mx-auto"
+          className="flex flex-col sm:flex-row sm:flex-wrap sm:justify-center gap-3 sm:gap-4 mb-10 sm:mb-14 max-w-md sm:max-w-none mx-auto"
         >
           <Button
             size="lg"
-            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base glow-purple border-0 w-full sm:w-auto"
+            className="gradient-primary text-white hover:opacity-90 font-semibold rounded-full px-8 py-3 text-sm sm:text-base glow-purple border-0 w-full sm:w-auto tracking-wide"
             onClick={() => navigate('about')}
           >
             Explore Communities
@@ -151,7 +151,7 @@ export function HeroSection() {
           </Button>
           <Button
             size="lg"
-            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto"
+            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-8 py-3 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto tracking-wide"
             onClick={() => navigate('register')}
           >
             <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -159,7 +159,7 @@ export function HeroSection() {
           </Button>
           <Button
             size="lg"
-            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-6 sm:px-8 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto"
+            className="bg-white/5 border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 hover:border-purple-500/50 font-semibold rounded-full px-8 py-3 text-sm sm:text-base backdrop-blur-sm w-full sm:w-auto tracking-wide"
             onClick={() => navigate('register-business')}
           >
             <Building2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
