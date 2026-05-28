@@ -889,3 +889,30 @@ Stage Summary:
 - Mobile view improvements across all landing sections (compact padding, single-column grids, smaller text on mobile)
 - Team photo displays with decorative floating badges ("Trusted by 50K+" and "200+ Communities")
 - Build and lint both pass
+
+---
+Task ID: 4
+Agent: main
+Task: Fix excessive space above About section, add team photo with CEO intro to About section
+
+Work Log:
+- Identified the excessive space was caused by hero section's min-h-[100dvh] (full viewport) plus bottom fade gradient plus about section's py-16 top padding
+- Restored hero section to clean text-only centered layout (removed team photo from hero to avoid duplication)
+- Removed min-h-[100dvh] from hero, making it content-height instead of forced full viewport
+- Removed bottom fade gradient from hero that was creating unnecessary spacing
+- Reduced hero section padding to pt-28 sm:pt-32 pb-12 sm:pb-16
+- Added CEO intro subsection at top of About section with team photo on right and "Meet Our Chief Executive Officer" text on left
+- CEO intro includes: "Our Leadership" label, "Meet Our Chief Executive Officer" heading with gradient, CEO name "Syed Aamir Nadeem", title, description paragraphs
+- Team photo displayed with glow effect, border, gradient overlay, and two floating decorative badges
+- Layout is flex-col on mobile (text above photo) and flex-row on desktop (text left, photo right)
+- Reduced About section top padding from py-16 sm:py-24 to py-12 sm:py-20 to reduce gap
+- Moved stats grid and "About Spectra Holdings Group" header below the CEO intro
+- Removed unused ArrowRight import from about-section.tsx
+- Lint and build both pass clean
+
+Stage Summary:
+- Hero section is now compact, text-only, no forced full-viewport height
+- About section now opens with a professional CEO intro + team photo layout
+- Space between hero and about section is significantly reduced
+- Photo appears only once on the page (in About section) avoiding visual duplication
+- Build and lint both pass
