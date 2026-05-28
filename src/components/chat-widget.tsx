@@ -12,40 +12,6 @@ interface Message {
   content: string
 }
 
-/* Custom headphone SVG icon — minimalist line-art style matching the reference */
-function HeadphoneIcon({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      {/* Headband arc */}
-      <path d="M3 14V12a9 9 0 0 1 18 0v2" />
-      {/* Left ear cup */}
-      <rect x="1" y="14" width="5" height="6" rx="2" />
-      {/* Right ear cup */}
-      <rect x="18" y="14" width="5" height="6" rx="2" />
-    </svg>
-  )
-}
-
-/* Small green online indicator dot */
-function OnlineDot() {
-  return (
-    <span className="absolute top-0 right-0 w-3 h-3 sm:w-3.5 sm:h-3.5">
-      {/* Green solid dot */}
-      <span className="absolute inset-0 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
-      {/* Subtle glow ring */}
-      <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-40" />
-    </span>
-  )
-}
-
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
@@ -92,7 +58,7 @@ export function ChatWidget() {
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.message || data.response || "I'm sorry, I couldn't process that. Please try again.",
+        content: data.reply || data.message || data.response || "I'm sorry, I couldn't process that. Please try again.",
       }
 
       setMessages((prev) => [...prev, botMessage])
@@ -132,7 +98,12 @@ export function ChatWidget() {
             <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <HeadphoneIcon className="w-4 h-4 text-white" />
+                  {/* Custom headphone icon */}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                    <path d="M3 14V12a9 9 0 0 1 18 0v2" />
+                    <rect x="1" y="14" width="5" height="6" rx="2" />
+                    <rect x="18" y="14" width="5" height="6" rx="2" />
+                  </svg>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
@@ -159,7 +130,11 @@ export function ChatWidget() {
                   >
                     {msg.role === 'assistant' && (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <HeadphoneIcon className="w-3.5 h-3.5 text-white" />
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                          <path d="M3 14V12a9 9 0 0 1 18 0v2" />
+                          <rect x="1" y="14" width="5" height="6" rx="2" />
+                          <rect x="18" y="14" width="5" height="6" rx="2" />
+                        </svg>
                       </div>
                     )}
                     <div
@@ -182,7 +157,11 @@ export function ChatWidget() {
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <HeadphoneIcon className="w-3.5 h-3.5 text-white" />
+                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                        <path d="M3 14V12a9 9 0 0 1 18 0v2" />
+                        <rect x="1" y="14" width="5" height="6" rx="2" />
+                        <rect x="18" y="14" width="5" height="6" rx="2" />
+                      </svg>
                     </div>
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
@@ -225,22 +204,31 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button — Custom headphone icon with green online dot */}
+      {/* Floating Button — Headphone icon with green online dot */}
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95 relative"
+        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
           <X className="w-5 h-5 sm:w-6 sm:h-6" />
         ) : (
-          <HeadphoneIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6">
+            <path d="M3 14V12a9 9 0 0 1 18 0v2" />
+            <rect x="1" y="14" width="5" height="6" rx="2" />
+            <rect x="18" y="14" width="5" height="6" rx="2" />
+          </svg>
         )}
         {/* Green online indicator dot */}
-        {!isOpen && <OnlineDot />}
+        {!isOpen && (
+          <span className="absolute top-0 right-0">
+            <span className="absolute w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f] top-0 right-0" />
+            <span className="absolute w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400 animate-ping opacity-40 top-0 right-0" />
+          </span>
+        )}
       </motion.button>
     </>
   )
