@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, LogOut, LayoutDashboard, Building2 } from 'lucide-react'
+import { Menu, LogOut, LayoutDashboard, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-  SheetClose,
   SheetTitle,
 } from '@/components/ui/sheet'
 import { useNavigationStore, useAuthStore, type ViewName } from '@/lib/store'
@@ -144,18 +143,13 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px] sm:w-72 p-0 pb-6 bg-[#0a0a0f] border-purple-500/10">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                <div className="flex items-center justify-between p-4 border-b border-purple-500/10">
+                <div className="flex items-center justify-between p-4 pr-12 border-b border-purple-500/10">
                   <div>
                     <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
                       Spectra
                     </span>
                     <p className="text-xs text-gray-500 mt-0.5">Spectra Holdings Group</p>
                   </div>
-                  <SheetClose asChild>
-                    <Button variant="ghost" size="icon" className="text-white/60 hover:text-white">
-                      <X className="w-5 h-5" />
-                    </Button>
-                  </SheetClose>
                 </div>
 
                 <div className="p-4 pt-2 space-y-1">
