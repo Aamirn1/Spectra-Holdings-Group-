@@ -123,7 +123,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed z-50 bottom-[88px] right-3 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
+            className="fixed z-50 bottom-[68px] sm:bottom-[88px] right-3 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
             style={{ maxHeight: 'min(70vh, 480px)' }}
           >
             {/* Header */}
@@ -229,19 +229,19 @@ export function ChatWidget() {
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
+        className="fixed bottom-[68px] sm:bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-6 h-6" />
+          <X className="w-5 h-5 sm:w-6 sm:h-6" />
         ) : (
-          <HeadsetIcon className="w-6 h-6" />
+          <HeadsetIcon className="w-5 h-5 sm:w-6 sm:h-6" />
         )}
         {/* Green online indicator dot */}
         {!isOpen && (
-          <span className="absolute top-0.5 right-0.5">
-            <span className="block w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
-            <span className="absolute inset-0 w-3.5 h-3.5 rounded-full bg-green-400 animate-ping opacity-50" />
+          <span className="absolute top-0 right-0">
+            <span className="block w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
+            <span className="absolute inset-0 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400 animate-ping opacity-50" />
           </span>
         )}
       </motion.button>
