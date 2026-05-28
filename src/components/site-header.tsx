@@ -54,10 +54,13 @@ export function SiteHeader() {
           {/* Logo */}
           <button
             onClick={() => handleNav('home')}
-            className="flex items-center gap-2"
+            className="flex flex-col items-start leading-none"
           >
             <span className={`text-2xl font-bold tracking-wide bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent`}>
               Spectra
+            </span>
+            <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-white/50 mt-0.5">
+              Holdings Group
             </span>
           </button>
 
@@ -144,12 +147,9 @@ export function SiteHeader() {
               <SheetContent side="right" className="w-[280px] sm:w-72 p-0 pb-6 bg-[#0a0a0f] border-purple-500/10">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <div className="flex items-center justify-between p-4 pr-12 border-b border-purple-500/10">
-                  <div>
-                    <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
-                      Spectra
-                    </span>
-                    <p className="text-xs text-gray-500 mt-0.5">Spectra Holdings Group</p>
-                  </div>
+                  <span className="text-lg font-bold bg-gradient-to-r from-purple-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
+                    Spectra
+                  </span>
                 </div>
 
                 <div className="p-4 pt-2 space-y-1">
