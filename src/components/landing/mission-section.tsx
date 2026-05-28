@@ -26,7 +26,7 @@ const cards = [
 
 export function MissionSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Ambient glow */}
       <div
         className="absolute bottom-0 left-1/4 w-[600px] h-[400px] rounded-full opacity-[0.03]"

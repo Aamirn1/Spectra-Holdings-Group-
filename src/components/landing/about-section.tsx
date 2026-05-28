@@ -31,7 +31,7 @@ const pillars = [
 
 export function AboutSection() {
   return (
-    <section className="relative py-12 sm:py-20 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-12 sm:py-20 bg-[#0a0a0f]">
       {/* Subtle background glow */}
       <div
         className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04]"
@@ -86,7 +86,7 @@ export function AboutSection() {
           >
             <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[500px] xl:max-w-[540px]">
               {/* Glow behind image */}
-              <div className="absolute -inset-3 bg-gradient-to-r from-purple-600/20 via-violet-500/15 to-purple-600/20 rounded-3xl blur-2xl" />
+              <div className="absolute -inset-1 sm:-inset-3 bg-gradient-to-r from-purple-600/20 via-violet-500/15 to-purple-600/20 rounded-3xl blur-2xl" />
 
               {/* Image container */}
               <div className="relative rounded-2xl overflow-hidden border border-purple-500/20 shadow-2xl shadow-purple-900/30">
@@ -103,7 +103,7 @@ export function AboutSection() {
 
               {/* Floating badge — bottom right */}
               <motion.div
-                className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-lg"
+                className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-lg"
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
@@ -113,7 +113,7 @@ export function AboutSection() {
 
               {/* Floating badge — top left */}
               <motion.div
-                className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-lg"
+                className="absolute top-2 left-2 sm:top-4 sm:left-4 glass-strong rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-lg"
                 animate={{ y: [0, 5, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
               >

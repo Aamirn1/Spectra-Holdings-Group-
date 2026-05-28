@@ -73,7 +73,7 @@ export function CommunitiesSection() {
   const { navigate } = useNavigationStore()
 
   return (
-    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Ambient glow */}
       <div
         className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full opacity-[0.03]"

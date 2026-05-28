@@ -14,12 +14,12 @@ const TYPEWRITER_WORDS = [
 ]
 
 const floatingOrbs = [
-  { size: 300, top: '-5%', left: '-5%', delay: 0, duration: 15, opacity: 0.15 },
-  { size: 200, top: '20%', left: '80%', delay: 2, duration: 18, opacity: 0.1 },
-  { size: 250, top: '60%', left: '70%', delay: 4, duration: 20, opacity: 0.12 },
-  { size: 180, top: '75%', left: '-3%', delay: 1, duration: 16, opacity: 0.08 },
-  { size: 150, top: '10%', left: '40%', delay: 3, duration: 14, opacity: 0.1 },
-  { size: 220, top: '45%', left: '20%', delay: 5, duration: 22, opacity: 0.06 },
+  { size: 200, top: '-5%', left: '-5%', delay: 0, duration: 15, opacity: 0.15 },
+  { size: 150, top: '20%', left: '80%', delay: 2, duration: 18, opacity: 0.1 },
+  { size: 180, top: '60%', left: '70%', delay: 4, duration: 20, opacity: 0.12 },
+  { size: 130, top: '75%', left: '-3%', delay: 1, duration: 16, opacity: 0.08 },
+  { size: 120, top: '10%', left: '40%', delay: 3, duration: 14, opacity: 0.1 },
+  { size: 160, top: '45%', left: '20%', delay: 5, duration: 22, opacity: 0.06 },
 ]
 
 const stats = [
@@ -61,8 +61,8 @@ export function HeroSection() {
             background: `radial-gradient(circle, rgba(139, 92, 246, ${orb.opacity}) 0%, rgba(124, 58, 237, ${orb.opacity * 0.5}) 40%, transparent 70%)`,
           }}
           animate={{
-            y: [0, -30, 0, 20, 0],
-            x: [0, 15, 0, -10, 0],
+            y: [0, -15, 0, 10, 0],
+            x: [0, 8, 0, -5, 0],
             scale: [1, 1.05, 1, 0.95, 1],
           }}
           transition={{

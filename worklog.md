@@ -916,3 +916,39 @@ Stage Summary:
 - Space between hero and about section is significantly reduced
 - Photo appears only once on the page (in About section) avoiding visual duplication
 - Build and lint both pass
+
+---
+Task ID: 1
+Agent: Mobile UI Fixer
+Task: Fix all remaining mobile UI overflow and positioning issues
+
+Work Log:
+- Read all 8 target component files to understand current mobile issues
+- Fixed hero section floating orbs: reduced sizes (300→200, 200→150, 250→180, 180→130, 150→120, 220→160) and animation offsets (y: [-30,20]→[-15,10], x: [15,-10]→[8,-5]) to prevent overflow on mobile
+- Fixed about section floating badges: changed negative positioning to positive (bottom-right badge: `-bottom-2 -right-2` → `bottom-2 right-2`, top-left badge: `-top-2 -left-2` → `top-2 left-2`) with responsive sm: variants
+- Fixed about section glow behind image: changed `-inset-3` → `-inset-1 sm:-inset-3` to prevent overflow on mobile
+- Fixed ecosystem section step cards: added `overflow-hidden` to step card div to clip the step number badge that uses `-top-3 -right-3`
+- Fixed site header: added `overflow-hidden` to the header element to prevent any horizontal overflow
+- Fixed site header mobile menu: added `pb-6` to SheetContent for safe area padding at bottom
+- Added global CSS rule: `html { overflow-x: hidden; }` right after the @layer base block to prevent any horizontal scroll
+- Verified WhatsApp button already uses safe positioning: `right-3 sm:right-6` — no changes needed
+- Verified back-to-top button already uses safe positioning: `left-3 sm:left-6` — no changes needed
+- Verified chat widget uses safe positioning: `right-3 sm:right-6` and `bottom-[88px]` — no conflicts with WhatsApp or back-to-top
+- Ran lint: zero errors
+
+Files Modified:
+1. `/src/components/hero-section.tsx` - Reduced orb sizes and animation movement values
+2. `/src/components/landing/about-section.tsx` - Fixed badge positioning and glow inset
+3. `/src/components/landing/ecosystem-section.tsx` - Added overflow-hidden to step cards
+4. `/src/components/site-header.tsx` - Added overflow-hidden to header, pb-6 to SheetContent
+5. `/src/app/globals.css` - Added `html { overflow-x: hidden; }` after @layer base
+
+Files Verified (No Changes Needed):
+- `/src/components/whatsapp-button.tsx` - Already uses `right-3 sm:right-6`
+- `/src/components/back-to-top.tsx` - Already uses `left-3 sm:left-6`
+- `/src/components/chat-widget.tsx` - Already uses safe positioning
+- `/src/components/site-footer.tsx` - Already responsive with proper mobile grid
+
+Verification:
+- Lint passes with zero errors
+- All mobile overflow issues addressed through combination of reduced sizes, non-negative positioning, overflow-hidden, and global CSS overflow prevention

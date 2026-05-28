@@ -47,7 +47,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function TestimonialsSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute bottom-0 right-0 w-[600px] h-[400px] rounded-full opacity-[0.03]"

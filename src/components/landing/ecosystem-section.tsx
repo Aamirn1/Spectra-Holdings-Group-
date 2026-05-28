@@ -32,7 +32,7 @@ const steps = [
 
 export function EcosystemSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full opacity-[0.04]"
@@ -96,7 +96,7 @@ export function EcosystemSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 * i }}
-                className="relative glass-strong rounded-2xl p-4 sm:p-6 card-hover group text-center"
+                className="relative glass-strong rounded-2xl p-4 sm:p-6 card-hover group text-center overflow-hidden"
               >
                 {/* Step Number */}
                 <div className="absolute -top-3 -right-3 w-6 h-6 sm:w-8 sm:h-8 gradient-primary rounded-full flex items-center justify-center text-white text-[10px] sm:text-sm font-bold glow-purple">

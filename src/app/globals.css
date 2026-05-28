@@ -133,6 +133,10 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+}
+
 /* Premium gradient backgrounds */
 .gradient-primary {
   background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 50%, #a78bfa 100%);

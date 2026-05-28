@@ -47,7 +47,7 @@ const statusColors: Record<string, string> = {
 
 export function ProjectsSection() {
   return (
-    <section className="relative py-16 sm:py-24 bg-[#0a0a0f]">
+    <section className="relative overflow-hidden py-16 sm:py-24 bg-[#0a0a0f]">
       {/* Background accent */}
       <div
         className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full opacity-[0.03]"
