@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { userDb, categoryDb, businessDb } from '@/lib/supabase-db'
 import { hashPassword, generateToken, slugify } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for duplicate email
-    const existingUser = await db.user.findUnique({ where: { email } })
+    const existingUser = await userDb.findUnique({ email })
     if (existingUser) {
       return NextResponse.json(
         { success: false, error: 'An account with this email already exists' },
@@ -34,32 +34,30 @@ export async function POST(request: NextRequest) {
     const passwordHash = await hashPassword(password)
     const userRole = role || 'RESIDENT'
 
-    const user = await db.user.create({
-      data: {
-        name,
-        email,
-        passwordHash,
-        role: userRole,
-        phone: phone || null,
-        city: city || null,
-        state: state || null,
-      },
+    const user = await userDb.create({
+      name,
+      email,
+      passwordHash,
+      role: userRole,
+      phone: phone || null,
+      city: city || null,
+      state: state || null,
     })
 
     // If business role, create a Business entry
     if (userRole === 'BUSINESS') {
       if (!businessName || !businessDescription || !address || !categorySlug) {
         // Delete the user we just created since business data is incomplete
-        await db.user.delete({ where: { id: user.id } })
+        await userDb.delete({ id: user.id })
         return NextResponse.json(
           { success: false, error: 'Business name, description, address, and category are required for business accounts' },
           { status: 400 }
         )
       }
 
-      const category = await db.category.findUnique({ where: { slug: categorySlug } })
+      const category = await categoryDb.findUnique({ slug: categorySlug })
       if (!category) {
-        await db.user.delete({ where: { id: user.id } })
+        await userDb.delete({ id: user.id })
         return NextResponse.json(
           { success: false, error: 'Invalid category' },
           { status: 400 }
@@ -67,26 +65,24 @@ export async function POST(request: NextRequest) {
       }
 
       const businessSlug = slugify(businessName)
-      await db.business.create({
-        data: {
-          userId: user.id,
-          name: businessName,
-          slug: businessSlug,
-          description: businessDescription,
-          address,
-          city: city || 'Unknown',
-          state: state || 'Unknown',
-          phone: phone || '',
-          categoryId: category.id,
-          status: 'pending',
-        },
+      await businessDb.create({
+        userId: user.id,
+        name: businessName,
+        slug: businessSlug,
+        description: businessDescription,
+        address,
+        city: city || 'Unknown',
+        state: state || 'Unknown',
+        phone: phone || '',
+        categoryId: category.id,
+        status: 'pending',
       })
     }
 
     const token = generateToken(user.id, user.email, user.role)
 
     // Return user without passwordHash
-    const { passwordHash: _, ...userWithoutPassword } = user
+    const { passwordHash: _, ...userWithoutPassword } = user as Record<string, unknown> & { passwordHash: unknown }
 
     return NextResponse.json({
       success: true,

@@ -952,3 +952,61 @@ Files Verified (No Changes Needed):
 Verification:
 - Lint passes with zero errors
 - All mobile overflow issues addressed through combination of reduced sizes, non-negative positioning, overflow-hidden, and global CSS overflow prevention
+
+---
+Task ID: 8
+Agent: Supabase DB Migration Agent
+Task: Migrate ALL API route files from Prisma `db` to Supabase helpers from `@/lib/supabase-db`
+
+Work Log:
+- Read `/src/lib/supabase-db.ts` to understand the helper API (findUnique, findMany, create, update, delete, count patterns)
+- Read all 12 API route files that use `import { db } from '@/lib/db'`
+- Converted all Prisma `db` calls to Supabase helper calls in all 12 files
+- Verified no remaining `@/lib/db` imports in the api directory
+- Ran `bun run lint` with zero errors
+- Response shapes preserved so frontend does not break
+
+Key Conversion Patterns Applied:
+1. `db.user.findUnique({ where: { email } })` → `userDb.findUnique({ email })`
+2. `db.user.findUnique({ where: { id } })` → `userDb.findUnique({ id })`
+3. `db.user.create({ data: { ... } })` → `userDb.create({ ...data })` (flatten data)
+4. `db.user.update({ where: { id }, data: { ... } })` → `userDb.update({ id }, { ...data })`
+5. `db.user.delete({ where: { id } })` → `userDb.delete({ id })`
+6. `db.business.findMany({ where, include, orderBy, skip, take })` → `businessDb.findMany({ where, orderBy, skip, take })` (includes built-in)
+7. `db.business.count({ where })` → `businessDb.count(where)`
+8. `db.business.findUnique({ where: { slug } })` → `businessDb.findUnique({ slug })`
+
+Special Handling:
+- **auth/me**: Uses `userDb.findUnique({ id }, selectString)` with Supabase select string for community relation
+- **auth/register**: Flattened `data` in `userDb.create()` and `businessDb.create()` calls
+- **events**: Added `eventRegistrationDb.count({ eventId })` for `_count.registrations` replacement
+- **search**: Uses raw `supabase` client with `.or()` and `.ilike()` for OR text search queries
+- **categories**: Uses raw `supabase` client for parent categories with children and business counts (not supported by simple helpers)
+- **admin**: Uses raw `supabase` for groupBy replacements (businessByState, businessesByCategory); computes aggregates in JS
+- **businesses/[id]**: viewCount increment done by fetching first then updating with `currentViewCount + 1`
+- **seed**: All `db.model.create({ data })` converted to `modelDb.create({ ...data })` (flatten)
+
+Files Modified:
+1. `/src/app/api/auth/login/route.ts` - Replaced `db.user` with `userDb`
+2. `/src/app/api/auth/me/route.ts` - Replaced `db.user` with `userDb`, added select string for community relation
+3. `/src/app/api/auth/register/route.ts` - Replaced `db.user`, `db.category`, `db.business` with respective helpers
+4. `/src/app/api/events/route.ts` - Replaced `db.event` with `eventDb`, `db.business` with `businessDb`, added `eventRegistrationDb` for counts
+5. `/src/app/api/news/route.ts` - Replaced `db.news` with `newsDb`
+6. `/src/app/api/contact/route.ts` - Replaced `db.contactMessage` with `contactMessageDb`
+7. `/src/app/api/search/route.ts` - Replaced with raw `supabase` client for OR queries
+8. `/src/app/api/categories/route.ts` - Replaced `db.category` with `categoryDb` and raw `supabase` for complex queries
+9. `/src/app/api/admin/route.ts` - Replaced `db.*` with individual helpers and raw `supabase` for groupBy
+10. `/src/app/api/businesses/[id]/route.ts` - Replaced `db.business` with `businessDb`, fetch-then-update for viewCount
+11. `/src/app/api/businesses/route.ts` - Replaced `db.business`, `db.category` with respective helpers
+12. `/src/app/api/seed/route.ts` - Replaced all `db.*` calls with respective Supabase helpers
+
+Files NOT Modified (as specified):
+- `/src/app/api/chat/route.ts` - Does not use database directly
+- `/src/app/api/route.ts` - Does not use database directly
+- `/src/lib/auth.ts` - Does not use database directly
+
+Verification:
+- `bun run lint` passes with zero errors
+- No remaining `import { db } from '@/lib/db'` in any API route file
+- No remaining `db.` calls in any API route file
+- All response shapes preserved for frontend compatibility

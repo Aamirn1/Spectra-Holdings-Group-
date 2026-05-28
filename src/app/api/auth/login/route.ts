@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { userDb } from '@/lib/supabase-db'
 import { verifyPassword, generateToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const user = await db.user.findUnique({ where: { email } })
+    const user = await userDb.findUnique({ email })
 
     if (!user) {
       return NextResponse.json(
@@ -39,10 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update lastLoginAt
-    await db.user.update({
-      where: { id: user.id },
-      data: { lastLoginAt: new Date() },
-    })
+    await userDb.update({ id: user.id }, { lastLoginAt: new Date() })
 
     const token = generateToken(user.id, user.email, user.role)
 

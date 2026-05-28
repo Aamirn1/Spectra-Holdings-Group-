@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { userDb } from '@/lib/supabase-db'
 import { getAuthUser } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
@@ -10,33 +10,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Not authenticated' }, { status: 401 })
     }
 
-    const user = await db.user.findUnique({
-      where: { id: authUser.userId },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        phone: true,
-        address: true,
-        city: true,
-        state: true,
-        neighborhood: true,
-        latitude: true,
-        longitude: true,
-        avatarUrl: true,
-        bio: true,
-        communityId: true,
-        isVerified: true,
-        isActive: true,
-        lastLoginAt: true,
-        createdAt: true,
-        updatedAt: true,
-        community: {
-          select: { id: true, name: true, slug: true },
-        },
-      },
-    })
+    const user = await userDb.findUnique(
+      { id: authUser.userId },
+      'id, email, name, role, phone, address, city, state, neighborhood, latitude, longitude, avatarUrl, bio, communityId, isVerified, isActive, lastLoginAt, createdAt, updatedAt, community:Community(id, name, slug)'
+    )
 
     if (!user) {
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { supabase, categoryDb } from '@/lib/supabase-db'
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,55 +18,44 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const where: any = {
-      status: 'approved',
-      OR: [
-        { name: { contains: q } },
-        { description: { contains: q } },
-        { services: { contains: q } },
-        { neighborhood: { contains: q } },
-      ],
-    }
+    // Use raw supabase client for complex OR queries
+    let query = supabase
+      .from('Business')
+      .select('*, category:Category(*), user:User(id, name, avatarUrl)', { count: 'exact' })
+      .eq('status', 'approved')
+      .or(`name.ilike.%${q}%,description.ilike.%${q}%,services.ilike.%${q}%,neighborhood.ilike.%${q}%`)
 
+    // Apply category filter
     if (category) {
-      const cat = await db.category.findUnique({ where: { slug: category } })
+      const cat = await categoryDb.findUnique({ slug: category })
       if (cat) {
-        where.categoryId = cat.id
+        query = query.eq('categoryId', cat.id)
       }
     }
 
     if (city) {
-      where.city = { contains: city }
+      query = query.ilike('city', `%${city}%`)
     }
 
     if (state) {
-      where.state = state
+      query = query.eq('state', state)
     }
 
+    // Ordering: featured first, then by viewCount
+    query = query.order('isFeatured', { ascending: false })
+    query = query.order('viewCount', { ascending: false })
+
+    // Pagination
     const skip = (page - 1) * limit
-    const [businesses, total] = await Promise.all([
-      db.business.findMany({
-        where,
-        include: {
-          category: true,
-          user: {
-            select: { id: true, name: true, avatarUrl: true },
-          },
-        },
-        orderBy: [
-          { isFeatured: 'desc' },
-          { viewCount: 'desc' },
-        ],
-        skip,
-        take: limit,
-      }),
-      db.business.count({ where }),
-    ])
+    query = query.range(skip, skip + limit - 1)
+
+    const { data: businesses, count } = await query
+    const total = count || 0
 
     return NextResponse.json({
       success: true,
       query: q,
-      businesses,
+      businesses: businesses || [],
       pagination: {
         page,
         limit,

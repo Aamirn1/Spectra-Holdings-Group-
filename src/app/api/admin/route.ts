@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { supabase, userDb, businessDb, eventDb, newsDb, categoryDb, contactMessageDb, stateDb, cityDb, communityDb } from '@/lib/supabase-db'
 import { getAuthUser } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
@@ -28,64 +28,65 @@ export async function GET(request: NextRequest) {
       totalCities,
       totalCommunities,
     ] = await Promise.all([
-      db.user.count(),
-      db.business.count(),
-      db.business.count({ where: { status: 'pending' } }),
-      db.business.count({ where: { status: 'approved' } }),
-      db.business.count({ where: { status: 'rejected' } }),
-      db.event.count({ where: { isPublished: true } }),
-      db.news.count({ where: { isPublished: true } }),
-      db.user.findMany({
-        take: 5,
-        orderBy: { createdAt: 'desc' },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-          createdAt: true,
-        },
-      }),
-      db.category.count(),
-      db.contactMessage.count(),
-      db.contactMessage.count({ where: { isRead: false } }),
-      db.state.count(),
-      db.city.count(),
-      db.community.count(),
+      userDb.count(),
+      businessDb.count(),
+      businessDb.count({ status: 'pending' }),
+      businessDb.count({ status: 'approved' }),
+      businessDb.count({ status: 'rejected' }),
+      eventDb.count({ isPublished: true }),
+      newsDb.count({ isPublished: true }),
+      userDb.findMany({ take: 5, orderBy: 'createdAt' }),
+      categoryDb.count(),
+      contactMessageDb.count(),
+      contactMessageDb.count({ isRead: false }),
+      stateDb.count(),
+      cityDb.count(),
+      communityDb.count(),
     ])
 
-    const businessByState = await db.business.groupBy({
-      by: ['state'],
-      _count: { id: true },
-      where: { status: 'approved' },
-    })
+    // Business by state - use raw supabase since groupBy isn't supported in helpers
+    const { data: businessByStateData } = await supabase
+      .from('Business')
+      .select('state')
+      .eq('status', 'approved')
 
-    const businessesByCategory = await db.business.groupBy({
-      by: ['categoryId'],
-      _count: { id: true },
-      where: { status: 'approved' },
-    })
+    const stateCountMap: Record<string, number> = {}
+    for (const b of (businessByStateData || [])) {
+      if (b.state) {
+        stateCountMap[b.state] = (stateCountMap[b.state] || 0) + 1
+      }
+    }
+    const businessByState = Object.entries(stateCountMap).map(([state, count]) => ({ state, count }))
 
-    // Get category names for the groupBy result
-    const categoryIds = businessesByCategory.map(b => b.categoryId).filter(Boolean) as string[]
-    const categories = await db.category.findMany({
-      where: { id: { in: categoryIds } },
-      select: { id: true, name: true },
-    })
+    // Businesses by category - use raw supabase
+    const { data: businessByCategoryData } = await supabase
+      .from('Business')
+      .select('categoryId')
+      .eq('status', 'approved')
 
-    const categoryMap = new Map(categories.map(c => [c.id, c.name]))
-    const businessesByCategoryNamed = businessesByCategory.map(b => ({
-      category: categoryMap.get(b.categoryId) || 'Unknown',
-      count: b._count.id,
+    const categoryCountMap: Record<string, number> = {}
+    for (const b of (businessByCategoryData || [])) {
+      if (b.categoryId) {
+        categoryCountMap[b.categoryId] = (categoryCountMap[b.categoryId] || 0) + 1
+      }
+    }
+
+    // Get category names
+    const categoryIds = Object.keys(categoryCountMap)
+    const { data: categories } = await supabase
+      .from('Category')
+      .select('id, name')
+      .in('id', categoryIds)
+
+    const categoryMap = new Map((categories || []).map((c: Record<string, unknown>) => [c.id, c.name]))
+    const businessesByCategory = Object.entries(categoryCountMap).map(([catId, count]) => ({
+      category: categoryMap.get(catId) || 'Unknown',
+      count,
     }))
 
     // Get pending businesses for admin review
-    const pendingBusinesses = await db.business.findMany({
+    const pendingBusinesses = await businessDb.findMany({
       where: { status: 'pending' },
-      include: {
-        category: { select: { name: true } },
-        user: { select: { id: true, name: true, email: true } },
-      },
       orderBy: { createdAt: 'desc' },
       take: 10,
     })
@@ -107,8 +108,8 @@ export async function GET(request: NextRequest) {
         totalCities,
         totalCommunities,
         recentSignups,
-        businessByState: businessByState.map(b => ({ state: b.state, count: b._count.id })),
-        businessesByCategory: businessesByCategoryNamed,
+        businessByState,
+        businessesByCategory,
         pendingBusinesses,
       },
     })

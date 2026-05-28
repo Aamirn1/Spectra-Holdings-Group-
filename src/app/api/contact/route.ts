@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { contactMessageDb } from '@/lib/supabase-db'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,14 +13,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    await db.contactMessage.create({
-      data: {
-        name,
-        email,
-        phone: phone || null,
-        subject,
-        message,
-      },
+    await contactMessageDb.create({
+      name,
+      email,
+      phone: phone || null,
+      subject,
+      message,
     })
 
     return NextResponse.json({ success: true, message: 'Message sent successfully' }, { status: 201 })

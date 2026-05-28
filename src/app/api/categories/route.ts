@@ -1,21 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { supabase, categoryDb } from '@/lib/supabase-db'
 import { getAuthUser, slugify } from '@/lib/auth'
 
 export async function GET() {
   try {
-    const categories = await db.category.findMany({
-      where: { parentId: null },
-      include: {
-        children: true,
-        _count: {
-          select: { businesses: { where: { status: 'approved' } } },
-        },
-      },
-      orderBy: { name: 'asc' },
-    })
+    // Fetch parent categories (parentId = null)
+    const { data: categories } = await supabase
+      .from('Category')
+      .select('*')
+      .is('parentId', null)
+      .order('name')
 
-    return NextResponse.json({ success: true, categories })
+    if (!categories) {
+      return NextResponse.json({ success: true, categories: [] })
+    }
+
+    // Fetch children for all parent categories
+    const parentIds = categories.map((c: Record<string, unknown>) => c.id)
+    const { data: children } = await supabase
+      .from('Category')
+      .select('*')
+      .in('parentId', parentIds)
+
+    // Fetch approved business counts per category
+    const { data: businessCounts } = await supabase
+      .from('Business')
+      .select('categoryId')
+      .eq('status', 'approved')
+
+    // Build count map
+    const countMap: Record<string, number> = {}
+    for (const b of (businessCounts || [])) {
+      const cid = b.categoryId
+      if (cid) {
+        countMap[cid] = (countMap[cid] || 0) + 1
+      }
+    }
+
+    // Build children map
+    const childrenMap: Record<string, unknown[]> = {}
+    for (const child of (children || [])) {
+      const pid = child.parentId
+      if (pid) {
+        if (!childrenMap[pid]) childrenMap[pid] = []
+        childrenMap[pid].push(child)
+      }
+    }
+
+    // Compose final result
+    const result = categories.map((cat: Record<string, unknown>) => ({
+      ...cat,
+      children: childrenMap[cat.id as string] || [],
+      _count: {
+        businesses: countMap[cat.id as string] || 0,
+      },
+    }))
+
+    return NextResponse.json({ success: true, categories: result })
   } catch (error) {
     console.error('Get categories error:', error)
     return NextResponse.json(
@@ -48,7 +89,7 @@ export async function POST(request: NextRequest) {
     const slug = slugify(name)
 
     // Check for duplicate slug
-    const existing = await db.category.findUnique({ where: { slug } })
+    const existing = await categoryDb.findUnique({ slug })
     if (existing) {
       return NextResponse.json(
         { success: false, error: 'A category with this name already exists' },
@@ -58,7 +99,7 @@ export async function POST(request: NextRequest) {
 
     // Validate parent if provided
     if (parentId) {
-      const parent = await db.category.findUnique({ where: { id: parentId } })
+      const parent = await categoryDb.findUnique({ id: parentId })
       if (!parent) {
         return NextResponse.json(
           { success: false, error: 'Parent category not found' },
@@ -67,14 +108,12 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const category = await db.category.create({
-      data: {
-        name,
-        slug,
-        icon: icon || null,
-        description: description || null,
-        parentId: parentId || null,
-      },
+    const category = await categoryDb.create({
+      name,
+      slug,
+      icon: icon || null,
+      description: description || null,
+      parentId: parentId || null,
     })
 
     return NextResponse.json({ success: true, category }, { status: 201 })

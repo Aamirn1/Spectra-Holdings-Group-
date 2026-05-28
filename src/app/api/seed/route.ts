@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { stateDb, cityDb, communityDb, categoryDb, userDb, businessDb, eventDb, newsDb } from '@/lib/supabase-db'
 import { hashPassword, slugify } from '@/lib/auth'
 
 export async function POST() {
@@ -24,16 +24,16 @@ export async function POST() {
 
     let statesCreated = 0
     for (const state of stateData) {
-      const existing = await db.state.findUnique({ where: { slug: state.slug } })
+      const existing = await stateDb.findUnique({ slug: state.slug })
       if (!existing) {
-        await db.state.create({ data: state })
+        await stateDb.create(state)
         statesCreated++
       }
     }
     results.states = statesCreated
 
-    const allStates = await db.state.findMany()
-    const stateMap = new Map(allStates.map(s => [s.abbreviation, s.id]))
+    const allStates = await stateDb.findMany()
+    const stateMap = new Map(allStates.map((s: Record<string, unknown>) => [s.abbreviation, s.id]))
 
     // ===========================
     // Seed Cities
@@ -67,16 +67,16 @@ export async function POST() {
     let citiesCreated = 0
     for (const city of cityData) {
       if (!city.stateId) continue
-      const existing = await db.city.findUnique({ where: { slug: city.slug } })
+      const existing = await cityDb.findUnique({ slug: city.slug })
       if (!existing) {
-        await db.city.create({ data: city })
+        await cityDb.create(city)
         citiesCreated++
       }
     }
     results.cities = citiesCreated
 
-    const allCities = await db.city.findMany()
-    const cityMap = new Map(allCities.map(c => [c.slug, c.id]))
+    const allCities = await cityDb.findMany()
+    const cityMap = new Map(allCities.map((c: Record<string, unknown>) => [c.slug, c.id]))
 
     // ===========================
     // Seed Communities
@@ -119,16 +119,16 @@ export async function POST() {
     let communitiesCreated = 0
     for (const community of communityData) {
       if (!community.cityId) continue
-      const existing = await db.community.findUnique({ where: { slug: community.slug } })
+      const existing = await communityDb.findUnique({ slug: community.slug })
       if (!existing) {
-        await db.community.create({ data: community })
+        await communityDb.create(community)
         communitiesCreated++
       }
     }
     results.communities = communitiesCreated
 
-    const allCommunities = await db.community.findMany()
-    const communityMap = new Map(allCommunities.map(c => [c.slug, c.id]))
+    const allCommunities = await communityDb.findMany()
+    const communityMap = new Map(allCommunities.map((c: Record<string, unknown>) => [c.slug, c.id]))
 
     // ===========================
     // Seed Categories
@@ -150,16 +150,16 @@ export async function POST() {
 
     let categoriesCreated = 0
     for (const cat of categoryData) {
-      const existing = await db.category.findUnique({ where: { slug: cat.slug } })
+      const existing = await categoryDb.findUnique({ slug: cat.slug })
       if (!existing) {
-        await db.category.create({ data: cat })
+        await categoryDb.create(cat)
         categoriesCreated++
       }
     }
     results.categories = categoriesCreated
 
-    const allCategories = await db.category.findMany()
-    const categoryMap = new Map(allCategories.map(c => [c.slug, c.id]))
+    const allCategories = await categoryDb.findMany()
+    const categoryMap = new Map(allCategories.map((c: Record<string, unknown>) => [c.slug, c.id]))
 
     // ===========================
     // Seed Users
@@ -168,21 +168,19 @@ export async function POST() {
 
     // Admin user
     const adminEmail = 'admin@spectraholdings.com'
-    const existingAdmin = await db.user.findUnique({ where: { email: adminEmail } })
+    const existingAdmin = await userDb.findUnique({ email: adminEmail })
     let adminUser = existingAdmin
     if (!existingAdmin) {
       const adminPasswordHash = await hashPassword('admin123')
-      adminUser = await db.user.create({
-        data: {
-          name: 'Admin User',
-          email: adminEmail,
-          passwordHash: adminPasswordHash,
-          role: 'ADMIN',
-          phone: '(555) 100-0000',
-          city: 'Houston',
-          state: 'TX',
-          isVerified: true,
-        },
+      adminUser = await userDb.create({
+        name: 'Admin User',
+        email: adminEmail,
+        passwordHash: adminPasswordHash,
+        role: 'ADMIN',
+        phone: '(555) 100-0000',
+        city: 'Houston',
+        state: 'TX',
+        isVerified: true,
       })
       usersCreated++
     }
@@ -202,24 +200,22 @@ export async function POST() {
     const createdBusinessUsers: { id: string }[] = []
     const bizPasswordHash = await hashPassword('business123')
     for (const bu of businessUsers) {
-      const existing = await db.user.findUnique({ where: { email: bu.email } })
+      const existing = await userDb.findUnique({ email: bu.email })
       if (!existing) {
-        const user = await db.user.create({
-          data: {
-            name: bu.name,
-            email: bu.email,
-            passwordHash: bizPasswordHash,
-            role: 'BUSINESS',
-            phone: bu.phone,
-            city: bu.city,
-            state: bu.state,
-            isVerified: true,
-          },
+        const user = await userDb.create({
+          name: bu.name,
+          email: bu.email,
+          passwordHash: bizPasswordHash,
+          role: 'BUSINESS',
+          phone: bu.phone,
+          city: bu.city,
+          state: bu.state,
+          isVerified: true,
         })
-        createdBusinessUsers.push(user)
+        createdBusinessUsers.push(user as { id: string })
         usersCreated++
       } else {
-        createdBusinessUsers.push(existing)
+        createdBusinessUsers.push(existing as { id: string })
       }
     }
 
@@ -235,18 +231,16 @@ export async function POST() {
 
     const resPasswordHash = await hashPassword('resident123')
     for (const ru of residentUsers) {
-      const existing = await db.user.findUnique({ where: { email: ru.email } })
+      const existing = await userDb.findUnique({ email: ru.email })
       if (!existing) {
-        await db.user.create({
-          data: {
-            name: ru.name,
-            email: ru.email,
-            passwordHash: resPasswordHash,
-            role: 'RESIDENT',
-            phone: ru.phone,
-            city: ru.city,
-            state: ru.state,
-          },
+        await userDb.create({
+          name: ru.name,
+          email: ru.email,
+          passwordHash: resPasswordHash,
+          role: 'RESIDENT',
+          phone: ru.phone,
+          city: ru.city,
+          state: ru.state,
         })
         usersCreated++
       }
@@ -620,20 +614,18 @@ export async function POST() {
     for (const biz of businessData) {
       if (!biz.userId) continue
       const slug = slugify(biz.name)
-      const existing = await db.business.findUnique({ where: { slug } })
+      const existing = await businessDb.findUnique({ slug })
       if (!existing) {
         const { categorySlug, communitySlug, ...data } = biz
         const categoryId = categoryMap.get(categorySlug)
         const communityId = communitySlug ? communityMap.get(communitySlug) : undefined
         if (!categoryId) continue
 
-        await db.business.create({
-          data: {
-            ...data,
-            slug,
-            categoryId,
-            communityId: communityId || null,
-          },
+        await businessDb.create({
+          ...data,
+          slug,
+          categoryId,
+          communityId: communityId || null,
         })
         businessesCreated++
       }
@@ -754,9 +746,9 @@ export async function POST() {
 
     let eventsCreated = 0
     for (const event of eventData) {
-      const existing = await db.event.findUnique({ where: { slug: event.slug } })
+      const existing = await eventDb.findUnique({ slug: event.slug })
       if (!existing) {
-        await db.event.create({ data: event })
+        await eventDb.create(event)
         eventsCreated++
       }
     }
@@ -774,7 +766,7 @@ export async function POST() {
         category: 'Platform News',
         isPublished: true,
         isFeatured: true,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
       {
         title: 'New Verification Process Ensures Business Quality',
@@ -784,7 +776,7 @@ export async function POST() {
         category: 'Platform News',
         isPublished: true,
         isFeatured: true,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
       {
         title: 'Houston Community Rallies Behind Local Businesses',
@@ -794,7 +786,7 @@ export async function POST() {
         category: 'Community',
         isPublished: true,
         isFeatured: false,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
       {
         title: 'Miami Launches Green Business Initiative',
@@ -804,7 +796,7 @@ export async function POST() {
         category: 'Community',
         isPublished: true,
         isFeatured: false,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
       {
         title: '5 Tips for Choosing the Right Local Service Provider',
@@ -814,7 +806,7 @@ export async function POST() {
         category: 'Tips & Guides',
         isPublished: true,
         isFeatured: false,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
       {
         title: 'Spectra Communities Launch Neighborhood Watch Programs',
@@ -824,15 +816,15 @@ export async function POST() {
         category: 'Community',
         isPublished: true,
         isFeatured: true,
-        authorId: adminUser?.id,
+        authorId: (adminUser as Record<string, unknown>)?.id,
       },
     ]
 
     let newsCreated = 0
     for (const news of newsData) {
-      const existing = await db.news.findUnique({ where: { slug: news.slug } })
+      const existing = await newsDb.findUnique({ slug: news.slug })
       if (!existing) {
-        await db.news.create({ data: news })
+        await newsDb.create(news)
         newsCreated++
       }
     }

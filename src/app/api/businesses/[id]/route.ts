@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { businessDb } from '@/lib/supabase-db'
 import { getAuthUser } from '@/lib/auth'
 
 export async function GET(
@@ -9,18 +9,7 @@ export async function GET(
   try {
     const { id } = await params
 
-    const business = await db.business.findUnique({
-      where: { id },
-      include: {
-        category: true,
-        user: {
-          select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
-        },
-        community: {
-          select: { id: true, name: true, slug: true },
-        },
-      },
-    })
+    const business = await businessDb.findUnique({ id })
 
     if (!business) {
       return NextResponse.json(
@@ -29,11 +18,9 @@ export async function GET(
       )
     }
 
-    // Increment view count
-    await db.business.update({
-      where: { id },
-      data: { viewCount: { increment: 1 } },
-    })
+    // Increment view count - fetch current value first, then update
+    const currentViewCount = (business as Record<string, unknown>).viewCount as number || 0
+    await businessDb.update({ id }, { viewCount: currentViewCount + 1 })
 
     return NextResponse.json({ success: true, business })
   } catch (error) {
@@ -57,7 +44,7 @@ export async function PUT(
 
     const { id } = await params
 
-    const existingBusiness = await db.business.findUnique({ where: { id } })
+    const existingBusiness = await businessDb.findUnique({ id })
     if (!existingBusiness) {
       return NextResponse.json(
         { success: false, error: 'Business not found' },
@@ -66,7 +53,7 @@ export async function PUT(
     }
 
     // Only owner or admin can update
-    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'ADMIN') {
+    if ((existingBusiness as Record<string, unknown>).userId !== authUser.userId && authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Not authorized to update this business' },
         { status: 403 }
@@ -82,7 +69,7 @@ export async function PUT(
       seoTitle, seoDescription,
     } = body
 
-    const updateData: any = {}
+    const updateData: Record<string, unknown> = {}
     if (name !== undefined) updateData.name = name
     if (description !== undefined) updateData.description = description
     if (address !== undefined) updateData.address = address
@@ -114,19 +101,7 @@ export async function PUT(
       if (isFeatured !== undefined) updateData.isFeatured = isFeatured
     }
 
-    const business = await db.business.update({
-      where: { id },
-      data: updateData,
-      include: {
-        category: true,
-        user: {
-          select: { id: true, name: true, email: true, phone: true, avatarUrl: true },
-        },
-        community: {
-          select: { id: true, name: true, slug: true },
-        },
-      },
-    })
+    const business = await businessDb.update({ id }, updateData)
 
     return NextResponse.json({ success: true, business })
   } catch (error) {
@@ -150,7 +125,7 @@ export async function DELETE(
 
     const { id } = await params
 
-    const existingBusiness = await db.business.findUnique({ where: { id } })
+    const existingBusiness = await businessDb.findUnique({ id })
     if (!existingBusiness) {
       return NextResponse.json(
         { success: false, error: 'Business not found' },
@@ -159,14 +134,14 @@ export async function DELETE(
     }
 
     // Only owner or admin can delete
-    if (existingBusiness.userId !== authUser.userId && authUser.role !== 'ADMIN') {
+    if ((existingBusiness as Record<string, unknown>).userId !== authUser.userId && authUser.role !== 'ADMIN') {
       return NextResponse.json(
         { success: false, error: 'Not authorized to delete this business' },
         { status: 403 }
       )
     }
 
-    await db.business.delete({ where: { id } })
+    await businessDb.delete({ id })
 
     return NextResponse.json({ success: true, message: 'Business deleted' })
   } catch (error) {
