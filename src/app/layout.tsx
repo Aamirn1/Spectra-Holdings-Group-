@@ -33,7 +33,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Spectra Holdings Group" }],
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico", sizes: "48x48" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Spectra Holdings Group | Community Living & Local Services Platform",
