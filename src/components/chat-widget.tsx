@@ -12,28 +12,34 @@ interface Message {
   content: string
 }
 
-/** Customer-support headset SVG – headband + earpieces + mic boom */
+/** Customer-support headset SVG — matching reference: solid white earpieces + mic boom from right */
 function HeadsetIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
-      strokeWidth={1.8}
-      strokeLinecap="round"
-      strokeLinejoin="round"
       className={className}
     >
-      {/* Headband arc */}
-      <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
-      {/* Left earpiece */}
-      <rect x="2" y="13" width="4" height="6" rx="1.5" />
-      {/* Right earpiece */}
-      <rect x="18" y="13" width="4" height="6" rx="1.5" />
-      {/* Microphone boom arm from left earpiece */}
-      <path d="M4 19c0 1.5 1 2.5 2.5 2.5h1" />
-      {/* Microphone capsule */}
-      <circle cx="8.5" cy="21.5" r="1.2" fill="currentColor" stroke="none" />
+      {/* Headband arc — thick stroke, smooth curve */}
+      <path
+        d="M5 12V9.5a7 7 0 0 1 14 0V12"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* Left earpiece — solid filled rounded rectangle */}
+      <rect x="3" y="11.5" width="5" height="6" rx="2" fill="currentColor" />
+      {/* Right earpiece — solid filled rounded rectangle */}
+      <rect x="16" y="11.5" width="5" height="6" rx="2" fill="currentColor" />
+      {/* Microphone boom arm from right earpiece curving down toward mouth */}
+      <path
+        d="M20 17.5c0 2.5-1.5 4-4 4h-2"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      {/* Microphone capsule — small filled circle at end of boom */}
+      <circle cx="13" cy="21.5" r="1.3" fill="currentColor" />
     </svg>
   )
 }
