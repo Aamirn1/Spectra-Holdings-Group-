@@ -12,12 +12,8 @@ interface Message {
   content: string
 }
 
-/**
- * Premium minimalist outline headset SVG
- * Inspired by Intercom, Crisp, Zendesk support widgets
- * Thin stroke (1.75px), rounded caps/joins, outline-only
- */
-function PremiumHeadsetIcon({ className }: { className?: string }) {
+/** Minimalist outline headset SVG */
+function HeadsetIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -28,15 +24,10 @@ function PremiumHeadsetIcon({ className }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      {/* Headband arc — smooth curve over the head */}
       <path d="M4.5 12V9.5a7.5 7.5 0 0 1 15 0V12" />
-      {/* Left earpiece — thin outline rounded shape */}
       <rect x="3" y="11" width="3.5" height="5" rx="1.2" />
-      {/* Right earpiece — thin outline rounded shape */}
       <rect x="17.5" y="11" width="3.5" height="5" rx="1.2" />
-      {/* Microphone boom arm — smooth curve from right earpiece toward mouth */}
       <path d="M20 16c0 2-1.5 3.5-3 3.5h-2" />
-      {/* Microphone capsule — tiny filled dot at end of boom */}
       <circle cx="14" cy="19.5" r="0.6" fill="currentColor" stroke="none" />
     </svg>
   )
@@ -121,14 +112,14 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed z-50 bottom-[88px] right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
+            className="fixed z-50 bottom-[100px] sm:bottom-[112px] right-3 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
             style={{ maxHeight: 'min(70vh, 480px)' }}
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-600 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <PremiumHeadsetIcon className="w-4 h-4 text-white" />
+                <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
+                  <HeadsetIcon className="w-3.5 h-3.5 text-white" />
                 </div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
@@ -155,7 +146,7 @@ export function ChatWidget() {
                   >
                     {msg.role === 'assistant' && (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <PremiumHeadsetIcon className="w-3.5 h-3.5 text-white" />
+                        <HeadsetIcon className="w-3.5 h-3.5 text-white" />
                       </div>
                     )}
                     <div
@@ -178,7 +169,7 @@ export function ChatWidget() {
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <PremiumHeadsetIcon className="w-3.5 h-3.5 text-white" />
+                      <HeadsetIcon className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
@@ -221,45 +212,26 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Premium Floating AI Assistant Button */}
+      {/* Floating AI Chat Button — small, clean, above WhatsApp */}
       <motion.button
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{
-          scale: 1,
-          opacity: 1,
-          y: [0, -3, 0],
-        }}
-        transition={{
-          scale: { delay: 1, type: 'spring', stiffness: 200, damping: 15 },
-          opacity: { delay: 1, duration: 0.3 },
-          y: {
-            delay: 2,
-            duration: 3,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-        }}
-        whileHover={{ scale: 1.08, y: 0 }}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 1, type: 'spring', stiffness: 200, damping: 15 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-5 right-4 sm:right-6 z-40 w-16 h-16 rounded-full flex items-center justify-center text-white cursor-pointer border-0 outline-none focus:outline-none"
-        style={{
-          background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
-          boxShadow: '0 10px 30px rgba(124,58,237,0.25), 0 0 20px rgba(168,85,247,0.15)',
-        }}
+        className="fixed bottom-16 right-3 sm:bottom-[76px] sm:right-6 z-40 w-12 h-12 sm:w-[52px] sm:h-[52px] bg-gradient-to-br from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white cursor-pointer border-0 outline-none focus:outline-none transition-colors"
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-6 h-6" strokeWidth={2} />
+          <X className="w-5 h-5" strokeWidth={2} />
         ) : (
-          <PremiumHeadsetIcon className="w-[27px] h-[27px]" />
+          <HeadsetIcon className="w-6 h-6 sm:w-[26px] sm:h-[26px]" />
         )}
 
-        {/* Online status dot — top-right, no glow */}
+        {/* Online status dot */}
         {!isOpen && (
-          <span
-            className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-[#22C55E] border-2 border-[#0A0A0A]"
-          />
+          <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
         )}
       </motion.button>
     </>
