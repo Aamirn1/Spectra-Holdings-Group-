@@ -55,13 +55,18 @@ export interface AuthUser {
   avatarUrl?: string
 }
 
+interface AuthResult {
+  success: boolean
+  error?: string
+}
+
 interface AuthState {
   user: AuthUser | null
   token: string | null
   isLoading: boolean
-  login: (email: string, password: string) => Promise<boolean>
-  register: (data: RegisterData) => Promise<boolean>
-  registerBusiness: (data: BusinessRegisterData) => Promise<boolean>
+  login: (email: string, password: string) => Promise<AuthResult>
+  register: (data: RegisterData) => Promise<AuthResult>
+  registerBusiness: (data: BusinessRegisterData) => Promise<AuthResult>
   logout: () => void
   checkAuth: () => Promise<void>
 }
@@ -104,13 +109,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (data.success && data.user && data.token) {
         localStorage.setItem('spectra_token', data.token)
         set({ user: data.user, token: data.token, isLoading: false })
-        return true
+        return { success: true }
       }
       set({ isLoading: false })
-      return false
+      return { success: false, error: data.error || 'Login failed' }
     } catch {
       set({ isLoading: false })
-      return false
+      return { success: false, error: 'Network error. Please try again.' }
     }
   },
   register: async (registerData: RegisterData) => {
@@ -125,13 +130,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (data.success && data.user && data.token) {
         localStorage.setItem('spectra_token', data.token)
         set({ user: data.user, token: data.token, isLoading: false })
-        return true
+        return { success: true }
       }
       set({ isLoading: false })
-      return false
+      return { success: false, error: data.error || 'Registration failed' }
     } catch {
       set({ isLoading: false })
-      return false
+      return { success: false, error: 'Network error. Please try again.' }
     }
   },
   registerBusiness: async (businessData: BusinessRegisterData) => {
@@ -146,13 +151,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (data.success && data.user && data.token) {
         localStorage.setItem('spectra_token', data.token)
         set({ user: data.user, token: data.token, isLoading: false })
-        return true
+        return { success: true }
       }
       set({ isLoading: false })
-      return false
+      return { success: false, error: data.error || 'Registration failed' }
     } catch {
       set({ isLoading: false })
-      return false
+      return { success: false, error: 'Network error. Please try again.' }
     }
   },
   logout: () => {

@@ -112,17 +112,17 @@ export function AuthForms() {
 
   const handleLogin = async (data: LoginForm) => {
     setError(null)
-    const success = await login(data.email, data.password)
-    if (success) {
+    const result = await login(data.email, data.password)
+    if (result.success) {
       navigate('dashboard')
     } else {
-      setError('Invalid email or password')
+      setError(result.error || 'Invalid email or password')
     }
   }
 
   const handleRegister = async (data: RegisterForm) => {
     setError(null)
-    const success = await registerUser({
+    const result = await registerUser({
       name: data.name,
       email: data.email,
       password: data.password,
@@ -130,16 +130,16 @@ export function AuthForms() {
       city: data.city,
       state: data.state,
     })
-    if (success) {
+    if (result.success) {
       navigate('dashboard')
     } else {
-      setError('Registration failed. Please try again.')
+      setError(result.error || 'Registration failed. Please try again.')
     }
   }
 
   const handleBusinessRegister = async (data: BusinessRegisterForm) => {
     setError(null)
-    const success = await registerBusiness({
+    const result = await registerBusiness({
       name: data.name,
       email: data.email,
       password: data.password,
@@ -151,10 +151,10 @@ export function AuthForms() {
       state: data.state,
       categorySlug: data.categorySlug,
     })
-    if (success) {
+    if (result.success) {
       navigate('business-dashboard')
     } else {
-      setError('Business registration failed. Please try again.')
+      setError(result.error || 'Business registration failed. Please try again.')
     }
   }
 

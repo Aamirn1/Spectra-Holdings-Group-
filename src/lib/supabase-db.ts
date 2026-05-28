@@ -14,6 +14,7 @@ if (process.env.NODE_ENV !== 'production') globalForSupabase.supabase = supabase
 
 // ============================================================================
 // Type-safe database helpers — mirrors Prisma interface patterns
+// Uses .maybeSingle() instead of .single() to return null when no row found
 // ============================================================================
 
 export type Role = 'ADMIN' | 'RESIDENT' | 'BUSINESS'
@@ -24,7 +25,7 @@ export const stateDb = {
     let query = supabase.from('State').select('*')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async () => {
@@ -32,7 +33,8 @@ export const stateDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result } = await supabase.from('State').insert(data).select().single()
+    const { data: result, error } = await supabase.from('State').insert(data).select().maybeSingle()
+    if (error) throw error
     return result
   },
   count: async () => {
@@ -47,7 +49,7 @@ export const cityDb = {
     let query = supabase.from('City').select('*')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (where?: Record<string, unknown>) => {
@@ -57,7 +59,8 @@ export const cityDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result } = await supabase.from('City').insert(data).select().single()
+    const { data: result, error } = await supabase.from('City').insert(data).select().maybeSingle()
+    if (error) throw error
     return result
   },
   count: async () => {
@@ -72,7 +75,7 @@ export const communityDb = {
     let query = supabase.from('Community').select('*, city:City(*)')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (where?: Record<string, unknown>) => {
@@ -82,7 +85,8 @@ export const communityDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result } = await supabase.from('Community').insert(data).select().single()
+    const { data: result, error } = await supabase.from('Community').insert(data).select().maybeSingle()
+    if (error) throw error
     return result
   },
   count: async () => {
@@ -97,7 +101,7 @@ export const userDb = {
     let query = supabase.from('User').select(select || '*')
     if (where.email) query = query.eq('email', where.email)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (options?: { take?: number; orderBy?: string; where?: Record<string, unknown> }) => {
@@ -119,12 +123,12 @@ export const userDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('User').insert(data).select().single()
+    const { data: result, error } = await supabase.from('User').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
   update: async (where: { id: string }, data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('User').update(data).eq('id', where.id).select().single()
+    const { data: result, error } = await supabase.from('User').update(data).eq('id', where.id).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -150,7 +154,7 @@ export const categoryDb = {
     let query = supabase.from('Category').select('*')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (where?: Record<string, unknown>) => {
@@ -164,7 +168,7 @@ export const categoryDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('Category').insert(data).select().single()
+    const { data: result, error } = await supabase.from('Category').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -180,7 +184,7 @@ export const businessDb = {
     let query = supabase.from('Business').select('*, category:Category(*), user:User(id, name, email, phone, avatarUrl), community:Community(id, name, slug)')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (options?: {
@@ -222,12 +226,12 @@ export const businessDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('Business').insert(data).select('*, category:Category(*), user:User(id, name, email, phone, avatarUrl), community:Community(id, name, slug)').single()
+    const { data: result, error } = await supabase.from('Business').insert(data).select('*, category:Category(*), user:User(id, name, email, phone, avatarUrl), community:Community(id, name, slug)').maybeSingle()
     if (error) throw error
     return result
   },
   update: async (where: { id: string }, data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('Business').update(data).eq('id', where.id).select('*, category:Category(*), user:User(id, name, email, phone, avatarUrl), community:Community(id, name, slug)').single()
+    const { data: result, error } = await supabase.from('Business').update(data).eq('id', where.id).select('*, category:Category(*), user:User(id, name, email, phone, avatarUrl), community:Community(id, name, slug)').maybeSingle()
     if (error) throw error
     return result
   },
@@ -250,7 +254,7 @@ export const businessDb = {
     for (const [key, value] of Object.entries(where)) {
       query = query.eq(key, value)
     }
-    const { data } = await query.limit(1).single()
+    const { data } = await query.limit(1).maybeSingle()
     return data
   },
 }
@@ -261,7 +265,7 @@ export const eventDb = {
     let query = supabase.from('Event').select('*, business:Business(id, name, slug, logoUrl), community:Community(id, name, slug)')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (options?: {
@@ -304,7 +308,7 @@ export const eventDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('Event').insert(data).select().single()
+    const { data: result, error } = await supabase.from('Event').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -323,7 +327,7 @@ export const eventDb = {
 // ---- EventRegistration ----
 export const eventRegistrationDb = {
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('EventRegistration').insert(data).select().single()
+    const { data: result, error } = await supabase.from('EventRegistration').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -343,7 +347,7 @@ export const newsDb = {
     let query = supabase.from('News').select('*')
     if (where.slug) query = query.eq('slug', where.slug)
     if (where.id) query = query.eq('id', where.id)
-    const { data } = await query.single()
+    const { data } = await query.maybeSingle()
     return data
   },
   findMany: async (options?: {
@@ -382,7 +386,7 @@ export const newsDb = {
     return data || []
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('News').insert(data).select().single()
+    const { data: result, error } = await supabase.from('News').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -401,7 +405,7 @@ export const newsDb = {
 // ---- ContactMessage ----
 export const contactMessageDb = {
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('ContactMessage').insert(data).select().single()
+    const { data: result, error } = await supabase.from('ContactMessage').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -420,11 +424,11 @@ export const contactMessageDb = {
 // ---- SiteSetting ----
 export const siteSettingDb = {
   findUnique: async (where: { key: string }) => {
-    const { data } = await supabase.from('SiteSetting').select('*').eq('key', where.key).single()
+    const { data } = await supabase.from('SiteSetting').select('*').eq('key', where.key).maybeSingle()
     return data
   },
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('SiteSetting').insert(data).select().single()
+    const { data: result, error } = await supabase.from('SiteSetting').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -433,7 +437,7 @@ export const siteSettingDb = {
 // ---- ContentBlock ----
 export const contentBlockDb = {
   findUnique: async (where: { key: string }) => {
-    const { data } = await supabase.from('ContentBlock').select('*').eq('key', where.key).single()
+    const { data } = await supabase.from('ContentBlock').select('*').eq('key', where.key).maybeSingle()
     return data
   },
 }
@@ -441,7 +445,7 @@ export const contentBlockDb = {
 // ---- AuditLog ----
 export const auditLogDb = {
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('AuditLog').insert(data).select().single()
+    const { data: result, error } = await supabase.from('AuditLog').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
@@ -450,7 +454,7 @@ export const auditLogDb = {
 // ---- SavedBusiness ----
 export const savedBusinessDb = {
   create: async (data: Record<string, unknown>) => {
-    const { data: result, error } = await supabase.from('SavedBusiness').insert(data).select().single()
+    const { data: result, error } = await supabase.from('SavedBusiness').insert(data).select().maybeSingle()
     if (error) throw error
     return result
   },
