@@ -12,6 +12,32 @@ interface Message {
   content: string
 }
 
+/** Customer-support headset SVG – headband + earpieces + mic boom */
+function HeadsetIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      {/* Headband arc */}
+      <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+      {/* Left earpiece */}
+      <rect x="2" y="13" width="4" height="6" rx="1.5" />
+      {/* Right earpiece */}
+      <rect x="18" y="13" width="4" height="6" rx="1.5" />
+      {/* Microphone boom arm from left earpiece */}
+      <path d="M4 19c0 1.5 1 2.5 2.5 2.5h1" />
+      {/* Microphone capsule */}
+      <circle cx="8.5" cy="21.5" r="1.2" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
@@ -98,12 +124,7 @@ export function ChatWidget() {
             <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  {/* Custom headphone icon */}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                    <path d="M3 14V12a9 9 0 0 1 18 0v2" />
-                    <rect x="1" y="14" width="5" height="6" rx="2" />
-                    <rect x="18" y="14" width="5" height="6" rx="2" />
-                  </svg>
+                  <HeadsetIcon className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
@@ -130,11 +151,7 @@ export function ChatWidget() {
                   >
                     {msg.role === 'assistant' && (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-                          <path d="M3 14V12a9 9 0 0 1 18 0v2" />
-                          <rect x="1" y="14" width="5" height="6" rx="2" />
-                          <rect x="18" y="14" width="5" height="6" rx="2" />
-                        </svg>
+                        <HeadsetIcon className="w-3.5 h-3.5 text-white" />
                       </div>
                     )}
                     <div
@@ -157,11 +174,7 @@ export function ChatWidget() {
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
-                        <path d="M3 14V12a9 9 0 0 1 18 0v2" />
-                        <rect x="1" y="14" width="5" height="6" rx="2" />
-                        <rect x="18" y="14" width="5" height="6" rx="2" />
-                      </svg>
+                      <HeadsetIcon className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
@@ -204,29 +217,25 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button — Headphone icon with green online dot */}
+      {/* Floating Button — Support headset icon with green online dot */}
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring' }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
+        className="fixed bottom-[88px] right-3 sm:right-6 z-40 w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-5 h-5 sm:w-6 sm:h-6" />
+          <X className="w-6 h-6" />
         ) : (
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 sm:w-6 sm:h-6">
-            <path d="M3 14V12a9 9 0 0 1 18 0v2" />
-            <rect x="1" y="14" width="5" height="6" rx="2" />
-            <rect x="18" y="14" width="5" height="6" rx="2" />
-          </svg>
+          <HeadsetIcon className="w-6 h-6" />
         )}
         {/* Green online indicator dot */}
         {!isOpen && (
-          <span className="absolute top-0 right-0">
-            <span className="absolute w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f] top-0 right-0" />
-            <span className="absolute w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400 animate-ping opacity-40 top-0 right-0" />
+          <span className="absolute top-0.5 right-0.5">
+            <span className="block w-3.5 h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
+            <span className="absolute inset-0 w-3.5 h-3.5 rounded-full bg-green-400 animate-ping opacity-50" />
           </span>
         )}
       </motion.button>
