@@ -5,32 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, User, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import Image from 'next/image'
 
 interface Message {
   id: string
   role: 'user' | 'assistant'
   content: string
-}
-
-/** Minimalist outline headset SVG */
-function HeadsetIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      stroke="currentColor"
-      strokeWidth="1.75"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4.5 12V9.5a7.5 7.5 0 0 1 15 0V12" />
-      <rect x="3" y="11" width="3.5" height="5" rx="1.2" />
-      <rect x="17.5" y="11" width="3.5" height="5" rx="1.2" />
-      <path d="M20 16c0 2-1.5 3.5-3 3.5h-2" />
-      <circle cx="14" cy="19.5" r="0.6" fill="currentColor" stroke="none" />
-    </svg>
-  )
 }
 
 export function ChatWidget() {
@@ -118,9 +98,13 @@ export function ChatWidget() {
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-600 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
-                  <HeadsetIcon className="w-3.5 h-3.5 text-white" />
-                </div>
+                <Image
+                  src="/headset-icon.png"
+                  alt="Spectra Assistant"
+                  width={28}
+                  height={28}
+                  className="shrink-0"
+                />
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
                   <span className="w-2 h-2 rounded-full bg-green-400" />
@@ -145,9 +129,13 @@ export function ChatWidget() {
                     className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {msg.role === 'assistant' && (
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <HeadsetIcon className="w-3.5 h-3.5 text-white" />
-                      </div>
+                      <Image
+                        src="/headset-icon.png"
+                        alt="Assistant"
+                        width={28}
+                        height={28}
+                        className="shrink-0"
+                      />
                     )}
                     <div
                       className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
@@ -168,9 +156,13 @@ export function ChatWidget() {
 
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <HeadsetIcon className="w-3.5 h-3.5 text-white" />
-                    </div>
+                    <Image
+                      src="/headset-icon.png"
+                      alt="Assistant"
+                      width={28}
+                      height={28}
+                      className="shrink-0"
+                    />
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
                         <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
@@ -212,7 +204,7 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating AI Chat Button — small, clean, above WhatsApp */}
+      {/* Floating AI Chat Button — uses the uploaded headset image directly */}
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -220,18 +212,25 @@ export function ChatWidget() {
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-16 right-3 sm:bottom-[76px] sm:right-6 z-40 w-12 h-12 sm:w-[52px] sm:h-[52px] bg-gradient-to-br from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center text-white cursor-pointer border-0 outline-none focus:outline-none transition-colors"
+        className="fixed bottom-16 right-3 sm:bottom-[76px] sm:right-6 z-40 cursor-pointer border-0 outline-none focus:outline-none p-0 bg-transparent"
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-5 h-5" strokeWidth={2} />
+          <div className="w-12 h-12 sm:w-[52px] sm:h-[52px] bg-gradient-to-br from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center">
+            <X className="w-5 h-5 text-white" strokeWidth={2} />
+          </div>
         ) : (
-          <HeadsetIcon className="w-6 h-6 sm:w-[26px] sm:h-[26px]" />
-        )}
-
-        {/* Online status dot */}
-        {!isOpen && (
-          <span className="absolute top-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
+          <div className="relative">
+            <Image
+              src="/headset-icon.png"
+              alt="AI Assistant"
+              width={48}
+              height={48}
+              className="sm:!w-[52px] sm:!h-[52px]"
+            />
+            {/* Online status dot */}
+            <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
+          </div>
         )}
       </motion.button>
     </>
