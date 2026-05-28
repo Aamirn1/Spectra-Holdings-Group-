@@ -233,9 +233,9 @@ export function ChatWidget() {
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-5 h-5 sm:w-6 sm:h-6" />
+          <X className="w-6 h-6 sm:w-7 sm:h-7" />
         ) : (
-          <HeadsetIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+          <HeadsetIcon className="w-9 h-9 sm:w-10 sm:h-10" />
         )}
         {/* Green online indicator dot */}
         {!isOpen && (
