@@ -1010,3 +1010,62 @@ Verification:
 - No remaining `import { db } from '@/lib/db'` in any API route file
 - No remaining `db.` calls in any API route file
 - All response shapes preserved for frontend compatibility
+
+---
+Task ID: 1
+Agent: Main
+Task: Replace AI Assistant icon with premium modern support icon
+
+Work Log:
+- Replaced bulky solid-filled headset SVG with minimalist outline headset SVG
+- New icon: thin stroke (1.75px), rounded line caps/joins, outline-only design
+- Headband arc, thin-outlined earpieces, smooth mic boom from right, tiny mic dot
+- Updated floating button: 64px circular, gradient (#7C3AED → #A855F7)
+- Added soft shadow (0 10px 30px rgba(124,58,237,0.25)) and outer glow (0 0 20px rgba(168,85,247,0.15))
+- Added green online status dot (10px, #22C55E, 2px border #0A0A0A, no glow, top-right)
+- Added floating animation (translateY -3px every 3s via framer-motion)
+- Hover: scale(1.08), Click: scale(0.95) via framer-motion whileHover/whileTap
+- Icon size: 27px, centered in 64px button with plenty of empty space
+
+Stage Summary:
+- chat-widget.tsx fully rewritten with PremiumHeadsetIcon component
+- Premium Intercom/Crisp/Zendesk-quality support widget achieved
+
+---
+Task ID: 2
+Agent: Main
+Task: Remove default 'Z' favicon and create custom Spectra favicon
+
+Work Log:
+- Discovered all favicon files (src/app/favicon.ico, public/favicon.ico, public/favicon-32x32.png) were identical default "Z" favicons
+- Deleted public/favicon.ico (conflicting default)
+- Generated new AI-powered Spectra "S" logo favicon (1024x1024 source)
+- Created proper RGBA favicon.ico (16/32/48px) using sharp
+- Updated public/favicon-32x32.png and public/apple-touch-icon.png
+- Verified all PNGs are RGBA format (4 channels)
+
+Stage Summary:
+- Custom Spectra favicon replaces default "Z" favicon
+- All favicon files properly generated in RGBA format
+
+---
+Task ID: 3
+Agent: Main
+Task: Fix 'Registration Failed please try again' error on Vercel deployment
+
+Work Log:
+- Added supabaseAdmin client with service role key support (bypasses RLS)
+- Rewrote /api/auth/register to use supabaseAdmin for all operations
+- Rewrote /api/auth/login to use supabaseAdmin for user lookup
+- Rewrote /api/auth/me to use supabaseAdmin for user retrieval
+- Added environment variable validation in registration route
+- Added detailed error messages for Supabase errors (RLS, duplicate key, missing tables)
+- Added /api/db-check diagnostic endpoint
+- Tested registration and login successfully (200/201 responses)
+- Added SUPABASE_SERVICE_ROLE_KEY to .env.local (empty, needs user to fill in)
+
+Stage Summary:
+- Registration works locally with anon key (RLS policies are properly configured)
+- On Vercel: user needs to set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY env vars
+- For best reliability: user should also add SUPABASE_SERVICE_ROLE_KEY on Vercel
+- All changes pushed to GitHub (commit 2b34b2f)
