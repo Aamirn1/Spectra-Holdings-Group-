@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { userDb } from '@/lib/supabase-db'
+import { supabaseAdmin } from '@/lib/supabase-db'
 import { verifyPassword, generateToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
@@ -14,7 +14,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const user = await userDb.findUnique({ email })
+    // Use admin client to bypass RLS for user lookup
+    const { data: user, error: findError } = await supabaseAdmin
+      .from('User')
+      .select('*')
+      .eq('email', email)
+      .maybeSingle()
+
+    if (findError) {
+      console.error('Login error finding user:', findError)
+      return NextResponse.json(
+        { success: false, error: 'Unable to verify credentials. Please try again.' },
+        { status: 500 }
+      )
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -38,8 +51,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Update lastLoginAt
-    await userDb.update({ id: user.id }, { lastLoginAt: new Date() })
+    // Update lastLoginAt using admin client
+    await supabaseAdmin
+      .from('User')
+      .update({ lastLoginAt: new Date().toISOString() })
+      .eq('id', user.id)
 
     const token = generateToken(user.id, user.email, user.role)
 
@@ -62,7 +78,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Login error:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to login' },
+      { success: false, error: 'Failed to login. Please try again.' },
       { status: 500 }
     )
   }

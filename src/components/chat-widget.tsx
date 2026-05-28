@@ -12,34 +12,32 @@ interface Message {
   content: string
 }
 
-/** Customer-support headset SVG — matching reference: solid white earpieces + mic boom from right */
-function HeadsetIcon({ className }: { className?: string }) {
+/**
+ * Premium minimalist outline headset SVG
+ * Inspired by Intercom, Crisp, Zendesk support widgets
+ * Thin stroke (1.75px), rounded caps/joins, outline-only
+ */
+function PremiumHeadsetIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       className={className}
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      {/* Headband arc — thick stroke, smooth curve */}
-      <path
-        d="M5 12V9.5a7 7 0 0 1 14 0V12"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      {/* Left earpiece — solid filled rounded rectangle */}
-      <rect x="3" y="11.5" width="5" height="6" rx="2" fill="currentColor" />
-      {/* Right earpiece — solid filled rounded rectangle */}
-      <rect x="16" y="11.5" width="5" height="6" rx="2" fill="currentColor" />
-      {/* Microphone boom arm from right earpiece curving down toward mouth */}
-      <path
-        d="M20 17.5c0 2.5-1.5 4-4 4h-2"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      {/* Microphone capsule — small filled circle at end of boom */}
-      <circle cx="13" cy="21.5" r="1.3" fill="currentColor" />
+      {/* Headband arc — smooth curve over the head */}
+      <path d="M4.5 12V9.5a7.5 7.5 0 0 1 15 0V12" />
+      {/* Left earpiece — thin outline rounded shape */}
+      <rect x="3" y="11" width="3.5" height="5" rx="1.2" />
+      {/* Right earpiece — thin outline rounded shape */}
+      <rect x="17.5" y="11" width="3.5" height="5" rx="1.2" />
+      {/* Microphone boom arm — smooth curve from right earpiece toward mouth */}
+      <path d="M20 16c0 2-1.5 3.5-3 3.5h-2" />
+      {/* Microphone capsule — tiny filled dot at end of boom */}
+      <circle cx="14" cy="19.5" r="0.6" fill="currentColor" stroke="none" />
     </svg>
   )
 }
@@ -123,14 +121,14 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed z-50 bottom-[68px] sm:bottom-[88px] right-3 sm:right-6 w-[calc(100vw-1.5rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
+            className="fixed z-50 bottom-[88px] right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 bg-[#0a0a0f] rounded-2xl shadow-2xl shadow-purple-500/10 border border-white/10 overflow-hidden"
             style={{ maxHeight: 'min(70vh, 480px)' }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-500 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-purple-600 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <HeadsetIcon className="w-4 h-4 text-white" />
+                  <PremiumHeadsetIcon className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
@@ -157,7 +155,7 @@ export function ChatWidget() {
                   >
                     {msg.role === 'assistant' && (
                       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                        <HeadsetIcon className="w-3.5 h-3.5 text-white" />
+                        <PremiumHeadsetIcon className="w-3.5 h-3.5 text-white" />
                       </div>
                     )}
                     <div
@@ -180,7 +178,7 @@ export function ChatWidget() {
                 {isTyping && (
                   <div className="flex gap-2 justify-start">
                     <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shrink-0">
-                      <HeadsetIcon className="w-3.5 h-3.5 text-white" />
+                      <PremiumHeadsetIcon className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                       <div className="flex gap-1">
@@ -223,26 +221,45 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button — Support headset icon with green online dot */}
+      {/* Premium Floating AI Assistant Button */}
       <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: 'spring' }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: 1,
+          opacity: 1,
+          y: [0, -3, 0],
+        }}
+        transition={{
+          scale: { delay: 1, type: 'spring', stiffness: 200, damping: 15 },
+          opacity: { delay: 1, duration: 0.3 },
+          y: {
+            delay: 2,
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
+        whileHover={{ scale: 1.08, y: 0 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-[68px] sm:bottom-[88px] right-3 sm:right-6 z-40 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full shadow-lg shadow-purple-500/30 flex items-center justify-center text-white hover:from-purple-600 hover:to-violet-700 transition-all hover:scale-105 active:scale-95"
+        className="fixed bottom-5 right-4 sm:right-6 z-40 w-16 h-16 rounded-full flex items-center justify-center text-white cursor-pointer border-0 outline-none focus:outline-none"
+        style={{
+          background: 'linear-gradient(135deg, #7C3AED 0%, #A855F7 100%)',
+          boxShadow: '0 10px 30px rgba(124,58,237,0.25), 0 0 20px rgba(168,85,247,0.15)',
+        }}
         aria-label="Open AI chat assistant"
       >
         {isOpen ? (
-          <X className="w-6 h-6 sm:w-7 sm:h-7" />
+          <X className="w-6 h-6" strokeWidth={2} />
         ) : (
-          <HeadsetIcon className="w-9 h-9 sm:w-10 sm:h-10" />
+          <PremiumHeadsetIcon className="w-[27px] h-[27px]" />
         )}
-        {/* Green online indicator dot */}
+
+        {/* Online status dot — top-right, no glow */}
         {!isOpen && (
-          <span className="absolute top-0 right-0">
-            <span className="block w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-500 border-2 border-[#0a0a0f]" />
-            <span className="absolute inset-0 w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-green-400 animate-ping opacity-50" />
-          </span>
+          <span
+            className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full bg-[#22C55E] border-2 border-[#0A0A0A]"
+          />
         )}
       </motion.button>
     </>

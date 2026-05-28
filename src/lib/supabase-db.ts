@@ -2,15 +2,29 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
-// Singleton pattern for Supabase client
+// Singleton pattern for Supabase client (anon/publishable key — restricted by RLS)
 const globalForSupabase = globalThis as unknown as {
   supabase: ReturnType<typeof createClient> | undefined
+  supabaseAdmin: ReturnType<typeof createClient> | undefined
 }
 
+/** Anon key client — respects Row Level Security */
 export const supabase = globalForSupabase.supabase ?? createClient(supabaseUrl, supabaseKey)
 
 if (process.env.NODE_ENV !== 'production') globalForSupabase.supabase = supabase
+
+/** Service role admin client — bypasses RLS for server-side operations */
+export const supabaseAdmin = supabaseServiceRoleKey
+  ? (globalForSupabase.supabaseAdmin ?? createClient(supabaseUrl, supabaseServiceRoleKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    }))
+  : supabase // fallback to anon client if service role key not configured
+
+if (process.env.NODE_ENV !== 'production' && supabaseServiceRoleKey) {
+  globalForSupabase.supabaseAdmin = supabaseAdmin
+}
 
 // ============================================================================
 // Type-safe database helpers — mirrors Prisma interface patterns
