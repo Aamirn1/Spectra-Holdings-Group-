@@ -106,13 +106,15 @@ export const ChatWidget = forwardRef<ChatWidgetHandle>(function ChatWidget(_, re
           {/* Header */}
           <div className="bg-gradient-to-r from-purple-600 to-violet-600 p-3 sm:p-4 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <Image
-                src="/headset-icon.png"
-                alt="Spectra Assistant"
-                width={28}
-                height={28}
-                className="shrink-0"
-              />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden shrink-0">
+                <Image
+                  src="/headset-icon.png"
+                  alt="Spectra Assistant"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="flex items-center gap-1.5">
                 <h3 className="text-white font-semibold text-sm">Spectra Assistant</h3>
                 <span className="w-2 h-2 rounded-full bg-green-400" />
@@ -137,13 +139,15 @@ export const ChatWidget = forwardRef<ChatWidgetHandle>(function ChatWidget(_, re
                   className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.role === 'assistant' && (
-                    <Image
-                      src="/headset-icon.png"
-                      alt="Assistant"
-                      width={28}
-                      height={28}
-                      className="shrink-0"
-                    />
+                    <div className="w-7 h-7 rounded-full overflow-hidden shrink-0">
+                      <Image
+                        src="/headset-icon.png"
+                        alt="Assistant"
+                        width={28}
+                        height={28}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   )}
                   <div
                     className={`max-w-[80%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
@@ -164,13 +168,15 @@ export const ChatWidget = forwardRef<ChatWidgetHandle>(function ChatWidget(_, re
 
               {isTyping && (
                 <div className="flex gap-2 justify-start">
-                  <Image
-                    src="/headset-icon.png"
-                    alt="Assistant"
-                    width={28}
-                    height={28}
-                    className="shrink-0"
-                  />
+                  <div className="w-7 h-7 rounded-full overflow-hidden shrink-0">
+                    <Image
+                      src="/headset-icon.png"
+                      alt="Assistant"
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <div className="bg-white/5 border border-white/10 px-4 py-2 rounded-xl">
                     <div className="flex gap-1">
                       <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />

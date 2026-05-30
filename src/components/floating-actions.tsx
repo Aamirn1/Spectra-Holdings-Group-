@@ -77,7 +77,7 @@ export function FloatingActions({ onChatOpen }: FloatingActionsProps) {
                   exit={{ opacity: 0, scale: 0, y: 20 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 25, delay: 0.1 }}
                   onClick={handleChat}
-                  className={`${buttonSize} rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center transition-colors active:scale-95 overflow-hidden`}
+                  className={`${buttonSize} rounded-full shadow-lg shadow-purple-500/25 flex items-center justify-center transition-colors active:scale-95 overflow-hidden p-0`}
                   aria-label="AI Chat Assistant"
                 >
                   <Image
@@ -85,7 +85,7 @@ export function FloatingActions({ onChatOpen }: FloatingActionsProps) {
                     alt="AI Assistant"
                     width={56}
                     height={56}
-                    className="w-full h-full"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </motion.button>
               </>
