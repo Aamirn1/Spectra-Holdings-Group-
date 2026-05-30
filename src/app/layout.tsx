@@ -43,6 +43,7 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },
@@ -52,11 +53,13 @@ export const metadata: Metadata = {
     siteName: "Spectra Holdings Group",
     type: "website",
     locale: "en_US",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Spectra Holdings Group - Building Tomorrow's Communities" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Spectra Holdings Group | Community Living & Local Services Platform",
     description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 7 U.S. states.",
+    images: ["/og-image.jpg"],
   },
 };
 
