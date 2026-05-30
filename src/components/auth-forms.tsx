@@ -164,7 +164,7 @@ export function AuthForms() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="glass-strong rounded-2xl p-4 sm:p-8 border border-white/10"
+        className="glass-strong rounded-2xl p-4 sm:p-8 border border-white/10 overflow-hidden"
       >
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-3 mb-6 bg-white/5 h-11 sm:h-auto">
@@ -279,7 +279,7 @@ export function AuthForms() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-password">Password</Label>
                     <Input id="reg-password" type="password" placeholder="••••••••" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('password')} />
@@ -301,14 +301,14 @@ export function AuthForms() {
                   <Input id="reg-phone" placeholder="+92 300 1234567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label htmlFor="reg-city">City</Label>
                     <Select onValueChange={(v) => registerForm.setValue('city', v)}>
-                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
+                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-[100]">
                         {CITIES.map((c) => (
                           <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
@@ -318,10 +318,10 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label htmlFor="reg-state">Province</Label>
                     <Select onValueChange={(v) => registerForm.setValue('state', v)}>
-                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
+                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select province" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-[100]">
                         {STATES.map((s) => (
                           <SelectItem key={s} value={s}>{s}</SelectItem>
                         ))}
@@ -432,14 +432,14 @@ export function AuthForms() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
                     <Label>City</Label>
                     <Select onValueChange={(v) => businessForm.setValue('city', v)}>
-                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
+                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
                         <SelectValue placeholder="Select city" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-[100]">
                         {CITIES.map((c) => (
                           <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
@@ -452,10 +452,10 @@ export function AuthForms() {
                   <div className="space-y-2">
                     <Label>Province</Label>
                     <Select onValueChange={(v) => businessForm.setValue('state', v)}>
-                      <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
-                        <SelectValue placeholder="Select" />
+                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
+                        <SelectValue placeholder="Select province" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="z-[100]">
                         {STATES.map((s) => (
                           <SelectItem key={s} value={s}>{s}</SelectItem>
                         ))}
@@ -470,10 +470,10 @@ export function AuthForms() {
                 <div className="space-y-2">
                   <Label>Category</Label>
                   <Select onValueChange={(v) => businessForm.setValue('categorySlug', v)}>
-                    <SelectTrigger className="min-h-[44px] bg-white/5 border-white/10">
+                    <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-[100]">
                       {CATEGORIES.map((cat) => (
                         <SelectItem key={cat.slug} value={cat.slug}>{cat.name}</SelectItem>
                       ))}
