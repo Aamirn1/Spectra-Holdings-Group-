@@ -67,7 +67,7 @@ export function AboutSection() {
             <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-4 max-w-lg mx-auto lg:mx-0">
               A visionary leader driving the transformation of affordable housing communities through
               innovative technology and strategic community development. Under his leadership, Spectra
-              Holdings Group has grown from a single community to a nationwide network spanning 15+ states
+              Holdings Group has grown from a single community to a nationwide network spanning 7 U.S. states
               and serving over 50,000 residents.
             </p>
             <p className="text-gray-500 text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
@@ -107,8 +107,8 @@ export function AboutSection() {
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <p className="text-purple-400 font-bold text-xs sm:text-sm">15+ States</p>
-                <p className="text-gray-400 text-[10px] sm:text-xs">Nationwide Reach</p>
+                <p className="text-purple-400 font-bold text-xs sm:text-sm">7 States</p>
+                <p className="text-gray-400 text-[10px] sm:text-xs">Across the U.S.</p>
               </motion.div>
 
               {/* Floating badge — top left */}

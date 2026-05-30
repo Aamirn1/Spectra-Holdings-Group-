@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 const STATS = [
   { icon: Users, label: 'Community Members', value: '5,000+', color: 'text-purple-400 bg-purple-500/10' },
   { icon: Building2, label: 'Local Businesses', value: '500+', color: 'text-amber-400 bg-amber-500/10' },
-  { icon: Globe, label: 'Cities Covered', value: '10+', color: 'text-rose-400 bg-rose-500/10' },
+  { icon: Globe, label: 'Cities Covered', value: '40+', color: 'text-rose-400 bg-rose-500/10' },
   { icon: Heart, label: 'Happy Customers', value: '10,000+', color: 'text-violet-400 bg-violet-500/10' },
 ]
 
@@ -111,7 +111,7 @@ export function AboutView() {
         <div className="max-w-3xl mx-auto space-y-4 text-gray-400 leading-relaxed">
           <p>
             Spectra Holdings Group was born from a simple observation: finding reliable local services shouldn&apos;t be hard.
-            In communities across Pakistan, residents struggled to discover trusted plumbers, electricians, healthcare providers,
+            In communities across the United States, residents struggled to discover trusted plumbers, electricians, healthcare providers,
             and other essential services in their neighborhoods.
           </p>
           <p>
@@ -119,8 +119,8 @@ export function AboutView() {
             easy-to-use digital space. Every business is verified, every review is genuine, and every connection matters.
           </p>
           <p>
-            Today, Spectra serves thousands of residents across multiple cities, connecting them with hundreds of local businesses.
-            But we&apos;re just getting started — our vision is to become the go-to platform for every neighborhood in Pakistan.
+            Today, Spectra serves thousands of residents across seven U.S. states — Florida, Oklahoma, Louisiana, Texas, Missouri, Kansas, and Mississippi — connecting them with hundreds of local businesses.
+            But we&apos;re just getting started — our vision is to become the go-to platform for every neighborhood in America.
           </p>
         </div>
       </motion.div>

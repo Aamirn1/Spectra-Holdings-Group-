@@ -23,7 +23,7 @@ const floatingOrbs = [
 ]
 
 const stats = [
-  { label: 'States', value: '15+', icon: MapPin },
+  { label: 'States', value: '7', icon: MapPin },
   { label: 'Communities', value: '200+', icon: Building2 },
   { label: 'Businesses', value: '5,000+', icon: Building2 },
   { label: 'Residents', value: '50,000+', icon: Users },

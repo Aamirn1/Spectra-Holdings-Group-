@@ -21,13 +21,13 @@ const communities = [
   },
   {
     name: 'Valley Vista',
-    location: 'San Jose, CA',
+    location: 'Oklahoma City, OK',
     businesses: 45,
     residents: 1200,
   },
   {
     name: 'Oakwood Commons',
-    location: 'Atlanta, GA',
+    location: 'New Orleans, LA',
     businesses: 58,
     residents: 1500,
   },

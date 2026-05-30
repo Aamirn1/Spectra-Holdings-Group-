@@ -139,12 +139,12 @@ export function SiteFooter() {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-purple-400 mt-0.5 shrink-0" />
-                <span className="text-sm text-gray-500">Spectra Holdings Group, Lahore, Pakistan</span>
+                <span className="text-sm text-gray-500">Spectra Holdings Group, Houston, Texas, USA</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-purple-400 shrink-0" />
-                <a href="tel:+923205719979" className="text-sm text-gray-500 hover:text-purple-400 transition-colors">
-                  +92 320 571 9979
+                <a href="tel:+18005551234" className="text-sm text-gray-500 hover:text-purple-400 transition-colors">
+                  +1 (800) 555-1234
                 </a>
               </div>
               <div className="flex items-center gap-3">

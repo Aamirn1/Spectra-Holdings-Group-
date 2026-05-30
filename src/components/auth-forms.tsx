@@ -48,7 +48,7 @@ const businessRegisterSchema = z.object({
   phone: z.string().min(1, 'Phone number is required'),
   address: z.string().min(1, 'Address is required'),
   city: z.string().min(1, 'City is required'),
-  state: z.string().min(1, 'Province is required'),
+  state: z.string().min(1, 'State is required'),
   categorySlug: z.string().min(1, 'Category is required'),
 })
 
@@ -56,13 +56,18 @@ type LoginForm = z.infer<typeof loginSchema>
 type RegisterForm = z.infer<typeof registerSchema>
 type BusinessRegisterForm = z.infer<typeof businessRegisterSchema>
 
-const CITIES = [
-  'Lahore', 'Karachi', 'Islamabad', 'Rawalpindi', 'Faisalabad',
-  'Multan', 'Peshawar', 'Quetta', 'Sialkot', 'Gujranwala',
-]
+const CITIES: Record<string, string[]> = {
+  'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'Fort Lauderdale', 'Tallahassee'],
+  'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Edmond', 'Lawton'],
+  'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles', 'Kenner'],
+  'Texas': ['Houston', 'Dallas', 'San Antonio', 'Austin', 'Fort Worth', 'El Paso'],
+  'Missouri': ['Kansas City', 'St. Louis', 'Springfield', 'Columbia', 'Independence', 'Lee\'s Summit'],
+  'Kansas': ['Wichita', 'Overland Park', 'Kansas City', 'Olathe', 'Topeka', 'Lawrence'],
+  'Mississippi': ['Jackson', 'Gulfport', 'Biloxi', 'Hattiesburg', 'Southaven', 'Meridian'],
+}
 
 const STATES = [
-  'Punjab', 'Sindh', 'KPK', 'Balochistan', 'Islamabad Capital Territory',
+  'Florida', 'Oklahoma', 'Louisiana', 'Texas', 'Missouri', 'Kansas', 'Mississippi',
 ]
 
 const CATEGORIES = [
@@ -298,32 +303,38 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="reg-phone">Phone (optional)</Label>
-                  <Input id="reg-phone" placeholder="+92 300 1234567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
+                  <Input id="reg-phone" placeholder="+1 (555) 123-4567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...registerForm.register('phone')} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label htmlFor="reg-city">City</Label>
-                    <Select onValueChange={(v) => registerForm.setValue('city', v)}>
+                    <Label htmlFor="reg-state">State</Label>
+                    <Select onValueChange={(v) => {
+                      registerForm.setValue('state', v)
+                      registerForm.setValue('city', '')
+                    }}>
                       <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
-                        <SelectValue placeholder="Select city" />
+                        <SelectValue placeholder="Select state" />
                       </SelectTrigger>
                       <SelectContent className="z-[100]">
-                        {CITIES.map((c) => (
-                          <SelectItem key={c} value={c}>{c}</SelectItem>
+                        {STATES.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="reg-state">Province</Label>
-                    <Select onValueChange={(v) => registerForm.setValue('state', v)}>
+                    <Label htmlFor="reg-city">City</Label>
+                    <Select
+                      onValueChange={(v) => registerForm.setValue('city', v)}
+                      disabled={!registerForm.watch('state')}
+                    >
                       <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
-                        <SelectValue placeholder="Select province" />
+                        <SelectValue placeholder={registerForm.watch('state') ? 'Select city' : 'Select state first'} />
                       </SelectTrigger>
                       <SelectContent className="z-[100]">
-                        {STATES.map((s) => (
-                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        {(CITIES[registerForm.watch('state') || ''] || []).map((c) => (
+                          <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -418,7 +429,7 @@ export function AuthForms() {
 
                 <div className="space-y-2">
                   <Label htmlFor="biz-phone">Phone</Label>
-                  <Input id="biz-phone" placeholder="+92 300 1234567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('phone')} />
+                  <Input id="biz-phone" placeholder="+1 (555) 123-4567" className="min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500" {...businessForm.register('phone')} />
                   {businessForm.formState.errors.phone && (
                     <p className="text-xs text-red-400">{businessForm.formState.errors.phone.message}</p>
                   )}
@@ -434,26 +445,13 @@ export function AuthForms() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-2">
-                    <Label>City</Label>
-                    <Select onValueChange={(v) => businessForm.setValue('city', v)}>
+                    <Label>State</Label>
+                    <Select onValueChange={(v) => {
+                      businessForm.setValue('state', v)
+                      businessForm.setValue('city', '')
+                    }}>
                       <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
-                        <SelectValue placeholder="Select city" />
-                      </SelectTrigger>
-                      <SelectContent className="z-[100]">
-                        {CITIES.map((c) => (
-                          <SelectItem key={c} value={c}>{c}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    {businessForm.formState.errors.city && (
-                      <p className="text-xs text-red-400">{businessForm.formState.errors.city.message}</p>
-                    )}
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Province</Label>
-                    <Select onValueChange={(v) => businessForm.setValue('state', v)}>
-                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
-                        <SelectValue placeholder="Select province" />
+                        <SelectValue placeholder="Select state" />
                       </SelectTrigger>
                       <SelectContent className="z-[100]">
                         {STATES.map((s) => (
@@ -463,6 +461,25 @@ export function AuthForms() {
                     </Select>
                     {businessForm.formState.errors.state && (
                       <p className="text-xs text-red-400">{businessForm.formState.errors.state.message}</p>
+                    )}
+                  </div>
+                  <div className="space-y-2">
+                    <Label>City</Label>
+                    <Select
+                      onValueChange={(v) => businessForm.setValue('city', v)}
+                      disabled={!businessForm.watch('state')}
+                    >
+                      <SelectTrigger className="w-full min-h-[44px] bg-white/5 border-white/10">
+                        <SelectValue placeholder={businessForm.watch('state') ? 'Select city' : 'Select state first'} />
+                      </SelectTrigger>
+                      <SelectContent className="z-[100]">
+                        {(CITIES[businessForm.watch('state') || ''] || []).map((c) => (
+                          <SelectItem key={c} value={c}>{c}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {businessForm.formState.errors.city && (
+                      <p className="text-xs text-red-400">{businessForm.formState.errors.city.message}</p>
                     )}
                   </div>
                 </div>

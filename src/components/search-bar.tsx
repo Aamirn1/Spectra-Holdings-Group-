@@ -21,14 +21,18 @@ interface SearchBarProps {
   showFilters?: boolean
 }
 
-const PAKISTAN_CITIES = [
-  'Lahore', 'Karachi', 'Islamabad', 'Rawalpindi', 'Faisalabad',
-  'Multan', 'Peshawar', 'Quetta', 'Sialkot', 'Gujranwala',
-]
+const US_CITIES: Record<string, string[]> = {
+  'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'Fort Lauderdale', 'Tallahassee'],
+  'Oklahoma': ['Oklahoma City', 'Tulsa', 'Norman', 'Broken Arrow', 'Edmond', 'Lawton'],
+  'Louisiana': ['New Orleans', 'Baton Rouge', 'Shreveport', 'Lafayette', 'Lake Charles', 'Kenner'],
+  'Texas': ['Houston', 'Dallas', 'San Antonio', 'Austin', 'Fort Worth', 'El Paso'],
+  'Missouri': ['Kansas City', 'Springfield', 'Columbia', 'Independence', "Lee's Summit", 'St. Joseph'],
+  'Kansas': ['Wichita', 'Overland Park', 'Kansas City', 'Olathe', 'Topeka', 'Lawrence'],
+  'Mississippi': ['Jackson', 'Gulfport', 'Biloxi', 'Hattiesburg', 'Southaven', 'Meridian'],
+}
 
-const PAKISTAN_STATES = [
-  'Punjab', 'Sindh', 'KPK', 'Balochistan', 'Islamabad Capital Territory',
-  'Gilgit-Baltistan', 'Azad Kashmir',
+const US_STATES = [
+  'Florida', 'Oklahoma', 'Louisiana', 'Texas', 'Missouri', 'Kansas', 'Mississippi',
 ]
 
 export function SearchBar({
@@ -57,6 +61,9 @@ export function SearchBar({
       handleSearch()
     }
   }
+
+  const selectedStateCities = US_CITIES[state] || []
+  const allCities = Object.values(US_CITIES).flat()
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-3">
@@ -116,26 +123,26 @@ export function SearchBar({
             </SelectContent>
           </Select>
 
-          <Select value={city} onValueChange={setCity}>
+          <Select value={state} onValueChange={(v) => { setState(v); setCity('all') }}>
             <SelectTrigger className="w-full sm:w-[160px] bg-white/5 border-white/10 rounded-full">
-              <SelectValue placeholder="City" />
+              <SelectValue placeholder="State" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Cities</SelectItem>
-              {PAKISTAN_CITIES.map((c) => (
-                <SelectItem key={c} value={c.toLowerCase()}>{c}</SelectItem>
+              <SelectItem value="all">All States</SelectItem>
+              {US_STATES.map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <Select value={state} onValueChange={setState}>
+          <Select value={city} onValueChange={setCity} disabled={!state || state === 'all'}>
             <SelectTrigger className="w-full sm:w-[160px] bg-white/5 border-white/10 rounded-full">
-              <SelectValue placeholder="Province" />
+              <SelectValue placeholder={state && state !== 'all' ? 'City' : 'State first'} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Provinces</SelectItem>
-              {PAKISTAN_STATES.map((s) => (
-                <SelectItem key={s} value={s.toLowerCase()}>{s}</SelectItem>
+              <SelectItem value="all">All Cities</SelectItem>
+              {(state && state !== 'all' ? selectedStateCities : allCities).map((c) => (
+                <SelectItem key={c} value={c.toLowerCase()}>{c}</SelectItem>
               ))}
             </SelectContent>
           </Select>

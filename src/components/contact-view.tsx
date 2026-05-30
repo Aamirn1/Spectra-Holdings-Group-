@@ -80,7 +80,7 @@ export function ContactView() {
                   <h3 className="font-semibold text-white">Address</h3>
                   <p className="text-sm text-gray-400 mt-1">
                     Spectra Holdings Group<br />
-                    Lahore, Pakistan
+                    Houston, Texas, USA
                   </p>
                 </div>
               </div>
@@ -91,8 +91,8 @@ export function ContactView() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-white">Phone</h3>
-                  <a href="tel:+923205719979" className="text-sm text-gray-400 hover:text-purple-400 mt-1 block">
-                    +92 320 571 9979
+                  <a href="tel:+18005551234" className="text-sm text-gray-400 hover:text-purple-400 mt-1 block">
+                    +1 (800) 555-1234
                   </a>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export function ContactView() {
               <div className="text-center">
                 <MapPin className="w-8 h-8 text-purple-400 mx-auto mb-2" />
                 <p className="text-sm text-purple-400 font-medium">Map View</p>
-                <p className="text-xs text-gray-500">Lahore, Pakistan</p>
+                <p className="text-xs text-gray-500">Houston, Texas, USA</p>
               </div>
             </div>
           </Card>
@@ -185,7 +185,7 @@ export function ContactView() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="+92 300 1234567"
+                        placeholder="+1 (555) 123-4567"
                         className="rounded-xl min-h-[44px] bg-white/5 border-white/10 focus-visible:ring-purple-500/50 placeholder:text-gray-500"
                       />
                     </div>

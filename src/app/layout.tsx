@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Spectra Holdings Group | Community Living & Local Services Platform",
-  description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 15+ U.S. states.",
+  description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 7 U.S. states.",
   keywords: [
     "Spectra Holdings Group",
     "affordable housing",
@@ -30,6 +30,13 @@ export const metadata: Metadata = {
     "healthcare",
     "restaurants",
     "community events",
+    "Florida",
+    "Oklahoma",
+    "Louisiana",
+    "Texas",
+    "Missouri",
+    "Kansas",
+    "Mississippi",
   ],
   authors: [{ name: "Spectra Holdings Group" }],
   icons: {
@@ -41,7 +48,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Spectra Holdings Group | Community Living & Local Services Platform",
-    description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 15+ U.S. states.",
+    description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 7 U.S. states.",
     siteName: "Spectra Holdings Group",
     type: "website",
     locale: "en_US",
@@ -49,7 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Spectra Holdings Group | Community Living & Local Services Platform",
-    description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 15+ U.S. states.",
+    description: "Spectra Holdings Group connects affordable housing residents with trusted local businesses, services, and community resources across 7 U.S. states.",
   },
 };
 
