@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigationStore, useAuthStore } from '@/lib/store'
 
 // Layout components
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
-import { WhatsAppButton } from '@/components/whatsapp-button'
 import { BackToTop } from '@/components/back-to-top'
 import { ChatWidget } from '@/components/chat-widget'
+import type { ChatWidgetHandle } from '@/components/chat-widget'
+import { FloatingActions } from '@/components/floating-actions'
 
 // Landing page components
 import { HeroSection } from '@/components/hero-section'
@@ -462,6 +463,7 @@ export default function Home() {
   const { currentView, navigate } = useNavigationStore()
   const { user, checkAuth } = useAuthStore()
   const [initializing, setInitializing] = useState(true)
+  const chatWidgetRef = useRef<ChatWidgetHandle>(null)
 
   // Check auth on mount
   useEffect(() => {
@@ -553,9 +555,9 @@ export default function Home() {
       </main>
 
       <SiteFooter />
-      <WhatsAppButton />
       <BackToTop />
-      <ChatWidget />
+      <ChatWidget ref={chatWidgetRef} />
+      <FloatingActions onChatOpen={() => chatWidgetRef.current?.open()} />
     </div>
   )
 }
