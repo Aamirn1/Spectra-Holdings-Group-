@@ -91,8 +91,8 @@ export function ContactView() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-white">Phone</h3>
-                  <a href="tel:+18005551234" className="text-sm text-gray-400 hover:text-purple-400 mt-1 block">
-                    +1 (800) 555-1234
+                  <a href="tel:+19546849707" className="text-sm text-gray-400 hover:text-purple-400 mt-1 block">
+                    +1 (954) 684-9707
                   </a>
                 </div>
               </div>

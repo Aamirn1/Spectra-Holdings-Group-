@@ -80,7 +80,7 @@ export default function RootLayout({
               url: "https://spectraholdings.com",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+1-800-SPECTRA",
+                telephone: "+1-954-684-9707",
                 contactType: "customer service",
               },
             }),

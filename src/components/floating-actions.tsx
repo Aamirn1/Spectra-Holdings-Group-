@@ -27,7 +27,7 @@ export function FloatingActions({ onChatOpen }: FloatingActionsProps) {
   }
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/18005551234', '_blank', 'noopener,noreferrer')
+    window.open('https://wa.me/19546849707', '_blank', 'noopener,noreferrer')
     setExpanded(false)
   }
 

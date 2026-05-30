@@ -143,8 +143,8 @@ export function SiteFooter() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-purple-400 shrink-0" />
-                <a href="tel:+18005551234" className="text-sm text-gray-500 hover:text-purple-400 transition-colors">
-                  +1 (800) 555-1234
+                <a href="tel:+19546849707" className="text-sm text-gray-500 hover:text-purple-400 transition-colors">
+                  +1 (954) 684-9707
                 </a>
               </div>
               <div className="flex items-center gap-3">
